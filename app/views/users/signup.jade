@@ -1,0 +1,52 @@
+extends ../layouts/layout
+
+block head
+  title Sign Up
+block neck
+    link(rel='stylesheet', href='/css/contact.css') 
+    link(rel='stylesheet', href='/css/signup.css') 
+
+block feet
+
+block content
+  div.row
+    div.col-sm-6
+      div.page-header
+        h1 Sign Up
+      .container
+        form(name="form", method="post", action="/signup", novalidate)
+          div.form-group
+            label.control-label(for="username") User Name:
+            input.form-control(type="text", name="username", id="username", placeholder="Username", unique-username, required, ng-model="username", autofocus, placeholder="Enter Username")
+            span.help-block(ng-show="form.username.$dirty && form.username.$error.required") Please choose a username
+            span.help-block(ng-show="form.username.$dirty && form.username.$error.isTaken") Username already taken
+            span.help-block(ng-show="form.username.$dirty && form.username.$error.invalidChars") Username may not contain any non-url-safe characters
+          div.form-group
+            label.control-label(for="email") Email:
+            input.form-control(type="email", ng-model="email", name="email", id="email", placeholder="Email", unique-email, required, ng-model="email", placeholder="Enter email")
+            span.help-block(ng-show="form.email.$dirty && form.email.$error.email") Email is invalid
+            span.help-block(ng-show="form.email.$dirty && form.email.$error.isTaken") Email is already used
+            span.help-block(ng-show="form.email.$dirty && form.email.$error.required") Please enter email
+          div.form-group
+            label.control-label(for="password") Create Password:
+            input.form-control(type="password", name="password", id="password", ng-model="password", password-validate, required, match="verification", placeholder="Enter password")
+            span.help-block(ng-show="form.password.$dirty && form.password.$error.required") Please enter a password
+            span.help-block(ng-show="form.password.$dirty && form.password.$error.pwd") Invalid Password. Length must be > 8 characters and have a letter and number
+          div.form-group
+            label.control-label(for="verify") Verify Password:
+            input.form-control(type="password", name="verification", id="verification", ng-model="verification", required, match="password", placeholder="Verify password")
+            span.help-block(ng-show="form.verification.$dirty && form.verification.$error.required") Please repeat your password
+            span.help-block(ng-show="form.verification.$dirty && form.verification.$error.match && !form.verification.$error.required") Passwords don't match
+          if error
+            div.alert #{error}
+          input.btn.btn-primary(type="submit", value="Create My Account", ng-disabled="form.$invalid")
+            
+    // .special is defined in contact.css
+    div.col-sm-6.special
+      div.page-header
+        h1 You Can Help!
+      p.lead Spare some money for the deserving students
+      //.super-awesome is defined in contact.css
+      span.glyphicon.glyphicon-thumbs-up.super-awesome
+
+

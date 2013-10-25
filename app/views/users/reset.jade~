@@ -1,0 +1,44 @@
+extends ../layouts/layout
+
+block head
+  title Change your password
+block neck
+    link(rel='stylesheet', href='/stylesheets/contact.css') 
+    link(rel='stylesheet', href='/stylesheets/signup.css') 
+
+block feet
+
+block content
+  div.row
+    div.col-sm-6
+      div.page-header
+        h1 Change Your Password?
+      .container
+        form(name="form", method="post", action="/reset", novalidate)
+          div.form-group
+            // validate old password vs new. should be different
+            label.control-label(for="oldpassword") Enter old Password:
+            input.form-control(type="password", name="oldpassword", id="oldpassword", ng-model="oldpassword", password-validate, required, placeholder="Enter existing password")
+            span.help-block(ng-show="form.oldpassword.$dirty && form.oldpassword.$error.required") Please enter a password
+            span.help-block(ng-show="form.oldpassword.$dirty && form.oldpassword.$error.pwd") Invalid Password. Length must be > 8 characters and have a letter and number
+            // span.help-block(ng-show="!form.oldpassword.$error.match" ) Old and new passwords are the same
+            // span.help-block(ng-show="!form.oldpassword.$error.required") Password is required.
+          div.form-group
+            label.control-label(for="password") Enter new Password:
+            input.form-control(type="password", name="password", id="password", ng-model="password", password-validate, required, match="verification", placeholder="Enter new password")
+            span.help-block(ng-show="form.password.$dirty && form.password.$error.required") Please enter a password
+            span.help-block(ng-show="form.password.$dirty && form.password.$error.pwd") Invalid Password. Length must be > 8 characters and have a letter and number
+          div.form-group
+            label.control-label(for="verify") Verify new Password:
+            input.form-control(type="password", name="verification", id="verification", ng-model="verification", required, match="password", placeholder="Verify new password")
+            span.help-block(ng-show="form.verification.$dirty && form.verification.$error.required") Please repeat your password
+            span.help-block(ng-show="form.verification.$dirty && form.verification.$error.match && !form.verification.$error.required") Passwords don't match
+          if error
+            div.alert #{error}
+          input.btn.btn-primary(type="submit", value="Change Password", ng-disabled="form.$invalid")
+          | 
+          a.btn.btn-link(href='/login') Back to Login
+          input(type='hidden', name='returnUrl', value=returnUrl)
+            
+    
+

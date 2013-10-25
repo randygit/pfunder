@@ -2,7 +2,28 @@ module.exports = function(grunt) {
     // Project Configuration
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        less: {
+            development: {
+                options: {
+                  concat: false,
+                  paths: ["public/css"],
+                  require: ["public/lib/bootstrap/less/mixins.less", "public/lib/bootstrap/less/variables.less"]
+                }
+            },
+            files: {
+                "public/css/index.css" : "public/css/index.less",
+                "public/css/customstyle.css" : "public/css/customstyle.less",
+                "public/css/signup.css" : "public/css/signup.less"
+            } 
+        },
         watch: {
+            less: {
+                files: ['public/css/*.less'],
+                tasks: ['lessc'],
+                options: {
+                    livereload: true,
+                },
+            },
             jade: {
                 files: ['app/views/**'],
                 options: {
@@ -64,6 +85,7 @@ module.exports = function(grunt) {
     });
 
     //Load NPM tasks
+    grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-mocha-test');

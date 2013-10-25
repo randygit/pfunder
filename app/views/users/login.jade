@@ -1,0 +1,37 @@
+extends ../layouts/layout
+
+block head
+  title Sign In
+
+block neck
+    link(rel='stylesheet', href='/css/contact.css') 
+    link(rel='stylesheet', href='/css/signup.css')  
+
+block feet
+
+block content
+  div.row
+    div.col-sm-6
+      div.page-header
+        h1 Sign In
+      .container
+        form(name="form", method="post", action="/login", novalidate)
+          div.form-group
+            label.control-label(for="username") User Name or Email:
+            input.form-control(type="text", name="username", id="username", placeholder="Username",  required, autofocus, placeholder="Enter Username or Email")
+            span.help-block(ng-show="form.username.$dirty && form.username.$error.required") Please choose a username
+            span.help-block(ng-show="form.username.$dirty && form.username.$error.isTaken") Username already taken
+            span.help-block(ng-show="form.username.$dirty && form.username.$error.invalidChars") Username may not contain any non-url-safe characters
+          div.form-group
+            label.control-label(for="password") Password:
+            input.form-control(type="password", name="password", id="password", ng-model="password", password-validate, required, placeholder="Enter password")
+            span.help-block(ng-show="form.password.$dirty && form.password.$error.required") Please enter a password
+            span.help-block(ng-show="form.password.$dirty && form.password.$error.pwd") Invalid Password. Length must be > 8 characters and have a letter and number
+          if error
+            div.alert #{error}
+          input.btn.btn-primary(type="submit", value="Sign In", ng-disabled="form.$invalid")
+          | 
+          a.btn.btn-link(href='/forgot/') Forget your password?
+
+    
+
