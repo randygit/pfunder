@@ -20,6 +20,20 @@ module.exports = function(app) {
 
     //app.get('/signout', users.signout);
 
+    // User input validation
+  
+    app.post('/signup/check/username',users.validateUsername);
+    app.post('/signup/check/email',users.validateEmail);
+
+    // user saving. triggered by signup.jade
+    app.post('/signup', users.create);
+
+    // login
+    app.post('/users/session', users.session);
+
+    //successfule user creation or login
+    app.get('/welcome', users.welcome);
+
     //Home route
     var index = require('../app/controllers/index');
     app.get('/', index.render);

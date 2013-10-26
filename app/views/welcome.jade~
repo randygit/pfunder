@@ -1,0 +1,19 @@
+extends layouts/layout
+
+block head
+  title Welcome
+
+block neck
+
+block content
+  block body
+    div.jumbotron
+      h1 Patak sa Dagat
+      p.lead
+        | You have logged in successfully. Welcome to the Patak website.
+        div
+          a.btn.btn-primary.btn-lg(href='/signup') Create an Account
+          |  or 
+          a.btn.btn-warning.btn-lg(href='/reset') Reset Your Password
+        div.clearfix
+    

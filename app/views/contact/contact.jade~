@@ -4,8 +4,8 @@ block head
   title Contact Us
 
 block neck
-  link(rel='stylesheet', href='/stylesheets/contact.css') 
-  link(rel='stylesheet', href='/stylesheets/signup.css') 
+  link(rel='stylesheet', href='/css/contact.css') 
+  link(rel='stylesheet', href='/css/signup.css') 
   script(src='/javascripts/controllers/contact.js')
 
 

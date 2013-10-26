@@ -1,0 +1,6 @@
+version 0.01
+- saves into mean-dev db, xuser collection on creation
+- checks if the the email exists returns 403
+- /public/js/scripts.js cannot handle reply.
+
+

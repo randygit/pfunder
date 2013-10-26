@@ -1,0 +1,78 @@
+/**
+ * Module dependencies.
+ */
+var mongoose = require('mongoose'),
+    async = require('async'),
+    _ = require('underscore');
+
+// dummy db
+var dummyDb = [
+  {username: 'randy', email: 'randy@gmail.com'},
+  {username: 'john', email: 'john@email.com'},
+  {username: 'jack', email: 'jack@email.com'},
+  {username: 'jim', email: 'jim@email.com'},
+];
+
+exports.username = function(req, res) {
+    var username = req.body.username;
+    // check if username contains non-url-safe characters
+    if (username !== encodeURIComponent(username)) {
+        res.json(403, {
+            invalidChars: true
+        });
+        return;
+    }
+    // check if username is already taken - query your db here
+    var usernameTaken = false;
+    for (var i = 0; i < dummyDb.length; i++) {
+        if (dummyDb[i].username === username) {
+            usernameTaken = true;
+            break;
+        }
+    }
+    if (usernameTaken) {
+        res.json(403, {
+            isTaken: true
+        });
+        return
+    }
+    // looks like everything is fine
+    res.send(200);
+};
+
+exports.email = function(req,res) {
+ var email = req.body.email;
+    // check if username contains non-url-safe characters
+    /*
+    if (username !== encodeURIComponent(username)) {
+        res.json(403, {
+            invalidChars: true
+        });
+        return;
+    }
+    */
+
+    // check if username is already taken - query your db here
+    var isTaken = false;
+    console.log("app.js/signup/check/email: " + email);
+
+    for (var i = 0; i < dummyDb.length; i++) {
+        if (dummyDb[i].email === email) {
+            isTaken = true;
+            break;
+        }
+    }
+
+    console.log("app.js/signup/check/EmailTaken is " + isTaken);
+
+    if (isTaken) {
+        res.json(403, {
+            isTaken: true
+        });
+        return
+    }
+    // looks like everything is fine
+    res.send(200);
+};
+
+
