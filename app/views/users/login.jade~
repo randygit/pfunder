@@ -17,7 +17,7 @@ block content
       .container
         form(name="form", method="post", action="/users/session", novalidate)
           div.form-group
-            label.control-label(for="email") User Name or Email:
+            label.control-label(for="email") Email:
             input.form-control(type="email", name="email", id="email", ng-model="email",required, autofocus, placeholder="Enter  Email address")
             span.help-block(ng-show="form.username.$dirty && form.username.$error.required") Please enter your email address
             span.help-block(ng-show="form.username.$dirty && form.username.$error.isTaken") Username already taken

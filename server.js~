@@ -42,10 +42,10 @@ require('./config/passport')(passport);
 var app = express();
 
 //express settings
-require('./config/express')(app, passport);
+require('./config/express')(app);
 
 //Bootstrap routes
-require('./config/routes')(app, passport);
+require('./config/routes')(app);
 
 //Start the app by listening on <port>
 var port = config.port;

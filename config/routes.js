@@ -1,6 +1,6 @@
 var async = require('async');
 
-module.exports = function(app) {
+module.exports = function(app, passport) {
 
     //Front End Routes
    
@@ -20,16 +20,18 @@ module.exports = function(app) {
 
     app.get('/signout', users.signout);
 
-    // User input validation
-  
-    app.post('/signup/check/username',users.validateUsername);
-    app.post('/signup/check/email',users.validateEmail);
+    
 
     // user saving. triggered by signup.jade
     app.post('/signup', users.create);
 
     // login
-    app.post('/users/session', users.session);
+    // app.post('/users/session', users.session);
+
+    app.post('/users/session', passport.authenticate('local', {
+        failureRedirect: '/login',
+        failureFlash: 'Invalid email or password.'
+    }), users.session);
 
     //successfule user creation or login
     app.get('/welcome', users.welcome);

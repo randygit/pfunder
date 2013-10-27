@@ -12,6 +12,8 @@ var pass = require('pwd');
 
 exports.login = function(req, res) {
     res.render('users/login', {
+        // 'error' is used by failureFlash
+        message: req.flash('error'),
         title: 'Login',
         user: req.user ? JSON.stringify(req.user) : "null"
     });
@@ -19,7 +21,8 @@ exports.login = function(req, res) {
 
 exports.signup = function(req, res) {
     res.render('users/signup', {
-        messages: req.flash('info'),
+        // 'error' is set by exports.create
+        message: req.flash('error'),
         title: 'Signup',
         user: req.user ? JSON.stringify(req.user) : "null"
     });
@@ -119,7 +122,7 @@ exports.create = function(req, res) {
       if(user) { 
         console.log("Email " + user.email + " exists in the database. isEmailTaken" );
         var message = 'Email ' + user.email + ' is already used.';
-        req.flash('info', 'Email is already used');
+        req.flash('error', 'Email is already used');
         // redirect to new http
         return res.redirect('/signup');
       }
@@ -127,8 +130,8 @@ exports.create = function(req, res) {
         User.findOne({'username': req.body.username}, function(err,user) {
           if (user) {
             console.log('Username '+ user.username + ' is taken');
-            var message = 'Username '+ user.username + ' is already taken';
-            req.flash('info', message);
+            // var message = 'Username '+ user.username + ' is already taken';
+            req.flash('error', 'Username is already taken');
             return res.redirect('/signup');
           }
           else {
@@ -172,6 +175,7 @@ function validateEmail(email) {
     return retValue;
 }
  
+/*
 exports.session = function(req,res) {
   // check if username or email and password matches record in database
   // if successful redirect to 
@@ -198,6 +202,13 @@ exports.session = function(req,res) {
       }   
     }
   });
+};
+*/
+
+/*** Session ***/
+
+exports.session = function(req, res) {
+    res.redirect('/welcome');
 };
 
 /** Logout  */

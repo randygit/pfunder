@@ -12,6 +12,8 @@ var pass = require('pwd');
 
 exports.login = function(req, res) {
     res.render('users/login', {
+        // 'error' is used by failureFlash
+        message: req.flash('error'),
         title: 'Login',
         user: req.user ? JSON.stringify(req.user) : "null"
     });
@@ -19,7 +21,8 @@ exports.login = function(req, res) {
 
 exports.signup = function(req, res) {
     res.render('users/signup', {
-        messages: req.flash('info'),
+        // 'error' is set by exports.create
+        message: req.flash('error'),
         title: 'Signup',
         user: req.user ? JSON.stringify(req.user) : "null"
     });
@@ -46,70 +49,7 @@ exports.welcome = function(req, res) {
     });
 };
 
-exports.validateUsername = function(req, res) {
-    var username = req.body.username;
-    // check if username contains non-url-safe characters
-    if (username !== encodeURIComponent(username)) {
-        res.json(403, {
-            invalidChars: true
-        });
-        return;
-    }
-    // check if username is already taken - query your db here
-    var usernameTaken = false;
-    for (var i = 0; i < dummyDb.length; i++) {
-        if (dummyDb[i].username === username) {
-            usernameTaken = true;
-            break;
-        }
-    }
-    if (usernameTaken) {
-        res.json(403, {
-            isTaken: true
-        });
-        return;
-    }
-    // looks like everything is fine
-    res.send(200);
-};
 
-exports.validateEmail = function(req,res) {
-    var email = req.body.email;
-    var isEmailTaken = false;
-    // var isTaken = false;
-
-    // check if username is already taken - query your db here
-  
-    
-    User.findOne({'email' : email}, function(err,user ) {
-      
-      if(user !== null) {
-        isEmailTaken = true;
-        console.log("Email " + user.email + " exists in the database. isEmailTaken = " + isEmailTaken);
-        res.json(403,{isTaken:true});
-        return;
-      }
-      console.log('Inside findOne after user !== null');
-      
-    });
-
-    
-    console.log("After findOne. Returning isEmailTaken " + isEmailTaken);
-     
-
-    if (isEmailTaken) {
-        
-        res.json(403, {
-          isTaken: true
-      });
-      return;
-    }
-
-    console.log("Before 200. Returning isTaken " + isEmailTaken);
-    // looks like everything is fine
-    res.send(200);
-};
- 
 
 
 exports.create = function(req, res) {
@@ -119,7 +59,7 @@ exports.create = function(req, res) {
       if(user) { 
         console.log("Email " + user.email + " exists in the database. isEmailTaken" );
         var message = 'Email ' + user.email + ' is already used.';
-        req.flash('info', 'Email is already used');
+        req.flash('error', 'Email is already used');
         // redirect to new http
         return res.redirect('/signup');
       }
@@ -127,8 +67,8 @@ exports.create = function(req, res) {
         User.findOne({'username': req.body.username}, function(err,user) {
           if (user) {
             console.log('Username '+ user.username + ' is taken');
-            var message = 'Username '+ user.username + ' is already taken';
-            req.flash('info', message);
+            // var message = 'Username '+ user.username + ' is already taken';
+            req.flash('error', 'Username is already taken');
             return res.redirect('/signup');
           }
           else {
@@ -156,22 +96,11 @@ exports.create = function(req, res) {
    
 };
 
-function validateEmail(email) {
-     
-    // check if username is already taken - query your db here
-    var retValue = 0;
 
-    User.findOne({'email' : email}, function(err,user ) {
-      
-      if(user !== null) {
-        console.log("Email " + user.email + " exists in the database"); 
-        retValue = 1;
-        return retValue;
-      }
-    });
-    return retValue;
-}
  
+/*
+// old session before passport.authenticate was used
+
 exports.session = function(req,res) {
   // check if username or email and password matches record in database
   // if successful redirect to 
@@ -198,6 +127,13 @@ exports.session = function(req,res) {
       }   
     }
   });
+};
+*/
+
+/*** Session ***/
+
+exports.session = function(req, res) {
+    res.redirect('/welcome');
 };
 
 /** Logout  */
