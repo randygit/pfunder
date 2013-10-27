@@ -7,7 +7,7 @@ var express = require('express'),
     helpers = require('view-helpers'),
     config = require('./config');
 
-module.exports = function(app) {
+module.exports = function(app, passport) {
     app.set('showStackError', true);
 
     //Should be placed before express.static
@@ -61,6 +61,14 @@ module.exports = function(app) {
         //use passport session
         app.use(passport.initialize());
         app.use(passport.session());
+
+        // Give Views/Layouts direct access to session data.
+        // not an original meanstack
+
+        app.use(function(req, res, next){
+          res.locals.session = req.session;
+          next();
+        });
 
         //routes should be at the last
         app.use(app.router);

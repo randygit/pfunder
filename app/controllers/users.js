@@ -6,51 +6,53 @@ var mongoose = require('mongoose'),
     _ = require('underscore'),
     User = mongoose.model('Xuser'); 
 
-
-
-var pass = require('pwd');
+/**
+ * Auth callback. what is this here
+ */
+exports.authCallback = function(req, res, next) {
+    res.redirect('/');
+};
 
 exports.login = function(req, res) {
     res.render('users/login', {
         // 'error' is used by failureFlash
         message: req.flash('error'),
         title: 'Login',
-        user: req.user ? JSON.stringify(req.user) : "null"
+        user: req.user  
     });
 };
 
 exports.signup = function(req, res) {
     res.render('users/signup', {
-        // 'error' is set by exports.create
+        // initially used info but did not work, used 'error' instead
+        // 'info' is set by exports.create
         message: req.flash('error'),
         title: 'Signup',
-        user: req.user ? JSON.stringify(req.user) : "null"
+        user: req.user  
     });
 };
 
 exports.forgot = function(req, res) {
     res.render('users/forgot', {
         title: 'Forgot',
-        user: req.user ? JSON.stringify(req.user) : "null"
+        user: req.user  
     });
 };
 
 exports.reset = function(req, res) {
     res.render('users/reset', {
         title: 'Reset',
-        user: req.user ? JSON.stringify(req.user) : "null"
+        user: req.user  
     });
 };
 
 exports.welcome = function(req, res) {
     res.render('welcome', {
         title: 'Welcome',
-        user: req.user ? JSON.stringify(req.user) : "null"
+        //user: req.user ? JSON.stringify(req.user) : "null"
+        user: req.user
     });
 };
-
-
-
 
 exports.create = function(req, res) {
 
@@ -85,8 +87,18 @@ exports.create = function(req, res) {
                   });
               }
               else {
-                console.log("no problem in user.create ");
-                return res.redirect('/welcome');
+                console.log("no problem in user.create ");   
+                // return res.redirect('/welcome');
+                /* should be used **/
+
+                // passport.authenticate automatically calls
+                // new users should automatically be logged in
+
+                req.login(newUser, function(err) {
+                    if (err) return next(err);
+                    return res.redirect('/welcome');
+                });
+                   
               }
             });
           }      
@@ -96,6 +108,18 @@ exports.create = function(req, res) {
    
 };
 
+/*** Session ***/
+
+exports.session = function(req, res) {
+    res.redirect('/welcome');
+};
+
+/** Logout  */
+exports.signout = function(req, res) {
+    console.log('Logging out');
+    req.logout();
+    res.redirect('/');
+};
 
  
 /*
@@ -129,18 +153,6 @@ exports.session = function(req,res) {
   });
 };
 */
-
-/*** Session ***/
-
-exports.session = function(req, res) {
-    res.redirect('/welcome');
-};
-
-/** Logout  */
-exports.signout = function(req, res) {
-    //req.logout();
-    res.redirect('/');
-};
 
 
 

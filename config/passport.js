@@ -34,13 +34,13 @@ module.exports = function(passport) {
                 if (!user) {
                     console.log("passport.local unknown user");
                     return done(null, false, {
-                        message: 'Unknown user'
+                        message: 'Passport.local: Unknown user'
                     });
                 }
                 if (!user.authenticate(password)) {
                     console.log("passport.local invalid password");
                     return done(null, false, {
-                        message: 'Invalid password'
+                        message: 'Passport.local: Invalid password'
                     });
                 }
                 return done(null, user);
