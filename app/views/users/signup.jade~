@@ -10,6 +10,11 @@ block feet
 
 block content
   div.row
+    div.col-sm-6  
+      #flash
+        p= messages
+      
+  div.row
     div.col-sm-6
       div.page-header
         h1 Sign Up
@@ -17,7 +22,7 @@ block content
         form(name="form", method="post", action="/signup", novalidate)
           div.form-group
             label.control-label(for="username") User Name:
-            input.form-control(type="text", name="username", id="username", placeholder="Username", required, ng-model="username", autofocus, placeholder="Enter Username")
+            input.form-control(type="text", name="username", id="username", placeholder="Username", validate-username, required, ng-model="username", autofocus, placeholder="Enter Username")
             span.help-block(ng-show="form.username.$dirty && form.username.$error.required") Please choose a username
             span.help-block(ng-show="form.username.$dirty && form.username.$error.isTaken") Username already taken
             span.help-block(ng-show="form.username.$dirty && form.username.$error.invalidChars") Username may not contain any non-url-safe characters

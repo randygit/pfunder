@@ -31,6 +31,9 @@ module.exports = function(app) {
     // login
     app.post('/users/session', users.session);
 
+    //successfule user creation or login
+    app.get('/welcome', users.welcome);
+
     //Home route
     var index = require('../app/controllers/index');
     app.get('/', index.render);

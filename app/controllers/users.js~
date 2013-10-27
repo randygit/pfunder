@@ -19,6 +19,7 @@ exports.login = function(req, res) {
 
 exports.signup = function(req, res) {
     res.render('users/signup', {
+        messages: req.flash('info'),
         title: 'Signup',
         user: req.user ? JSON.stringify(req.user) : "null"
     });
@@ -92,14 +93,6 @@ exports.validateEmail = function(req,res) {
       
     });
 
-    /*
-    for (var i = 0; i < dummyDb.length; i++) {
-        if (dummyDb[i].email === email) {
-            isTaken = true;
-            break;
-        }
-    }
-    */
     
     console.log("After findOne. Returning isEmailTaken " + isEmailTaken);
      
@@ -125,13 +118,18 @@ exports.create = function(req, res) {
       
       if(user) { 
         console.log("Email " + user.email + " exists in the database. isEmailTaken" );
-        return res.render('users/signup');
+        var message = 'Email ' + user.email + ' is already used.';
+        req.flash('info', 'Email is already used');
+        // redirect to new http
+        return res.redirect('/signup');
       }
       else {
         User.findOne({'username': req.body.username}, function(err,user) {
           if (user) {
             console.log('Username '+ user.username + ' is taken');
-            return res.render('users/signup');
+            var message = 'Username '+ user.username + ' is already taken';
+            req.flash('info', message);
+            return res.redirect('/signup');
           }
           else {
             var newUser = new User(req.body);
@@ -140,6 +138,7 @@ exports.create = function(req, res) {
             newUser.save(function(err) {
               if(err) {
                   console.log('error in user.create ' + err);
+                  // render an html
                   return res.render('users/signup', {
                     errors: err.errors,
                     user: user
@@ -147,43 +146,14 @@ exports.create = function(req, res) {
               }
               else {
                 console.log("no problem in user.create ");
-                return res.redirect('/');
+                return res.redirect('/welcome');
               }
             });
           }      
         });
       }
     });
-    /*
-    var user = new User(req.body);
-
-
-    user.provider = 'local';
-    user.createdAt = Date.now();
-
-    // calls an mongoose function directly
-    // as defined in User
-    user.save(function(err) {
-        if (err) {
-            console.log("error in user.create " + err);
-            return res.render('users/signup', {
-                errors: err.errors,
-                user: user
-            });
-        }
-        else {
-            console.log("no problem in user.create ");
-            return res.redirect('/');
-        }
-        
-        //req.logIn(user, function(err) {
-        //    if (err) return next(err);
-        //    return res.redirect('/');
-        //});
-         
-    });
-    */
-
+   
 };
 
 function validateEmail(email) {

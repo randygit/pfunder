@@ -18,7 +18,7 @@ module.exports = function(app) {
     app.get('/forgot', users.forgot);
     app.get('/reset',  users.reset);
 
-    //app.get('/signout', users.signout);
+    app.get('/signout', users.signout);
 
     // User input validation
   

@@ -8,7 +8,7 @@ block neck
 block content
   block body
     div.jumbotron
-      h1 Patak sa Dagat
+      h1 Welcome!
       p.lead
         | You have logged in successfully. Welcome to the Patak website.
         div
