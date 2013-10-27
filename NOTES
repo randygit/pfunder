@@ -2,5 +2,9 @@ version 0.01
 - saves into mean-dev db, xuser collection on creation
 - checks if the the email exists returns 403
 - /public/js/scripts.js cannot handle reply.
+version 0.02 - 13oct27
+- checking if email exists done at submit
+- req.flash does not work??
+
 
 
