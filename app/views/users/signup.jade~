@@ -12,7 +12,12 @@ block content
   div.row
     div.col-sm-6
       div.messages
-        p.error= message
+        //p.offset2.error= message
+      br
+      br
+      // span-col-sm-6.alert.alert-warning=message
+      .alert.alert-danger
+        strong= message
       div.page-header
         h1 Sign Up
       .container
@@ -46,6 +51,9 @@ block content
     // .special is defined in contact.css
     div.col-sm-6.special
       div.page-header
+        br
+        br
+        //br
         h1 You Can Help!
       p.lead Spare some money for the deserving students
       //.super-awesome is defined in contact.css
