@@ -9,6 +9,7 @@
     "angular-cookies": "~1.0.6",
     "angular-bootstrap": "~0.4.0",
     "angular-ui-utils": "0.0.4",
+    "zxcvbn": "git://github.com/brycebaril/node-zxcvbn.git",
     "json3": "~3.2.4"
   },
   "exportsOverride": {

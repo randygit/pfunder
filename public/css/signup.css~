@@ -42,22 +42,24 @@ input.ng-valid.ng-dirty {
 
 #strength {
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
-    float:right;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
     text-align: center;
     font-weight: bold;
 }
 #strength.weak {
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
-    color: red;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
     border-color: indianred;
 }
 #strength.so-so {
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
     color: darkorange;
     border-color: orange;
 }
 #strength.strong {
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
     color: green;
     border-color: lightgreen;
 }
