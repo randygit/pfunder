@@ -7,6 +7,14 @@ var express = require('express'),
     helpers = require('view-helpers'),
     config = require('./config');
 
+var csrfValue = function(req) {
+  var token = (req.body && req.body._csrf)
+    || (req.query && req.csrfToken())
+    || (req.headers['x-csrf-token'])
+    || (req.headers['x-xsrf-token']);
+  return token;
+};
+
 module.exports = function(app, passport) {
     app.set('showStackError', true);
 
@@ -37,7 +45,14 @@ module.exports = function(app, passport) {
 
     app.configure(function() {
         //cookieParser should be above session
-        app.use(express.cookieParser());
+        app.use(express.cookieParser('your secret here'));
+        app.use(express.cookieSession());
+        app.use(express.csrf({value: csrfValue}));
+        app.use(function(req, res, next) {
+          res.cookie('XSRF-TOKEN', req.csrfToken());
+          next();
+        });
+             
 
         //bodyParser should be above methodOverride
         app.use(express.bodyParser());
