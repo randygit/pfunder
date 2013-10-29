@@ -23,6 +23,10 @@ block content
         .container
           // form(name="form", method="post", action="/contact", novalidate)
           form(name="form", novalidate)
+
+            //input(type='hidden', name = '_csrf', value = csrftoken)
+            input(type='hidden', name = '_csrf', value = "5ODFxml1QAhQvOmq1QE6Qd7n")
+
             div.form-group
               label.control-label(for="username") User Name:
               input.form-control(type="text", name="username", ng-model="contact.username", id="username", placeholder="Enter full name", required, autofocus)
@@ -46,6 +50,8 @@ block content
       // .special is defined in contact.css
       div.col-sm-6.special
         div.page-header
+          br
+          br
           h1 Contact Us
         p.lead We can't wait to hear from you
         //.super-awesome is defined in contact.css

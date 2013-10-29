@@ -22,6 +22,11 @@ exports.user = {
     }
 };
 
+exports.csrf = function csrf(req, res, next) {
+  res.locals.csrftoken = req. req.csrfToken();
+  next();
+}
+
 /**
  * Article authorizations routing middleware
  */

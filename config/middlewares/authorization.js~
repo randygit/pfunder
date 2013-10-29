@@ -5,7 +5,7 @@ exports.requiresLogin = function(req, res, next) {
     if (!req.isAuthenticated()) {
         console.log("User is not authorized");
         //return res.send(401, 'User is not authorized');
-        res.redirect('/');
+        return res.redirect('/');
     }
     next();
 };
@@ -21,6 +21,11 @@ exports.user = {
         next();
     }
 };
+
+exports.csrf = function csrf(req, res, next) {
+  res.locals.token = req. req.csrfToken();
+  next();
+}
 
 /**
  * Article authorizations routing middleware

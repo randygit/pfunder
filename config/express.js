@@ -48,8 +48,10 @@ module.exports = function(app, passport) {
         app.use(express.cookieParser('your secret here'));
         app.use(express.cookieSession());
         app.use(express.csrf({value: csrfValue}));
+
         app.use(function(req, res, next) {
           res.cookie('XSRF-TOKEN', req.csrfToken());
+          res.locals.csrftoken = req.csrfToken();
           next();
         });
              

@@ -15,8 +15,7 @@ block content
       div.messages
         br
         br
-        // span-col-sm-6.alert.alert-warning=message
-        .alert.alert-info
+        .alert.alert-warning
           strong= message
       div.page-header
         h1 Sign In
