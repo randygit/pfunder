@@ -1,6 +1,6 @@
 var async = require('async');
 
-module.exports = function(app, passport) {
+module.exports = function(app, passport, auth) {
 
     //Front End Routes
    
@@ -32,7 +32,9 @@ module.exports = function(app, passport) {
     }), users.session);
 
     //successfule user creation or login
-    app.get('/welcome', users.welcome);
+    //requires login
+
+    app.get('/welcome', auth.requiresLogin, users.welcome);
 
     //Home route
     var index = require('../app/controllers/index');

@@ -9,6 +9,7 @@ module.exports = function(app, passport, auth) {
 
     var contact = require('../app/controllers/contact');
     app.get('/contact', contact.render);
+    app.post('/contact/sendemail', contact.sendemail);
 
     //User Routes
     var users = require('../app/controllers/users');
@@ -35,6 +36,7 @@ module.exports = function(app, passport, auth) {
     //requires login
 
     app.get('/welcome', auth.requiresLogin, users.welcome);
+
 
     //Home route
     var index = require('../app/controllers/index');

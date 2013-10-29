@@ -25,7 +25,7 @@ script(type='text/javascript', src='/js/script.js')
 //Application Controllers
 //script(type='text/javascript', src='/js/controllers/index.js')
 //script(type='text/javascript', src='/js/init.js')
-script(type='text/javascript', src='/js/check-password.js')
+
 
 //Application libraries
 script(type='text/javascript', src='/lib/zxcvbn/zxcvbn/zxcvbn.js')

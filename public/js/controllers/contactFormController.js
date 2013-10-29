@@ -1,0 +1,40 @@
+
+function ContactFormController($scope, $http, $location) {
+ 
+  // initialize $scope.contact
+  $scope.contact = {};
+
+  
+
+  $scope.addContact = function () {
+    console.log("contract.js/ContactCtrl.addContact");
+    console.log("User: " + $scope.contact.username);
+    console.log("Email: " + $scope.contact.email);
+    console.log("Message: " + $scope.contact.msg);
+
+    console.log("Sending email " + $scope.contact.email);
+
+    $http.post('/contact/sendemail', $scope.contact)
+      .success(function(data) {
+        console.log("Success. back from sendmail " + $scope.contact.username);
+        $location.path('/');
+        if(!$scope.$$phase) {
+          console.log("about to $scope.$apply");
+          $scope.$apply();
+        }
+        console.log("after to $scope.$apply"); 
+        $scope.contact = {};
+      })
+      .error(function(data){
+        console.log("error in sending email");
+       
+        $location.path('/');
+        if(!$scope.$$phase) {
+          $scope.$apply();
+        }
+      }); 
+
+     
+  };
+}
+

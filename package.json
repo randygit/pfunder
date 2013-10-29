@@ -29,12 +29,12 @@
     "view-helpers": "latest",
     "forever": "latest",
     "grunt": "latest",
-    "grunt-cli": "latest"
+    "grunt-cli": "latest",
+    "nodemailer": "~0.5.3"
   },
   "devDependencies": {
     "supertest": "latest",
     "should": "latest",
-    "pwd": "git://github.com/jlubawy/node-pwd.git",
     "grunt-contrib-watch": "latest",
     "grunt-contrib-jshint": "latest",
     "grunt-nodemon": "latest",
