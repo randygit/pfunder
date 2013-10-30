@@ -23,6 +23,7 @@ block content
       .container
         form(name="form", method="post", action="/signup", novalidate)
           input(type='hidden', name = '_csrf', value = token)
+          //input(type='hidden', name = '_csrf', value = 'jambalaya')
           div.form-group
             label.control-label(for="username") User Name:
             input.form-control(type="text", name="username", id="username", placeholder="Username", validate-username, required, ng-model="username", autofocus, placeholder="Enter Username")

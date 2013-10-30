@@ -6,7 +6,11 @@ var express = require('express'),
     flash = require('connect-flash'),
     helpers = require('view-helpers'),
     config = require('./config');
+ 
+// simplified CSRF version does away with this csrfValue
+// CSRF error appears during POST operations and not during GET
 
+ 
 var csrfValue = function(req) {
   var token = (req.body && req.body._csrf)
     || (req.query && req.csrfToken())
@@ -14,6 +18,7 @@ var csrfValue = function(req) {
     || (req.headers['x-xsrf-token']);
   return token;
 };
+ 
 
 module.exports = function(app, passport) {
     app.set('showStackError', true);
@@ -44,22 +49,41 @@ module.exports = function(app, passport) {
     app.enable("jsonp callback");
 
     app.configure(function() {
-        //cookieParser should be above session
-        app.use(express.cookieParser('your secret here'));
-        app.use(express.cookieSession());
-        app.use(express.csrf({value: csrfValue}));
-
-        app.use(function(req, res, next) {
-          res.cookie('XSRF-TOKEN', req.csrfToken());
-          res.locals.csrftoken = req.csrfToken();
-          next();
-        });
-             
-
         //bodyParser should be above methodOverride
         app.use(express.bodyParser());
         app.use(express.methodOverride());
 
+        //cookieParser should be above session
+        app.use(express.cookieParser('your secret here'));
+        app.use(express.cookieSession());
+ 
+        //bodyParser should be before express.csrf
+        // more complicated version, saves cookies
+        app.use(express.csrf({value: csrfValue}));
+        app.use(function(req, res, next) {
+          res.cookie('XSRF-TOKEN', req.csrfToken());
+          res.locals.token = req.csrfToken();
+          next();
+        });
+     
+
+       
+        /*
+        //simplified CSRF as tested in snippets/csrf-test
+        //either way works.
+        
+         
+        app.use(express.csrf());
+        app.use(function(req, res, next) {
+          //deprecated?, either way it works
+          res.locals.token = req.session._csrf;
+          // res.locals.token = req.csrfToken();
+          next();
+        });
+        */
+                     
+
+        
         //express/mongo session storage
         app.use(express.session({
             secret: 'MEAN',
