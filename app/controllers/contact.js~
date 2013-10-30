@@ -3,12 +3,13 @@
 
 var mongoose = require('mongoose'),
     async = require('async'),
-    _ = require('underscore');
+    _ = require('underscore'),
+    mailer = require('../../config/mailer');
 */
 
-var nodemailer = require('nodemailer'),
-    async = require('async'),
+var async = require('async'),
     _ = require('underscore');
+    mailer = require('../../config/mailer');
 
 
 exports.render = function(req, res) {
@@ -22,6 +23,48 @@ exports.render = function(req, res) {
 };
 
 exports.sendemail = function(req,res) {
+    
+    
+    console.log("exports.sendemail");
+    console.log("User: " + req.body.username);
+    console.log("Email: " + req.body.email);
+    console.log("Message: " + req.body.msg);
+
+    var mailOptions = {
+        from: 'Patak mailer <info@patak.com',
+        to: 'randy.gonzales@gmail.com',
+        subject: 'query from ' + req.body.username + ' <' + req.body.email + '>',
+        text: req.body.msg
+    };
+
+
+    mailer.sendSimple(mailOptions, function(err, reponse){
+      if(!err) {
+          res.json(reponse);
+      }
+      
+    }); 
+};
+
+
+/**
+
+
+    mailer.sendContactMessage(req.body);
+
+    //res.send({ error: 0, user: user.email }, 201);
+    req.flash('error', 'Email sent');              
+    res.json(req.body);
+
+    
+    var mailer = require('../../config/mailer.js')(app),
+    hashedConfirmation = encryptionHelper.encrypt(user.confirmationstring + ";" + buf.toString('hex'));
+
+    //send Email
+    mailer.sendRegistrationEmail(user.email, hashedConfirmation);
+    res.send({ error: 0, user: user.email }, 201);
+    
+
     
 
     var smtpTransport = nodemailer.createTransport('SMTP', {
@@ -44,14 +87,15 @@ exports.sendemail = function(req,res) {
     
       if(!error) {
         console.log("Email sent " + response.message);
-        req.flash('error', 'Email sent');
-        res.redirect('/');        
-        //res.json(req.body);
+        req.flash('error', 'Email sent');              
+        res.json(req.body);
+        //res.redirect('/');
       }
       
     });
     console.log("end of exports.sendemail " + req.body.email);
     // res.json(req.body);
-};
+    
+**/
 
 

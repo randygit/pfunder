@@ -1,3 +1,4 @@
+// oct 30, 2013. 1022. will attempt to do a post directly to /contact/sendmail
 extends ../layouts/layout
 
 block head
@@ -8,8 +9,9 @@ block neck
   link(rel='stylesheet', href='/css/signup.css') 
   
 block feet
-  
+ 
 block content
+   
   div(ng-controller="ContactFormController")
     div.row
       div.col-sm-6
@@ -21,12 +23,11 @@ block content
         div.page-header
           h1 Send A Message
         .container
-          // form(name="form", method="post", action="/contact", novalidate)
+          // form(name="form", method="post", action="/contact/sendemail", novalidate)
           form(name="form", novalidate)
 
-            input(type='hidden', name = '_csrf', value = csrftoken)
-            //input(type='hidden', name = '_csrf', value = "5ODFxml1QAhQvOmq1QE6Qd7n")
-
+            input(type='hidden', name = '_csrf', value = token)
+            
             div.form-group
               label.control-label(for="username") User Name:
               input.form-control(type="text", name="username", ng-model="contact.username", id="username", placeholder="Enter full name", required, autofocus)
@@ -46,6 +47,7 @@ block content
             if error
               div.alert #{error}
             input.btn.btn-primary(type="submit", value="Send Message", ng-disabled="form.$invalid", ng-click="addContact()")
+            //input.btn.btn-primary(type="submit", value="Send Message")
               
       // .special is defined in contact.css
       div.col-sm-6.special

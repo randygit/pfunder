@@ -1,8 +1,9 @@
 
-function ContactFormController($scope, $http, $location, $locationProvider) {
+function ContactFormController($scope, $http, $location) {
  
   // initialize $scope.contact
   $scope.contact = {};
+  $scope.message = '';
 
   
 
@@ -17,13 +18,23 @@ function ContactFormController($scope, $http, $location, $locationProvider) {
     $http.post('/contact/sendemail', $scope.contact)
       .success(function(data) {
         console.log("Success. back from sendmail " + $scope.contact.username);
+        $scope.$apply();
+
+        /* 
         $location.path('/');
+        $scope = $scope || angular.element(document).scope();
+        $scope.$apply();
+
         if(!$scope.$$phase) {
           console.log("about to $scope.$apply");
           $scope.$apply();
         }
-        console.log("after to $scope.$apply"); 
+        */
+
+        console.log("after to $scope.$apply");
+        // $scope.message = 'Email sent!';
         $scope.contact = {};
+        
       })
       .error(function(data){
         console.log("error in sending email");

@@ -4,7 +4,8 @@
 var mongoose = require('mongoose'),
     async = require('async'),
     _ = require('underscore'),
-    User = mongoose.model('Xuser'); 
+    //VerificationTokenModel = mongoose('VerificationToken'),
+    User = mongoose.model('User'); 
 
 /**
  * Auth callback. what is this here
@@ -91,6 +92,27 @@ exports.create = function(req, res) {
                 // return res.redirect('/welcome');
                 /* should be used **/
 
+                //create token here and email
+                /*
+                var verificationToken = new verificationTokenModel({_userId: newUser._id});
+                verificationToken.createVerificationToken(function(err, token) {
+                    if (err) return console.log("Couldn't create verification token", err);
+                    var message = {
+                        email: newUser.email,
+                        name: newUser.username;
+                        verifyURL: req.protocol + "://" + req.get('host') + "/verify" + token
+                    };
+                    sendVerificationEmail(message, function(error, success) {
+                        if (error) {
+                            console.error("Unable to send verification email " + error.message);
+                            return;
+                        }
+                        console.log("Verification email sent for delivery");
+                    });
+
+                });
+                **/
+
                 // passport.authenticate automatically calls
                 // new users should automatically be logged in
 
@@ -122,37 +144,4 @@ exports.signout = function(req, res) {
 };
 
  
-/*
-// old session before passport.authenticate was used
-
-exports.session = function(req,res) {
-  // check if username or email and password matches record in database
-  // if successful redirect to 
-
-  User.findOne({'email' : req.body.email}, function(err,user) {
-    if(err) {
-      return done(err);
-    }
-    if (!user) {
-      // email does not exist
-      console.log("Email does not exist");
-      return res.render('users/login');
-    }
-    else {
-      if (!user.authenticate(req.body.password)) {
-        // invalid password
-        console.log("Password is not correct");
-        return res.render('users/login');
-      }
-      else {
-        // correct password. login successful
-        console.log('Login successful');
-        return res.redirect('/welcome');
-      }   
-    }
-  });
-};
-*/
-
-
 

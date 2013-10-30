@@ -19,6 +19,7 @@ var UserSchema = new Schema({
     hashed_password: String,
     salt: String,
     createdAt: Date,
+    verified: {type: Boolean, required: true, default: false},
     facebook: {},
     twitter: {},
     github: {},
@@ -119,4 +120,4 @@ UserSchema.methods = {
     }
 };
 
-mongoose.model('Xuser', UserSchema);
+mongoose.model('User', UserSchema);

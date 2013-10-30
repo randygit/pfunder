@@ -3,7 +3,6 @@
  */
 var express = require('express'),
     fs = require('fs'),
-    nodemailer = require('nodemailer'),
     passport = require('passport');
 
 
@@ -50,9 +49,6 @@ require('./config/express')(app, passport);
 //Bootstrap routes
 require('./config/routes')(app, passport, auth);
 
-
-// bootstrap nodemailer configuration
-require('./config/nodemailer') (nodemailer);
 
 //Start the app by listening on <port>
 var port = config.port;

@@ -3,12 +3,13 @@
 
 var mongoose = require('mongoose'),
     async = require('async'),
-    _ = require('underscore');
+    _ = require('underscore'),
+    mailer = require('../../config/mailer');
 */
 
-var nodemailer = require('nodemailer'),
-    async = require('async'),
+var async = require('async'),
     _ = require('underscore');
+    mailer = require('../../config/mailer');
 
 
 exports.render = function(req, res) {
@@ -23,34 +24,26 @@ exports.render = function(req, res) {
 
 exports.sendemail = function(req,res) {
     
-
-    var smtpTransport = nodemailer.createTransport('SMTP', {
-        service: 'Gmail',
-        auth: {
-          user: "mintlifesavers@gmail.com",
-          pass: "19mint12"
-        }
-    });
+    
+    console.log("exports.sendemail");
+    console.log("User: " + req.body.username);
+    console.log("Email: " + req.body.email);
+    console.log("Message: " + req.body.msg);
 
     var mailOptions = {
-      from: req.body.username,
-      to: 'randy.gonzales@gmail.com',
-      subject: 'message from ' + req.body.username + ' <' + req.body.email + '>' ,
-      text: req.body.msg
+        from: 'Patak mailer <info@patak.com',
+        to: 'randy.gonzales@gmail.com',
+        subject: 'query from ' + req.body.username + ' <' + req.body.email + '>',
+        text: req.body.msg
     };
 
-    console.log("about to sendemail " + req.body.username);
-    smtpTransport.sendMail(mailOptions, function(error, response) {
-    
-      if(!error) {
-        console.log("Email sent " + response.message);
-        req.flash('error', 'Email sent');              
-        res.json(req.body);
+
+    mailer.sendSimple(mailOptions, function(err, response){
+      if(!err) {
+          res.json(response);
       }
       
-    });
-    console.log("end of exports.sendemail " + req.body.email);
-    // res.json(req.body);
+    }); 
 };
 
 
