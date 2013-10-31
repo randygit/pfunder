@@ -11,6 +11,6 @@ module.exports = {
         pass: '19mint12'
       
       },
-      defaultFromAddress: 'contact@patak.com.ph'
+      defaultFromAddress: 'noreply@patak.com'
     }
 }

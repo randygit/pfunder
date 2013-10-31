@@ -4,6 +4,7 @@
 var mongoose = require('mongoose'),
     async = require('async'),
     _ = require('underscore'),
+    mailer = require('../../config/mailer'),
     VerificationTokenModel = mongoose.model('ZerificationToken'),
     User = mongoose.model('Xuser'); 
 
@@ -85,7 +86,7 @@ exports.create = function(req, res) {
               if(err) {
                   console.log('error in user.create ' + err);
                   // render an html
-                  return res.render('users/signup', {
+                  return res.render('/signup', {
                     errors: err.errors,
                     user: user
                   });
@@ -100,29 +101,43 @@ exports.create = function(req, res) {
                 var verificationToken = new VerificationTokenModel(
                     {_userId: newUser._id, purpose: 'new account'});
 
-                verificationToken.createVerificationToken(function(err, token) {
-                    if (err) return console.log("Couldn't create verification token", err);
-                    /*
-                    var message = {
-                        email: newUser.email,
-                        name: newUser.username;
-                        verifyURL: req.protocol + "://" + req.get('host') + "/verify" + token
-                    };
-                    sendVerificationEmail(message, function(error, success) {
-                        if (error) {
-                            console.error("Unable to send verification email " + error.message);
-                            return;
-                        }
-                        console.log("Verification email sent for delivery");
-                    });
-                    */
+                verificationToken.createVerificationToken(function(err,token) {
+                    if (err) {
+                        req.flash('error', 'Error in creating verification token');
+                        return res.redirect('/signup');
+                    }
+                    if (token) {
+                        console.log('Verification token created');
+                        var message = {
+                            name: newUser.name,
+                            email: newUser.email,
+                            username: newUser.username,
+                            subject: 'Confirm your account on Patak',
+                            verifyURL: req.protocol + "://" + req.get('host') + "/verify/" + token
+                        };
 
+                        mailer.sendTemplate('newuser', message, function(error, response, html, text) { 
+                            if (error) {
+                               req.flash('error', 'Unable to send verification email ' + error.message);
+                               return res.redirect('/signup');
+                            }
+                            else {
+                              console.log("Verification email sent for delivery");
+                              console.log('Reponse ' + response);
+                              console.log('HTML ' + html);
+                              console.log('TEXT ' + text);
+                            }
+                        });
+
+                        
+                    }
                 });
+
                 
 
                 //user will not be allowed to check in until verification process is completed
                 //
-                req.flash('error', 'Account has been created but needs to be verified. Please check your email for instructions');
+                req.flash('error', 'Your account has been created but to be verified. Please check your email for instructions.');
                 return res.redirect('/signup');
 
               }
@@ -178,6 +193,4 @@ exports.signout = function(req, res) {
     req.logout();
     res.redirect('/');
 };
-
- 
 

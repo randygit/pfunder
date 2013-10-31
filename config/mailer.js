@@ -3,11 +3,11 @@
 
 'use strict';
 
-var config = require('./config');
-var nodemailer = require('nodemailer');
-var path = require('path');
-var templatesDir = path.resolve(__dirname, '..', 'views/mailer');
-var emailTemplates = require('email-templates');
+var config          = require('./config'),
+    nodemailer      = require('nodemailer'),
+    path            = require('path'),
+    templatesDir    = path.resolve(__dirname, '..', 'app/views/mailer'),
+     emailTemplates = require('email-templates');
 
 var EmailAddressRequiredError = new Error('email address required');
 
@@ -52,9 +52,13 @@ exports.sendSimple = function(mailOptions, fn) {
 
 exports.sendTemplate = function(templateName, locals, fn) {
 
-    console.log("sendone, locals");
-    console.log("Email: " + locals.email);
-    console.log("Subject: " + locals.subject);
+    console.log("sendTemplate " + templateName);
+    console.log("Name: "     + locals.name);
+    console.log("Username: " + locals.username);
+    console.log("Email: "    + locals.email);
+    console.log("Subject: "  + locals.subject);
+    console.log("Verify URL: " + locals.verifyURL);
+    console.log("templateDir: " + templatesDir);
 
     // make sure that we have an user email
     if (!locals.email) {
@@ -65,15 +69,22 @@ exports.sendTemplate = function(templateName, locals, fn) {
         return fn(EmailAddressRequiredError);
     }
      
+    console.log('About to emailTemplates');
     
     emailTemplates(templatesDir, function(err, template) {
         if(err) {
             console.log('Error in emailTemplates');
-            console.log(err)
+            console.log(err);
             return fn(err);
         }
         // send a single email
-    
+        console.log('About to template');
+
+        if(!template) {
+            console.log('Error in defining template function');
+            return fn(err);
+        }
+
         template(templateName, locals, function(err, html, text) {
             if (err) {
                 console.log('Error in template');
@@ -83,12 +94,16 @@ exports.sendTemplate = function(templateName, locals, fn) {
 
             var transport = defaultTransport;
 
+            console.log('About to transport.sendMail');
+            console.log('HTML ' + html);
+            console.log('TEXT ' + text);
+
             transport.sendMail({
                 from: config.mailer.defaultFormAddress,
                 to: locals.email,
                 subject: locals.subject,
                 html: html,
-                // generateTextFromHTML: true,
+                generateTextFromHTML: true,
                 text: text
             }, function(err, responseStatus) {
                 if (err) {

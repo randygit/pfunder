@@ -1,0 +1,27 @@
+<!-- newuser.ejs -->
+<html>
+<head>
+    <title>New User Confirmation</title>
+</head>
+    <p>
+        Hi <%= name %>,
+    </p> 
+    <p>
+        Thank you for signing up with Patak with the username: <%= username %>.
+        <br />
+        You must follow the link below to activate your account.
+    </p>
+    <p>
+        <a href="<%= verifyURL %>"><%= verifyURL %></a>
+    </p>
+    <p>
+        Thank you,
+        <br />  
+        The Patak Team
+    </p>
+    <p>
+        <a href="http://localhost:3000">http://patak.com</a> 
+    </p>
+<body>
+</body>
+</html>
