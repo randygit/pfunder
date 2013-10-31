@@ -21,6 +21,7 @@ block content
         h1 Sign In
       .container
         form(name="form", method="post", action="/users/session", novalidate)
+          input(type='hidden', name = '_csrf', value = token)
           div.form-group
             label.control-label(for="email") Email:
             input.form-control(type="email", name="email", id="email", ng-model="email",required, autofocus, placeholder="Enter  Email address")

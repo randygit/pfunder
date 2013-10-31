@@ -19,7 +19,9 @@ var UserSchema = new Schema({
     hashed_password: String,
     salt: String,
     createdAt: Date,
-    verified: {type: Boolean, required: true, default: false},
+    verified: {type: Boolean, required: true, default: false},    // needs verification after creating a/c
+    disabled: {type: Boolean, required: true, default: false},    // 3 wrong password attempts
+    deactivated: {type: Boolean, required: true, default: false}, // deactivated by user
     facebook: {},
     twitter: {},
     github: {},
@@ -120,4 +122,4 @@ UserSchema.methods = {
     }
 };
 
-mongoose.model('User', UserSchema);
+mongoose.model('Xuser', UserSchema);

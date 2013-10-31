@@ -27,6 +27,9 @@ module.exports = function(app, passport, auth) {
     // login
     // old version: app.post('/users/session', users.session);
 
+    // how to get a handle on user object returned by callback
+    // shoudl pass the user to user.sessions
+
     app.post('/users/session', passport.authenticate('local', {
         failureRedirect: '/login',
         failureFlash: 'Invalid email or password.'

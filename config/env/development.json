@@ -1,5 +1,5 @@
 {
-    "db": "mongodb://localhost/patak2-dev",
+    "db": "mongodb://localhost/patak4-dev",
     "app": {
         "name": "Patak using MEAN"
     }

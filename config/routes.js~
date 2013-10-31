@@ -36,7 +36,12 @@ module.exports = function(app, passport, auth) {
     //requires login
 
     app.get('/welcome', auth.requiresLogin, users.welcome);
-
+  
+    /*
+    //Verify token route
+    var token = require('../app/controllers/verificationtoken');
+    app.get('/verify/:Token', verificationtoken.checktoken);
+    */
 
     //Home route
     var index = require('../app/controllers/index');

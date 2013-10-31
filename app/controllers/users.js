@@ -4,8 +4,8 @@
 var mongoose = require('mongoose'),
     async = require('async'),
     _ = require('underscore'),
-    //VerificationTokenModel = mongoose('VerificationToken'),
-    User = mongoose.model('User'); 
+    VerificationTokenModel = mongoose.model('ZerificationToken'),
+    User = mongoose.model('Xuser'); 
 
 /**
  * Auth callback. what is this here
@@ -75,6 +75,9 @@ exports.create = function(req, res) {
             return res.redirect('/signup');
           }
           else {
+
+            // create new user
+
             var newUser = new User(req.body);
             newUser.provider = 'local';
             newUser.createdAt = Date.now();
@@ -93,10 +96,13 @@ exports.create = function(req, res) {
                 /* should be used **/
 
                 //create token here and email
-                /*
-                var verificationToken = new verificationTokenModel({_userId: newUser._id});
+              
+                var verificationToken = new VerificationTokenModel(
+                    {_userId: newUser._id, purpose: 'new account'});
+
                 verificationToken.createVerificationToken(function(err, token) {
                     if (err) return console.log("Couldn't create verification token", err);
+                    /*
                     var message = {
                         email: newUser.email,
                         name: newUser.username;
@@ -109,18 +115,24 @@ exports.create = function(req, res) {
                         }
                         console.log("Verification email sent for delivery");
                     });
+                    */
 
                 });
-                **/
+                
+
+                req.flash('error', 'Account has been created but needs to be verified. Please check your email for instructions');
+                return res.redirect('/signup');
 
                 // passport.authenticate automatically calls
                 // new users should automatically be logged in
 
+                /*
+                // new user will not be allowed to login. must see email
                 req.login(newUser, function(err) {
                     if (err) return next(err);
                     return res.redirect('/welcome');
                 });
-                   
+                */ 
               }
             });
           }      
@@ -133,7 +145,59 @@ exports.create = function(req, res) {
 /*** Session ***/
 
 exports.session = function(req, res) {
+    // check if user is validated, account is disabled or account is deactivated
+    // if yes, redirect back to /login
+    var email = req.body.email;
+    console.log('user.sessions. req.body.email is ' + email);
+    console.log('user.sesionss. req.user.email is ' + req.user.email);
+
+    var user = req.user;
+
+    if (!user.verified) {
+        req.flash('error', 'User is not verified. Please check email for instructions.');
+        return res.redirect('/login');
+    }
+    if (user.disabled) {
+        req.flash('error', 'User is disabled. Please check email for instructions.');
+        return res.redirect('/login');
+    }
+    if (user.deactivated) {
+        req.flash('error', 'User has deactivated this account.');
+        return res.redirect('/login');
+    }
+    // OK if: {verified: true, disabled: false, deactivated: false}
     res.redirect('/welcome');
+
+    /*
+    // this should not be done since passport.local will return user if email/password is ok. how?
+    User.findOne({ email: email }, function(err, user) {
+        if (err) {
+            return done(err);
+        }
+        if (user) {
+            console.log('after findOne ' + user.email);
+            console.log('Verified: ' + user.verified + ' Disabled: ' + user.disabled + ' Deactivated: '+ user.deactivated);
+
+            if (!user.verified) {
+                req.flash('error', 'User is not verified. Please check email for instructions.');
+                return res.redirect('/login');
+            }
+            if (user.disabled) {
+                req.flash('error', 'User is disabled. Please check email for instructions.');
+                return res.redirect('/login');
+            }
+            if (user.deactivated) {
+                req.flash('error', 'User has deactivated this account.');
+                return res.redirect('/login');
+            }
+            // OK if: {verified: true, disabled: false, deactivated: false}
+            res.redirect('/welcome');
+        
+        }   // if user
+        
+    });
+    */
+          
 };
 
 /** Logout  */
