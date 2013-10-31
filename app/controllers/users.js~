@@ -120,19 +120,11 @@ exports.create = function(req, res) {
                 });
                 
 
-                req.flash('error', 'Account created but needs to be verified. Please check your email for instructions');
+                //user will not be allowed to check in until verification process is completed
+                //
+                req.flash('error', 'Account has been created but needs to be verified. Please check your email for instructions');
                 return res.redirect('/signup');
 
-                // passport.authenticate automatically calls
-                // new users should automatically be logged in
-
-                /*
-                // new user will not be allowed to login. must see email
-                req.login(newUser, function(err) {
-                    if (err) return next(err);
-                    return res.redirect('/welcome');
-                });
-                */ 
               }
             });
           }      
@@ -145,58 +137,38 @@ exports.create = function(req, res) {
 /*** Session ***/
 
 exports.session = function(req, res) {
+
+    // user has successfully logged in by passport.local
+    // must reverse if conditions below are true
     // check if user is validated, account is disabled or account is deactivated
     // if yes, redirect back to /login
     var email = req.body.email;
     console.log('user.sessions. req.body.email is ' + email);
-    console.log('user.sesionss. req.user.email is ' + req.user.email);
+    console.log('user.sessions. req.user.email is ' + req.user.email);
+    console.log('user.sessions. req.isAuthenticated ' + req.isAuthenticated());
+
 
     var user = req.user;
 
     if (!user.verified) {
         req.flash('error', 'User is not verified. Please check email for instructions.');
+        // is this a security hole?         
+        // if (req.isAuthenticated()) req.logout();
+        
         return res.redirect('/login');
     }
     if (user.disabled) {
-        req.flash('error', 'User is disabled. Please check email for instructions.');
+        req.flash('error', 'User is disabled. Please check email for instructions.'); 
+        if (req.isAuthenticated()) req.logout();
         return res.redirect('/login');
     }
     if (user.deactivated) {
-        req.flash('error', 'User has deactivated this account.');
+        req.flash('error', 'User has deactivated this account.'); 
+        if (req.isAuthenticated()) req.logout();
         return res.redirect('/login');
     }
     // OK if: {verified: true, disabled: false, deactivated: false}
     res.redirect('/welcome');
-
-    /*
-    // this should not be done since passport.local will return user if email/password is ok. how?
-    User.findOne({ email: email }, function(err, user) {
-        if (err) {
-            return done(err);
-        }
-        if (user) {
-            console.log('after findOne ' + user.email);
-            console.log('Verified: ' + user.verified + ' Disabled: ' + user.disabled + ' Deactivated: '+ user.deactivated);
-
-            if (!user.verified) {
-                req.flash('error', 'User is not verified. Please check email for instructions.');
-                return res.redirect('/login');
-            }
-            if (user.disabled) {
-                req.flash('error', 'User is disabled. Please check email for instructions.');
-                return res.redirect('/login');
-            }
-            if (user.deactivated) {
-                req.flash('error', 'User has deactivated this account.');
-                return res.redirect('/login');
-            }
-            // OK if: {verified: true, disabled: false, deactivated: false}
-            res.redirect('/welcome');
-        
-        }   // if user
-        
-    });
-    */
           
 };
 

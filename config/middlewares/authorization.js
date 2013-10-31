@@ -10,6 +10,15 @@ exports.requiresLogin = function(req, res, next) {
     next();
 };
 
+exports.requiresLogout = function(req, res, next) {
+    if (req.isAuthenticated()) {
+        console.log("Operation cannot proceed. User is still logged in");
+        //return res.send(401, 'User is not authorized');
+        return res.redirect('/');
+    }
+    next();
+};
+
 /**
  * User authorizations routing middleware
  */

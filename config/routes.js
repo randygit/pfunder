@@ -8,37 +8,36 @@ module.exports = function(app, passport, auth) {
     app.get('/about', about.render);
 
     var contact = require('../app/controllers/contact');
-    app.get('/contact', contact.render);
-    app.post('/contact/sendemail', contact.sendemail);
+    app.get('/contact', auth.requiresLogout, contact.render);
 
     //User Routes
     var users = require('../app/controllers/users');
 
-    app.get('/login', users.login);
-    app.get('/signup', users.signup);
-    app.get('/forgot', users.forgot);
-    app.get('/reset',  users.reset);
+    // user must not be logged in for the following operations
+    // if logged in they will be redirected to '/'
 
-    app.get('/signout', users.signout);
+    app.get('/login',  auth.requiresLogout, users.login);
+    app.get('/signup', auth.requiresLogout, users.signup);
+    app.get('/forgot', auth.requiresLogout, users.forgot);
+
+    app.get('/reset',   auth.requiresLogin, users.reset);    
+    app.get('/signout', auth.requiresLogin, users.signout);
+    app.get('/welcome', auth.requiresLogin, users.welcome);
+
+    // POST
+
+    // send contact message to admin. triggered by contact.jade and controller
+    app.post('/contact/sendemail', contact.sendemail);
 
     // user saving. triggered by signup.jade
     app.post('/signup', users.create);
 
-    // login
-    // old version: app.post('/users/session', users.session);
-
-    // how to get a handle on user object returned by callback
-    // shoudl pass the user to user.sessions
 
     app.post('/users/session', passport.authenticate('local', {
         failureRedirect: '/login',
         failureFlash: 'Invalid email or password.'
     }), users.session);
 
-    //successfule user creation or login
-    //requires login
-
-    app.get('/welcome', auth.requiresLogin, users.welcome);
   
     /*
     //Verify token route
