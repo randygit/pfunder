@@ -19,9 +19,8 @@ module.exports = function(app, passport, auth) {
     app.get('/login',  auth.requiresLogout, users.login);
     app.get('/signup', auth.requiresLogout, users.signup);
     app.get('/forgot', auth.requiresLogout, users.forgot);
-    app.get('/reset',  auth.requiresLogout, users.reset);
 
-    
+    app.get('/reset',   auth.requiresLogin, users.reset);    
     app.get('/signout', auth.requiresLogin, users.signout);
     app.get('/welcome', auth.requiresLogin, users.welcome);
 
@@ -40,11 +39,11 @@ module.exports = function(app, passport, auth) {
     }), users.session);
 
   
-    /*
+  
     //Verify token route
     var token = require('../app/controllers/verificationtoken');
-    app.get('/verify/:Token', verificationtoken.checktoken);
-    */
+    app.get('/verify/:token', verificationtoken.checkToken);
+    
 
     //Home route
     var index = require('../app/controllers/index');

@@ -39,11 +39,11 @@ module.exports = function(app, passport, auth) {
     }), users.session);
 
   
-    /*
+  
     //Verify token route
-    var token = require('../app/controllers/verificationtoken');
-    app.get('/verify/:Token', verificationtoken.checktoken);
-    */
+    var verificationtoken = require('../app/controllers/verificationtoken');
+    app.get('/verify/:token', verificationtoken.checkToken);
+    
 
     //Home route
     var index = require('../app/controllers/index');
