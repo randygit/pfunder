@@ -7,7 +7,7 @@ var config          = require('./config'),
     nodemailer      = require('nodemailer'),
     path            = require('path'),
     templatesDir    = path.resolve(__dirname, '..', 'app/views/mailer'),
-     emailTemplates = require('email-templates');
+    emailTemplates  = require('email-templates');
 
 var EmailAddressRequiredError = new Error('email address required');
 
@@ -78,12 +78,13 @@ exports.sendTemplate = function(templateName, locals, fn) {
             return fn(err);
         }
         // send a single email
-        console.log('About to template');
+        console.log('check if !template');
 
         if(!template) {
             console.log('Error in defining template function');
             return fn(err);
         }
+        console.log('About to template');
 
         template(templateName, locals, function(err, html, text) {
             if (err) {
@@ -95,8 +96,8 @@ exports.sendTemplate = function(templateName, locals, fn) {
             var transport = defaultTransport;
 
             console.log('About to transport.sendMail');
-            console.log('HTML ' + html);
-            console.log('TEXT ' + text);
+            //console.log('HTML ' + html);
+            //console.log('TEXT ' + text);
 
             transport.sendMail({
                 from: config.mailer.defaultFormAddress,

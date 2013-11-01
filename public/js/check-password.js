@@ -10,14 +10,14 @@ password.addEventListener('keyup', function () {
     var score = zxcvbn(password.value).score;
     if (score < 2) {
         strength.value = strength.className = "weak";
-        submit.disabled = true;
+        //submit.disabled = true;
     }
     if (score === 2) {
         strength.value = strength.className = "so-so";
-        submit.disabled = false;
+        //submit.disabled = false;
     }
     if (score > 2) {
         strength.value = strength.className = "strong";
-        submit.disabled = false;
+        //submit.disabled = false;
     }
 });

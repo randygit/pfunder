@@ -22,28 +22,93 @@ module.exports = function(app, passport, auth) {
 
     app.get('/reset',   auth.requiresLogin, users.reset);    
     app.get('/signout', auth.requiresLogin, users.signout);
-    app.get('/welcome', auth.requiresLogin, users.welcome);
 
-    // POST
+    
 
+    // CONTACT MESSAGE
+    // 1. app.get('/contact', auth.requiresLogout, contact.render);
+    // 2. app.post('/contact/sendemail', contact.sendemail);
+
+    
     // send contact message to admin. triggered by contact.jade and controller
     app.post('/contact/sendemail', contact.sendemail);
 
-    // user saving. triggered by signup.jade
-    app.post('/signup', users.create);
 
-
+    // LOGIN
+    // 1. app.get('/login',  auth.requiresLogout, users.login);
+    // 2. app.post('/user/sessions', passport.authenticate('local', {}))
+    // 3.  app.get('/welcome', auth.requiresLogin, users.welcome);
     app.post('/users/session', passport.authenticate('local', {
         failureRedirect: '/login',
         failureFlash: 'Invalid email or password.'
     }), users.session);
 
-  
-  
-    //Verify token route
-    var token = require('../app/controllers/verificationtoken');
-    app.get('/verify/:token', verificationtoken.checkToken);
     
+    app.get('/welcome', auth.requiresLogin, users.welcome);
+
+    
+  
+    // SIGNUP PROCESS
+    // 1. on click signup,                        app.get('/signup', auth.requiresLogout, users.signup);
+    //      render views/users/signup.jade
+    // 2. on submit from views/users/signup.jade  app.post('/signup', users.create);
+    //    send error message if any username or email is already used
+    //    create a new user, save
+    //    create token
+    //    send email
+    // 3. on click from email,                    app.get('/verify/user/confirm/:token', verificationtoken.checkNewUserToken);
+    //    check if user is not verified
+    //    check if token has not expired?
+    //    render views/verify/newuser
+    // 4. on submit from views/verify/newuser      app.get('/verify/newuser/:token', verificationtoken.verifyNewUser);
+    //    update user.verified = true;
+    //    send thank you email
+    //    redirect to '/login'
+
+    app.post('/signup', users.create);
+
+  
+    //Verify token route from email link
+    var verificationtoken = require('../app/controllers/verificationtoken');
+    //app.get('/verify/:token', verificationtoken.checkNewUserToken);
+    app.get('/verify/user/confirm/:token', verificationtoken.checkNewUserToken);
+
+    
+    // from view/verify/newuser
+    app.get('/verify/newuser/:token', verificationtoken.verifyNewUser);
+    
+  
+    // FORGOT PASSWORD PROCESS
+    // 1. on click forgot,                        app.get('/forgot', auth.requiresLogout, users.forgot);
+    //      render views/users/forgot.jade
+    // 2. on submit from views/users/forgot.jade  app.post('/forgot', users.passwordRequest);
+    //    send email is not in database
+    //    create token
+    //    send email
+    // 3. on click from email,                    app.get('/verify/forgotpassword/confirm/:token', verificationtoken.checkToken);
+    //    check if token has not been used
+    //    check if token has not expired?
+    //    render views/verify/newpassword -- see views/users/reset.jade
+    // 4. on submit from views/verify/newpassword      app.get('/verify/password/:token', verificationtoken.verifyUser);
+    //    save password user.save
+    //    update token.used = true;
+    //    send thank you email
+
+
+    
+    // 2. from views/user/forgot.jade
+    app.post('/forgot', users.passwordForgotRequest);
+
+   
+    // 3. Verify token route from email link
+    var verificationtoken = require('../app/controllers/forgotpasswordtoken');
+    app.get('/verify/forgotpassword/confirm/:token', verificationtoken.checkForgotPasswordToken);
+
+    
+    // 4. from view/verify/forgotpassword for the given user
+    // is it safe to pass the password without being encrypted
+    app.post('/verify/password', verificationtoken.verifyForgotPassword);
+ 
 
     //Home route
     var index = require('../app/controllers/index');

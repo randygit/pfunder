@@ -17,9 +17,9 @@
     <p>
         Thank you,
         <br />  
+        <br />
         The Patak Team
-    </p>
-    <p>
+        <br />
         <a href="http://localhost:3000">http://patak.com</a> 
     </p>
 <body>
