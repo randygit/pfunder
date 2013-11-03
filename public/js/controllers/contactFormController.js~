@@ -1,5 +1,5 @@
 
-function ContactFormController($scope, $http, $location) {
+function ContactFormController($scope, $http, $location, $window) {
  
   // initialize $scope.contact
   $scope.contact = {};
@@ -18,9 +18,40 @@ function ContactFormController($scope, $http, $location) {
     $http.post('/contact/sendemail', $scope.contact)
       .success(function(data) {
         console.log("Success. back from sendmail " + $scope.contact.username);
-        $scope.$apply();
 
-        /* 
+
+        /* 131104 1758
+        this does not redirect        
+        $location.path('/login').replace();
+        if(!$scope.$$phase )
+            $scope.$apply();
+        */
+
+
+        $scope.window = $window;
+        $scope.window.location.href = '/';
+        //$window.location.reload();
+        
+
+        /*
+        // from yearofthemoo
+         //be sure to inject $scope and $location somewhere before this
+        $location.path('/login').replace();
+        var changeLocation = function(url, force) {
+          //this will mark the URL change
+          $location.path(url); //use $location.path(url).replace() if you want to replace the location instead
+
+          $scope = $scope || angular.element(document).scope();
+          if(force || !$scope.$$phase) {
+            //this will kickstart angular if to notice the change
+            $scope.$apply();
+          }
+        };
+        */
+
+
+        
+        /* does not want to redirect
         $location.path('/');
         $scope = $scope || angular.element(document).scope();
         $scope.$apply();
@@ -32,8 +63,7 @@ function ContactFormController($scope, $http, $location) {
         */
 
         console.log("after to $scope.$apply");
-        // $scope.message = 'Email sent!';
-        $scope.contact = {};
+        // $scope.contact = {};
         
       })
       .error(function(data){
