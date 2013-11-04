@@ -18,7 +18,7 @@ block content
           h1 Change password for
           h3= user.email
           // h3= #{{email}}
-          h3= confirmNewUserURL
+          // h3= confirmNewUserURL
          
         .container
           form(name="form", novalidate)

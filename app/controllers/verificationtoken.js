@@ -4,7 +4,7 @@
 var mongoose = require('mongoose'),
     async = require('async'),
     _ = require('underscore'),
-    VerificationTokenModel = mongoose.model('ZerificationToken'),
+    VerificationTokenModel = mongoose.model('WverificationToken'),
     UserModel = mongoose.model('Yuser'); 
  
 

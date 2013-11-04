@@ -11,7 +11,7 @@ block feet
 block content
   // div(ng-controller="ResetPasswordFormController", ng-init="init('randy@x.com','http:local:3000/verify')") 
   // use jade #{variable} to interpolate string then add '' to pass it as a 
-  div(ng-controller="ResetPasswordFormController", ng-init="init('#{user.email}','#{confirmNewUserURL}')") 
+  div(ng-controller="ResetPasswordFormController", ng-init="init('#{user.email}','#{token}')") 
     div.row
       div.col-sm-6
         div.page-header

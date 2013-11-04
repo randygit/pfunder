@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
     async = require('async'),
     _ = require('underscore'),
     mailer = require('../../config/mailer'),
-    VerificationTokenModel = mongoose.model('ZerificationToken'),
+    VerificationTokenModel = mongoose.model('WverificationToken'),
     User = mongoose.model('Yuser'); 
 
 /**

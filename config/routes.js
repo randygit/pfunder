@@ -101,13 +101,13 @@ module.exports = function(app, passport, auth) {
 
    
     // 3. Verify token route from email link
-    var verificationtoken = require('../app/controllers/forgotpasswordtoken');
-    app.get('/verify/forgotpassword/confirm/:token', verificationtoken.checkForgotPasswordToken);
+    var forgotpasswordtoken = require('../app/controllers/forgotpasswordtoken');
+    app.get('/verify/forgotpassword/confirm/:token', forgotpasswordtoken.checkForgotPasswordToken);
 
     
     // 4. from view/verify/forgotpassword for the given user
     // is it safe to pass the password without being encrypted
-    app.post('/verify/password/:email', verificationtoken.verifyForgotPassword);
+    app.post('/verify/password/:email/:token', forgotpasswordtoken.verifyForgotPassword);
  
 
     //support

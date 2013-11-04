@@ -112,8 +112,9 @@ module.exports = function(app, passport, auth) {
 
     //support
     var support = require('../app/controllers/support');
-    app.get('/support', support.general);
-    app.get('/support/notmyaccount', support.notmyaccount)
+    app.get('/support',              support.general);
+    app.get('/support/notmyaccount', support.notmyaccount);
+    app.get('/support/compromised',  support.compromised);
 
     //Home route
     var index = require('../app/controllers/index');
