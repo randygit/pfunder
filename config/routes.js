@@ -110,6 +110,12 @@ module.exports = function(app, passport, auth) {
     app.post('/verify/password/:email', verificationtoken.verifyForgotPassword);
  
 
+    //support
+    var support = require('../app/controllers/support');
+    app.get('/support',              support.general);
+    app.get('/support/notmyaccount', support.notmyaccount);
+    app.get('/support/compromised',  support.compromised);
+
     //Home route
     var index = require('../app/controllers/index');
     app.get('/', index.render);

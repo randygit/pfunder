@@ -7,7 +7,7 @@
         Hi <%= name %>,
     </p> 
     <p>
-        Thank you for confirming your account with Patak with the username: (<%= username %>).
+        Thank you for confirming your account with Patak (<%= username %>).
         <br />
         Start helping kids finish their education now!
     </p>

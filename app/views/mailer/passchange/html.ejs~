@@ -1,31 +1,25 @@
 <!-- newuser.ejs -->
 <html>
 <head>
-    <title>Forgot Password Confirmation</title>
+    <title>Password Change Reminder</title>
 </head>
     <p>
-        Forgot your password, <%= name %>?
+        <%= name %>,
     </p> 
     <p>
-        To reset your password, click on the link below (or copy and paste the URL into your browser):
+        You recently changed the password associated with your Patak account (<%= username %>).
         <br />
-        <br />
-        <a href="<%= verifyURL %>"><%= verifyURL %></a>
-        <br />
-        <br />  
-        If you're getting a lot of password reset emails you didn't request, you can change your account settings to require personal information to start a password reset.
-        <br />
-        <br />
+        If you did not make this change and believe your Patak account has been compromised, please contact Patak support by clicking <a href="<%= compromisedURL %>">here</a>.
 
-        Check out our support pages for more information.
     </p>    
     <p>
         Thank you,
         <br />  
         <br />
-        The Patak Team
+        <a href="<%= supportURL %>">The Patak Support Team</a> 
         <br />
-        <a href="http://localhost:3000">http://patak.com</a> 
+        <br />
+        If you received this message in error and did not signup for a Patak account, click <a href="<%= notMyAccountURL %>">not my account.</a>
     </p>
 <body>
 </body>

@@ -88,7 +88,9 @@ exports.verifyForgotPassword = function(req,res) {
                     email: user.email,
                     username: user.username,
                     subject: 'Your Patak password has been changed',
-                    verifyURL: ''
+                    supportURL: req.protocol + "://" + req.get('host') + "/support",
+                    notMyAccountURL: req.protocol + "://" + req.get('host') + "/support/notmyaccount",
+                    compromisedURL: req.protocol + "://" + req.get('host') + "/support/compromised"
                 };
 
                 mailer.sendTemplate('passchange', message, function(error, response, html, text) { 

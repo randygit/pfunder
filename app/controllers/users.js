@@ -66,7 +66,9 @@ exports.passwordForgotRequest = function(req,res) {
                             email: user.email,
                             username: user.username,
                             subject: 'Reset your Patak password',
-                            verifyURL: req.protocol + "://" + req.get('host') + "/verify/forgotpassword/confirm/" + token
+                            verifyURL: req.protocol + "://" + req.get('host') + "/verify/forgotpassword/confirm/" + token,
+                            supportURL: req.protocol + "://" + req.get('host') + "/support/", 
+                            notMyAccountURL: req.protocol + "://" + req.get('host') + "/support/notmyaccount" 
                         };
 
                         mailer.sendTemplate('forgotpassword', message, function(error, response, html, text) { 
@@ -76,9 +78,9 @@ exports.passwordForgotRequest = function(req,res) {
                             }
                             else {
                               console.log("Verification email sent for delivery");
-                              console.log('Reponse ' + response);
-                              console.log('HTML ' + html);
-                              console.log('TEXT ' + text);
+                              //console.log('Reponse ' + response);
+                              //console.log('HTML ' + html);
+                              //console.log('TEXT ' + text);
                             }
                         });
 
@@ -169,7 +171,8 @@ exports.create = function(req, res) {
                             email: newUser.email,
                             username: newUser.username,
                             subject: 'Confirm your account on Patak',
-                            verifyURL: req.protocol + "://" + req.get('host') + "/verify/user/confirm/" + token
+                            verifyURL: req.protocol + "://" + req.get('host') + "/verify/user/confirm/" + token,
+                            supportURL: req.protocol + "://" + req.get('host') + "/support"
                         };
 
                         mailer.sendTemplate('newuser', message, function(error, response, html, text) { 

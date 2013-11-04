@@ -107,8 +107,13 @@ module.exports = function(app, passport, auth) {
     
     // 4. from view/verify/forgotpassword for the given user
     // is it safe to pass the password without being encrypted
-    app.post('/verify/password', verificationtoken.verifyForgotPassword);
+    app.post('/verify/password/:email', verificationtoken.verifyForgotPassword);
  
+
+    //support
+    var support = require('../app/controllers/support');
+    app.get('/support', support.general);
+    app.get('/support/notmyaccount', support.notmyaccount)
 
     //Home route
     var index = require('../app/controllers/index');
