@@ -15,15 +15,23 @@ block content
       div.messages
         
       div.page-header
-        // data is in #{confirmNewUserURL}
+
+        h1 Verify new user
+
+        // data is in confirmNewUserURL and not in #{confirmNewUserURL}
+        // confirmNewUserURL is not an angular element but a regular javascript/HTML
+       
 
         // h3 Verify #{confirmNewUserURL}
+      .container
         p Click button to confirm account creation.
         // does not work? need controller
         a.btn.btn-primary.btn-lg(href=confirmNewUserURL) Confirm
 
     div.col-sm-6
       div.page-header
+        br
+        br
         h1 Help A Student
       p.lead Send someone to the university
       //.super-awesome is defined in contact.css

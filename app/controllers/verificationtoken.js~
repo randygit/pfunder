@@ -69,7 +69,9 @@ exports.verifyNewUser = function(req,res) {
                     name: user.name,
                     email: user.email,
                     username: user.username,
-                    subject: 'Welcome to Patak'
+                    subject: 'Welcome to Patak',
+                    supportURL: req.protocol + "://" + req.get('host') + "/support"
+
                 };
 
                 mailer.sendTemplate('tynewuser', message, function(error, response, html, text) { 

@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
     _ = require('underscore'),
     mailer = require('../../config/mailer'),
     VerificationTokenModel = mongoose.model('ZerificationToken'),
-    User = mongoose.model('Xuser'); 
+    User = mongoose.model('Yuser'); 
 
 /**
  * Auth callback. what is this here
@@ -182,9 +182,9 @@ exports.create = function(req, res) {
                             }
                             else {
                               console.log("Verification email sent for delivery");
-                              console.log('Reponse ' + response);
-                              console.log('HTML ' + html);
-                              console.log('TEXT ' + text);
+                              //console.log('Reponse ' + response);
+                              //console.log('HTML ' + html);
+                              //console.log('TEXT ' + text);
                             }
                         });
 
@@ -196,7 +196,7 @@ exports.create = function(req, res) {
 
                 //user will not be allowed to check in until verification process is completed
                 //
-                req.flash('error', 'Your account has been created but to be verified. Please check your email for instructions.');
+                req.flash('error', 'Your account has been created but needs to be verified. Please check your email for instructions.');
                 return res.redirect('/signup');
 
               }
@@ -219,14 +219,13 @@ exports.login = function(req, res) {
     });
 };
 
-/*** Session ***/
-
 exports.session = function(req, res) {
 
     // user has successfully logged in by passport.local
     // must reverse if conditions below are true
     // check if user is validated, account is disabled or account is deactivated
     // if yes, redirect back to /login
+
     var email = req.body.email;
     console.log('user.sessions. req.body.email is ' + email);
     console.log('user.sessions. req.user.email is ' + req.user.email);

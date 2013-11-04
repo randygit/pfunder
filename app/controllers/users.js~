@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
     _ = require('underscore'),
     mailer = require('../../config/mailer'),
     VerificationTokenModel = mongoose.model('ZerificationToken'),
-    User = mongoose.model('Xuser'); 
+    User = mongoose.model('Yuser'); 
 
 /**
  * Auth callback. what is this here
@@ -68,7 +68,7 @@ exports.passwordForgotRequest = function(req,res) {
                             subject: 'Reset your Patak password',
                             verifyURL: req.protocol + "://" + req.get('host') + "/verify/forgotpassword/confirm/" + token,
                             supportURL: req.protocol + "://" + req.get('host') + "/support/", 
-                            notMyAccountURL: req.protocol + "://" + req.get('host') + "/support/:notmyaccount" 
+                            notMyAccountURL: req.protocol + "://" + req.get('host') + "/support/notmyaccount" 
                         };
 
                         mailer.sendTemplate('forgotpassword', message, function(error, response, html, text) { 
@@ -182,9 +182,9 @@ exports.create = function(req, res) {
                             }
                             else {
                               console.log("Verification email sent for delivery");
-                              console.log('Reponse ' + response);
-                              console.log('HTML ' + html);
-                              console.log('TEXT ' + text);
+                              //console.log('Reponse ' + response);
+                              //console.log('HTML ' + html);
+                              //console.log('TEXT ' + text);
                             }
                         });
 
@@ -219,14 +219,13 @@ exports.login = function(req, res) {
     });
 };
 
-/*** Session ***/
-
 exports.session = function(req, res) {
 
     // user has successfully logged in by passport.local
     // must reverse if conditions below are true
     // check if user is validated, account is disabled or account is deactivated
     // if yes, redirect back to /login
+
     var email = req.body.email;
     console.log('user.sessions. req.body.email is ' + email);
     console.log('user.sessions. req.user.email is ' + req.user.email);

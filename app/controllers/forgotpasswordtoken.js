@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
     async = require('async'),
     _ = require('underscore'),
     VerificationTokenModel = mongoose.model('ZerificationToken'),
-    UserModel = mongoose.model('Xuser'); 
+    UserModel = mongoose.model('Yuser'); 
  
 
 // app.get('/verify/forgotpassword/confirm/:token', verificationtoken.checkForgotPasswordToken);  

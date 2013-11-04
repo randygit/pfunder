@@ -9,6 +9,7 @@
     <p>
         You recently changed the password associated with your Patak account (<%= username %>).
         <br />
+        <br />
         If you did not make this change and believe your Patak account has been compromised, please contact Patak support by clicking <a href="<%= compromisedURL %>">here</a>.
 
     </p>    
