@@ -39,7 +39,10 @@ exports.sendemail = function(req,res) {
 
 
     mailer.sendSimple(mailOptions, function(err, response){
-      if(!err) {
+      if(err) {
+          done(err);
+      } else {
+          console.log('Returning after mailer.sendSimple');
           res.json(response);
       }
       

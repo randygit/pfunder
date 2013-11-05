@@ -1,11 +1,11 @@
 
-//var app = angular.module('mean', []);
+var app = angular.module('myApp', []);
 
 
 // http://stackoverflow.com/questions/12864887/angularjs-integrating-with-server-side-validation
 
  
-window.app.directive('validateUsername', function() {  
+app.directive('validateUsername', function() {  
   return {
     require: 'ngModel',
     link: function(scope, elem, attrs, ctrl) {
@@ -31,7 +31,7 @@ window.app.directive('validateUsername', function() {
   };
 });
 
-window.app.directive('uniqueUsername', ['$http', function($http) {  
+app.directive('uniqueUsername', ['$http', function($http) {  
   return {
     require: 'ngModel',
     link: function(scope, elem, attrs, ctrl) {
@@ -70,7 +70,7 @@ window.app.directive('uniqueUsername', ['$http', function($http) {
   };
 }]);
 
-window.app.directive('uniqueEmail', ['$http', function($http) {
+app.directive('uniqueEmail', ['$http', function($http) {
     return {
         require: 'ngModel',
         link: function(scope, elem, attrs, ctrl) {
@@ -114,7 +114,7 @@ window.app.directive('uniqueEmail', ['$http', function($http) {
     };
 }]);
 
-window.app.directive('passwordValidate', function() {
+app.directive('passwordValidate', function() {
     return {
         require: 'ngModel',
         link: function(scope, elm, attrs, ctrl) {
@@ -138,7 +138,7 @@ window.app.directive('passwordValidate', function() {
 });
 // http://codepen.io/brunoscopelliti/pen/ECyka
 
-window.app.directive('match', [function () {
+app.directive('match', [function () {
   return {
     require: 'ngModel',
     link: function (scope, elem, attrs, ctrl) {

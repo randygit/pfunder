@@ -13,19 +13,27 @@ script(type='text/javascript', src='/lib/angular-bootstrap/ui-bootstrap-tpls.js'
 script(type='text/javascript', src='/lib/angular-ui-utils/modules/route/route.js')
 
 //Application Init
-script(type='text/javascript', src='/js/script.js')
 
-//script(type='text/javascript', src='/js/app.js')
-//script(type='text/javascript', src='/js/config.js')
-//script(type='text/javascript', src='/js/directives.js')
-//script(type='text/javascript', src='/js/filters.js')
+script(type='text/javascript', src='/js/app.js')
+script(type='text/javascript', src='/js/config.js')
+
+script(type='text/javascript', src='/js/directives.js')
+
+script(type='text/javascript', src='/js/filters.js')
 
 //Application Services
+script(type='text/javascript', src='/js/services/global.js')
+script(type='text/javascript', src='/js/services/articles.js')
 
 //Application Controllers
-//script(type='text/javascript', src='/js/controllers/index.js')
-//script(type='text/javascript', src='/js/init.js')
+script(type='text/javascript', src='/js/controllers/articles.js')
+script(type='text/javascript', src='/js/controllers/index.js')
+script(type='text/javascript', src='/js/controllers/header.js')	
+script(type='text/javascript', src='/js/init.js')
+
 script(type='text/javascript', src='/js/controllers/contactFormController.js')
+script(type='text/javascript', src='/js/controllers/resetPasswordFormController.js')
+script(type='text/javascript', src='/js/controllers/aboutFormController.js')
 
 //Application libraries
 script(type='text/javascript', src='/lib/zxcvbn/zxcvbn/zxcvbn.js')

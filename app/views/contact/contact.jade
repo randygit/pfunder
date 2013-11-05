@@ -12,7 +12,7 @@ block feet
  
 block content
    
-  div(ng-controller="ContactFormController")
+  div(data-ng-controller="ContactFormController")
     div.row
       div.col-sm-6
         div.messages
@@ -46,7 +46,7 @@ block content
               span.help-block(ng-show="form.msg.$dirty && form.msg.$error.required") Please enter message
             if error
               div.alert #{error}
-            input.btn.btn-primary(type="submit", value="Send Message", ng-disabled="form.$invalid", ng-click="addContact()")
+            input.btn.btn-primary(type="submit", value="Send Message", ng-disabled="form.$invalid", data-ng-click="addContact()")
             //input.btn.btn-primary(type="submit", value="Send Message")
               
       // .special is defined in contact.css

@@ -38,64 +38,12 @@ exports.sendemail = function(req,res) {
     };
 
 
-    mailer.sendSimple(mailOptions, function(err, reponse){
+    mailer.sendSimple(mailOptions, function(err, response){
       if(!err) {
-          res.json(reponse);
+          res.json(response);
       }
       
     }); 
 };
-
-
-/**
-
-
-    mailer.sendContactMessage(req.body);
-
-    //res.send({ error: 0, user: user.email }, 201);
-    req.flash('error', 'Email sent');              
-    res.json(req.body);
-
-    
-    var mailer = require('../../config/mailer.js')(app),
-    hashedConfirmation = encryptionHelper.encrypt(user.confirmationstring + ";" + buf.toString('hex'));
-
-    //send Email
-    mailer.sendRegistrationEmail(user.email, hashedConfirmation);
-    res.send({ error: 0, user: user.email }, 201);
-    
-
-    
-
-    var smtpTransport = nodemailer.createTransport('SMTP', {
-        service: 'Gmail',
-        auth: {
-          user: "mintlifesavers@gmail.com",
-          pass: "19mint12"
-        }
-    });
-
-    var mailOptions = {
-      from: req.body.username,
-      to: 'randy.gonzales@gmail.com',
-      subject: 'message from ' + req.body.username + ' <' + req.body.email + '>' ,
-      text: req.body.msg
-    };
-
-    console.log("about to sendemail " + req.body.username);
-    smtpTransport.sendMail(mailOptions, function(error, response) {
-    
-      if(!error) {
-        console.log("Email sent " + response.message);
-        req.flash('error', 'Email sent');              
-        res.json(req.body);
-        //res.redirect('/');
-      }
-      
-    });
-    console.log("end of exports.sendemail " + req.body.email);
-    // res.json(req.body);
-    
-**/
 
 

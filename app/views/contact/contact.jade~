@@ -12,7 +12,7 @@ block feet
  
 block content
    
-  div(ng-controller="ContactFormController")
+  div(data-ng-controller="ContactFormController")
     div.row
       div.col-sm-6
         div.messages
@@ -29,11 +29,11 @@ block content
             input(type='hidden', name = '_csrf', value = token)
             
             div.form-group
-              label.control-label(for="username") User Name:
+              label.control-label(for="username") Full Name:
               input.form-control(type="text", name="username", ng-model="contact.username", id="username", placeholder="Enter full name", required, autofocus)
               span.help-block(ng-show="form.username.$dirty && form.username.$error.required") Please enter a username
               //span.help-block(ng-show="form.username.$dirty && form.username.$error.isTaken") Username already taken
-              span.help-block(ng-show="form.username.$dirty && form.username.$error.invalidChars") Username may not contain any non-url-safe characters
+              span.help-block(ng-show="form.username.$dirty && form.username.$error.invalidChars") Full name may not contain any non-url-safe characters
             div.form-group
               label.control-label(for="email") Email:
               input.form-control(type="email", ng-model="contact.email", name="email", id="email", required, placeholder="Enter email")

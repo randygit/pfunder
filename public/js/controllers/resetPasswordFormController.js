@@ -1,5 +1,6 @@
- 
-function ResetPasswordFormController($scope, $http, $location, $window) {
+angular.module('mean.system').controller('ResetPasswordFormController', ['$scope', '$http', '$location', '$window', function ($scope, $http, $location, $window) {
+
+//function ResetPasswordFormController($scope, $http, $location, $window) {
 
     // init actually works. just like the init of java functions
     // but using real values not variables in the calling view
@@ -9,6 +10,10 @@ function ResetPasswordFormController($scope, $http, $location, $window) {
        
         $scope.email = email;
         $scope.token = token;
+
+        console.log('resetPasswordFormController');
+        console.log('$scope.email ' + $scope.email);
+        console.log('$scope.token ' + $scope.token);
 
         $scope.form         = {};
         $scope.message      = '';
@@ -48,5 +53,5 @@ function ResetPasswordFormController($scope, $http, $location, $window) {
       }); 
 
     };  // $scope.changePassword
-}
+}]);
 

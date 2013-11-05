@@ -1,7 +1,9 @@
-extends layouts/layout
+extends layouts/default
 
 block main
-  h1 Oops something went wrong
+  br
+  br
+  h1 Oops something went wrong. Error 500
   br
   span 500
 

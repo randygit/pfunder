@@ -15,6 +15,7 @@ module.exports = function(app, passport, auth) {
 
     // user must not be logged in for the following operations
     // if logged in they will be redirected to '/'
+    // auth.requiresLogin and Logout are defined in /config/middleware/authoriztion.js
 
     app.get('/login',  auth.requiresLogout, users.login);
     app.get('/signup', auth.requiresLogout, users.signup);

@@ -1,4 +1,4 @@
-extends layouts/layout
+extends layouts/default
 
 block head
   title Welcome
@@ -8,9 +8,9 @@ block neck
 block content
   block body
     div.jumbotron
-      h1 Welcome  !!!
+      h1 Welcome #{window.user} !!!
       p.lead
-        | You have logged in successfully to the Patak website.
+        | You have logged in successfully to the Patak website,
         | #{user.email}
         div
           a.btn.btn-primary.btn-lg(href='/signout') Sign out

@@ -1,45 +1,12 @@
+// if the user is authenticated, the user object can be interpolated into the view
+// when passed to the client, the user object is attached to the window object and is now
+// available to your javascript as "window.user". if not authenticated, the user is null
+// had to JSON.stringify.the date type produces an unexpected identifier error
+
+
 extends layouts/default
 
-block head
-  title Home
-
-block neck
-
 block content
-  block body
-    div.jumbotron
-      h1 Patak sa Dagat
-      p.lead
-        | The Patak sa Dagat website is running. May the force be with you.
-        div
-          a.btn.btn-primary.btn-lg(href='/signup') Create an Account
-          |  or 
-          a.btn.btn-warning.btn-lg(href='/reset') Reset Your Password
-        div.clearfix
-    div.row
-      div.col-sm-4
-        div.panel.panel-default
-          div.panel-body
-            h3 About Us         
-   
-            p Look, I can take you as far as Anchorhead. You can get a transport there to Mos Eisley or wherever you're going. I don't know what you're talking about. 
-            p I need your help, Luke. She needs your help. I'm getting too old for this sort of thing. Leave that to me. Send a distress signal, and inform the Senate that all on board were killed. Don't underestimate the Force. Dantooine. They're on Dantooine.
-            a.btn.btn-primary.btn-block(href='/about') Learn More
-      div.col-sm-4
-        div.panel.panel-default
-          div.panel-body
-            h3 Sign Up
-         
-            p Look, I can take you as far as Anchorhead. You can get a transport there to Mos Eisley or wherever you're going. I don't know what you're talking about. 
-            p I need your help, Luke. She needs your help. I'm getting too old for this sort of thing. Leave that to me. Send a distress signal, and inform the Senate that all on board were killed. Don't underestimate the Force. Dantooine. They're on Dantooine.
-
-            a.btn.btn-danger.btn-block(href='/signup') Sign Up
-      div.col-sm-4
-        div.panel.panel-default
-          div.panel-body
-            h3 Contact Us
-
-            p Look, I can take you as far as Anchorhead. You can get a transport there to Mos Eisley or wherever you're going. I don't know what you're talking about.
-            p I need your help, Luke. She needs your help. I'm getting too old for this sort of thing. Leave that to me. Send a distress signal, and inform the Senate that all on board were killed. Don't underestimate the Force. Dantooine. They're on Dantooine.
-
-            a.btn.btn-success.btn-block(href='/contact') Get In Touch
+  section(data-ng-view)
+  script(type="text/javascript").
+    window.user = !{JSON.stringify(user)};
