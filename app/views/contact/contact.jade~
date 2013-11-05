@@ -1,5 +1,5 @@
 // oct 30, 2013. 1022. will attempt to do a post directly to /contact/sendmail
-extends ../layouts/layout
+extends ../layouts/default
 
 block head
   title Contact Us
