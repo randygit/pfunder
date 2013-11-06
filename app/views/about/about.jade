@@ -15,6 +15,12 @@ block content
   script(type="text/javascript").
    window.user = !{JSON.stringify(user)};
 
+  // this function overrides the ng-view function
+  // when clicking on this while logged in
+  // routeProvider no longers work
+
+  // have to click home to reinit ng-view
+
   div(data-ng-controller="AboutController")
 
     div.row

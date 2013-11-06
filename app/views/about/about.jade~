@@ -10,7 +10,7 @@ block neck
 block feet
 
 block content
-  // init window.user
+  // init window.user for menu to work properly
 
   script(type="text/javascript").
    window.user = !{JSON.stringify(user)};
