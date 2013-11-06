@@ -1,18 +1,4 @@
-extends layouts/default
-
-block head
-  title Home
-
-block neck
-
-block content
-  // transfer router control to
-  // $routeProvider where default points to '/'
-
-  section(data-ng-view)
-  script(type="text/javascript").
-    window.user = !{JSON.stringify(user)}
-
+section(data-ng-controller='IndexController')
   div.jumbotron
     h1 Patak sa Dagat
     p.lead

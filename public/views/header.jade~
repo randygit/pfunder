@@ -14,7 +14,7 @@ div(data-ng-controller="HeaderController")
 
       // external view for those who are not logged in
 
-       ul.nav.navbar-nav(data-ng-show='global.authenticated')
+     ul.nav.navbar-nav
         li.active
           a(href='/') Home      
         li
@@ -23,8 +23,6 @@ div(data-ng-controller="HeaderController")
           a(href='/contact') Contact 
 
       ul.nav.navbar(data-ng-hide='global.authenticated')
-        li.active
-          a(href='/') Home      
         li(data-ng-repeat='item in menu', data-ng-show="global.user", ui-route='/{{item.link}}', ng-class='{active: $uiRoute}')
           a(href='#!/{{item.link}}') {{item.title}}
 

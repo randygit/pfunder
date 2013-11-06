@@ -1,6 +1,8 @@
-//Setting up route
+//Setting up route 
+// added check to prevent users from accessing unauthorized areas
+
 window.app.config(['$routeProvider',
-    function($routeProvider) {
+    function($routeProvider, $locationProvider) {
 
         console.log('routeProvider');
 
@@ -20,6 +22,9 @@ window.app.config(['$routeProvider',
         when('/articles/:articleId', {
             templateUrl: 'views/articles/view.html'
         }).
+        when('/welcome', {
+            templateUrl: 'views/welcome.html'
+        }).
         when('/', {
             templateUrl: 'views/index.html'
         }).
@@ -27,7 +32,20 @@ window.app.config(['$routeProvider',
             redirectTo: '/'
         });
     }
-]);
+]).run(function($logincheck,$rootScope, $location) {
+    // $logincheck is init in js/services/global.js
+    // makes sure that the user who is not logged in is not allowed into certain areas
+    
+    $rootScope.$on('$routeChangeStart', function(event, next, current) {
+        console.log("$rootScope.$on and loginCheck: " + $logincheck);
+        if($logincheck === false) {
+            $location.path('/');
+        }         
+    });   
+});
+
+// code above is from jigal patel and st. never
+// but does not redirect sometimes
 
 //Setting HTML5 Location Mode
 window.app.config(['$locationProvider',
@@ -35,3 +53,10 @@ window.app.config(['$locationProvider',
         $locationProvider.hashPrefix("!");
     }
 ]);
+
+/*
+//get rid of the # 
+window.app.config(function($locationProvider) {
+    $locationProvider.html5Mode(true);
+});
+*/

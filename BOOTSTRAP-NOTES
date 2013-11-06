@@ -62,7 +62,7 @@ LOADING A VIEW app/views/index.jade (extends layouts/default.jade) default.jade 
 2. block content from /app/views/index.jade
 
     block content
-      section(data-ng-view)                      <-- magic happens here
+      section(data-ng-view)                      <-- turn over router control to window.app.config['$routeProvide']
       script(type="text/javascript").             
         window.user = !{JSON.stringify(user)};   <--- defines window.user
 
@@ -71,9 +71,4 @@ LOADING A VIEW app/views/index.jade (extends layouts/default.jade) default.jade 
 4. includes include/foot.jade                   <--- loads all the controllers, services plus js libraries
 
 
-
-
-
-     which sets the navbar of the screen
-          header.navbar.navbar-fixed-top.navbar-inverse(data-ng-include="'views/header.html'")
 

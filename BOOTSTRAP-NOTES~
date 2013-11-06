@@ -36,12 +36,12 @@ index.jade
          
          /public/views/header.html
          /app/views/index.jade contentblock content
-            section(data-ng-view)                          <---MAGIC HAPPENS WITH ng-view
+            section(data-ng-view)                  <---ng-view will allow us to set up config function and access the $routeProvider
             script(type="text/javascript").
               window.user = !{JSON.stringify(user)};
 
-        how did /public/views/index.html got into the picture?
-          does that $routeProvider kick in?
+        how did /public/views/index.html got into the picture? bec .config('routeProvider) has taken effect
+           
 
 
 LOADING A VIEW app/views/index.jade (extends layouts/default.jade) default.jade defines the layout for index.jade
