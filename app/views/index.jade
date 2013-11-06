@@ -3,10 +3,14 @@
 // available to your javascript as "window.user". if not authenticated, the user is null
 // had to JSON.stringify.the date type produces an unexpected identifier error
 
+// window.user is set initially  and reset by
+// signin? how
 
 extends layouts/default
 
 block content
-  section(data-ng-view)
+  // ng-view will allow us to set up config function and access the $routeProvider
+
+  //section(data-ng-view)
   script(type="text/javascript").
     window.user = !{JSON.stringify(user)};

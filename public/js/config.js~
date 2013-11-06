@@ -1,7 +1,13 @@
 //Setting up route
 window.app.config(['$routeProvider',
     function($routeProvider) {
+
+        console.log('routeProvider');
+
         $routeProvider.
+        //when('/about', {
+        //    templateUrl: 'views/about2.html'
+        //}).
         when('/articles', {
             templateUrl: 'views/articles/list.html'
         }).

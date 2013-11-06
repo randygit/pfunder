@@ -11,20 +11,39 @@ div(data-ng-controller="HeaderController")
         span.navbar-brand-label Patak
     // collect nav links, forms and other contents for toggling
     .collapse.navbar-collapse.navbar-ex1-collapse 
-      ul.nav.navbar-nav
+
+      // external view for those who are not logged in
+
+       ul.nav.navbar-nav(data-ng-show='global.authenticated')
         li.active
-          a(href='/') Home
+          a(href='/') Home      
         li
           a(href='/about') About
         li
           a(href='/contact') Contact 
+
+      ul.nav.navbar(data-ng-hide='global.authenticated')
+        li.active
+          a(href='/') Home      
         li(data-ng-repeat='item in menu', data-ng-show="global.user", ui-route='/{{item.link}}', ng-class='{active: $uiRoute}')
           a(href='#!/{{item.link}}') {{item.title}}
-      ul.nav.navbar-nav.navbar-right
+
+      ul.nav.navbar-nav.navbar-right(data-ng-hide='global.authenticated')
         li
           a(href='/signup') Sign up
         li 
           a(href='/login') 
             span.glyphicon.glyphicon-user
             |  Sign In
+
+      ul.nav.navbar-nav.navbar-right(data-ng-show='global.authenticated')
+        li.dropdown
+          a.dropdown-toggle(href='#', data-toggle='dropdown')
+            | {{global.user.name}}
+            b.caret
+          ul.dropdown-menu
+            li
+              a(href='/profile') Profile
+              a(href='/signout') Signout
+
 

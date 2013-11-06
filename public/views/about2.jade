@@ -1,19 +1,12 @@
-extends ../layouts/default
-
-block head
-  title About Us
-
-block neck
-    link(rel='stylesheet', href='/css/contact.css') 
-    // link(rel='stylesheet', href='/stylesheets/contactForm.css') 
-
-block feet
-
-block content
-  // init window.user for menu to work properly
-
-  script(type="text/javascript").
-   window.user = !{JSON.stringify(user)};
+// about2.jade
+  // add this? data-ng-view gets overlayed
+  // check if this is same in articles
+  // nav bar shows new menu and pulldown menu
+  // why does the views/articles do not have the next 2 lines
+  // but after clicking on this menu, the articles no longer works
+  
+  //script(type="text/javascript").
+  //  window.user = !{JSON.stringify(user)};
 
   div(data-ng-controller="AboutController")
 

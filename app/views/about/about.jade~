@@ -10,7 +10,12 @@ block neck
 block feet
 
 block content
-  div(data-ng-controller="AboutFormController")
+  // init window.user
+
+  script(type="text/javascript").
+   window.user = !{JSON.stringify(user)};
+
+  div(data-ng-controller="AboutController")
 
     div.row
       div.col-sm-6

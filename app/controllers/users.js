@@ -252,14 +252,13 @@ exports.session = function(req, res) {
         return res.redirect('/login');
     }
     // OK if: {verified: true, disabled: false, deactivated: false}
-    res.redirect('/welcome');
-          
+    //res.redirect('/welcome');
+    res.redirect('/');    
 };
 
 exports.welcome = function(req, res) {
     res.render('welcome', {
         title: 'Welcome',
-        //user: req.user ? JSON.stringify(req.user) : "null"
         user: req.user
     });
 };

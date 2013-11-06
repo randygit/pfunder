@@ -8,7 +8,7 @@ block neck
 block content
   block body
     div.jumbotron
-      h1 Welcome #{window.user} !!!
+      h1 Welcome #{user.username} !!!
       p.lead
         | You have logged in successfully to the Patak website,
         | #{user.email}

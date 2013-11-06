@@ -4,7 +4,7 @@
 
 // http://stackoverflow.com/questions/12864887/angularjs-integrating-with-server-side-validation
 
- 
+/* 
 window.app.directive('validateUsername', function() {  
   return {
     require: 'ngModel',
@@ -114,6 +114,7 @@ window.app.directive('uniqueEmail', ['$http', function($http) {
     };
 }]);
 
+*/
 window.app.directive('passwordValidate', function() {
     return {
         require: 'ngModel',

@@ -33,7 +33,7 @@ script(type='text/javascript', src='/js/init.js')
 
 script(type='text/javascript', src='/js/controllers/contactFormController.js')
 script(type='text/javascript', src='/js/controllers/resetPasswordFormController.js')
-script(type='text/javascript', src='/js/controllers/aboutFormController.js')
+script(type='text/javascript', src='/js/controllers/aboutController.js')
 
 //Application libraries
 script(type='text/javascript', src='/lib/zxcvbn/zxcvbn/zxcvbn.js')

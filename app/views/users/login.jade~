@@ -36,7 +36,7 @@ block content
             div.alert #{error}
           input.btn.btn-primary(type="submit", value="Sign In", ng-disabled="form.$invalid")
           | 
-          a.btn.btn-link(href='/forgot/') Forget your password?
+          a.btn.btn-link(href='/forgot') Forget your password?
 
     
 
