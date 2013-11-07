@@ -41,26 +41,18 @@ exports.forgot = function(req, res) {
 exports.passwordForgotRequest = function(req,res) {
     
     // check if email entered is in database
-    User.find({ 'email': req.body.email, verified: true },{name:1, email:1, username:1}, function(err,user) {
-    // User.findOne({'email': req.body.email}, function(err, user) {
-        console.log('exports.passwordForgotRequest');
-        console.log('user        ' + JSON.stringify(user));
-        console.log('typeof user ' + typeof user);
-        console.log('user length ' + user.length);
+    User.findOne({'email': req.body.email}, function(err, user) {
+        if(!user) {
 
-      
-        if(user.length == 0) {
-
+           
+            var message = 'Email ' + req.body.email + ' does not belong to any Patak account.';
             console.log(message);
             req.flash('error', 'Email is not used');
             return res.redirect('/forgot');
             
-        } 
-
-        if(user.length == 1){
-
+        } else {
             var verificationToken = new VerificationTokenModel(
-                    {_userId:user[0]._id, purpose: 'forgot password'});
+                    {_userId:user._id, purpose: 'forgot password'});
 
                 verificationToken.createVerificationToken(function(err,token) {
                     if (err) {
@@ -70,9 +62,9 @@ exports.passwordForgotRequest = function(req,res) {
                     if (token) {
                         console.log('Verification token created');
                         var message = {
-                            name: user[0].name,
-                            email: user[0].email,
-                            username: user[0].username,
+                            name: user.name,
+                            email: user.email,
+                            username: user.username,
                             subject: 'Reset your Patak password',
                             verifyURL: req.protocol + "://" + req.get('host') + "/verify/forgotpassword/confirm/" + token,
                             supportURL: req.protocol + "://" + req.get('host') + "/support/", 
@@ -252,11 +244,6 @@ exports.login = function(req, res) {
 };
 
 exports.session = function(req, res) {
-    res.redirect('/');
-};
-
-/*
-exports.session = function(req, res) {
 
     // user has successfully logged in by passport.local
     // must reverse if conditions below are true
@@ -316,7 +303,6 @@ exports.session = function(req, res) {
 
     });
 };
-*/
 
 exports.welcome = function(req, res) {
     res.render('welcome', {

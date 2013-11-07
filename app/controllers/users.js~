@@ -151,7 +151,7 @@ exports.create = function(req, res) {
 
         // find a verified user with this usernam
         User.find({ 'username': req.body.username, verified: true },{username:1, verified:1}, function(err,user) {
-          user = JSON.stringify(xuser);
+           
           console.log('Username checking');
           console.log('user        ' + JSON.stringify(user));
           console.log('typeof user ' + typeof user);
@@ -244,6 +244,11 @@ exports.login = function(req, res) {
 };
 
 exports.session = function(req, res) {
+    res.redirect('/');
+};
+
+/*
+exports.session = function(req, res) {
 
     // user has successfully logged in by passport.local
     // must reverse if conditions below are true
@@ -303,6 +308,7 @@ exports.session = function(req, res) {
 
     });
 };
+*/
 
 exports.welcome = function(req, res) {
     res.render('welcome', {
