@@ -131,41 +131,45 @@ exports.create = function(req, res) {
     console.log("app.create email    " + req.body.email );
     console.log("app.create username " + req.body.username );
 
-    // user.find returns an array
+    var count = -1;
+
+    User.count({ 'email': req.body.email, verified: true }, function(err,count) {
+        console.log("Number of records found "+ count);
+    });
+   
+    console.log("Number of records found "+ count);
+    
+    if (count === 0) {
+        // no records found, could 
+    }
+
     User.find({ 'email': req.body.email, verified: true },{email:1, verified:1}, function(err,user) {
       if(err) done(err);
 
-      console.log('user        ' + JSON.stringify(user));
-      console.log('typeof user ' + typeof user);
-      console.log('user length ' + user.length);
+      console.log("user     "+ JSON.stringify(user));
+      console.log("if(user) "+ user);
 
-      if(user.length > 0) { 
+      // if user exists?
+      if(user) { 
 
-        console.log("Email " + req.body.email + " exists in the database. isEmailTaken" );
-        req.flash('error', 'The email ' + req.body.email + ' is already used.');
+        console.log("Email " + user.email + " exists in the database. isEmailTaken" );
+        req.flash('error', 'The email ' + user.email + ' is already used.');
         return res.redirect('/signup');
       }
 
-      
-      if (user.length == 0) {
+      if (!user) {
 
-        // find a verified user with this usernam
-        User.find({ 'username': req.body.username, verified: true },{username:1, verified:1}, function(err,user) {
-          user = JSON.stringify(xuser);
-          console.log('Username checking');
-          console.log('user        ' + JSON.stringify(user));
-          console.log('typeof user ' + typeof user);
-          console.log('user length ' + user.length);
+        // find a verified user with this username
 
-          if (user.length > 0) {
-              console.log('The username '+ req.body.username + ' is taken');
+        User.find({ 'username': req.body.username, verified: true },{email:1, verified:1, disabled:1, deactivated:1}, function(err,user) {
+          if (user) {
+              console.log('The username '+ user.username + ' is taken');
             
-              req.flash('error', 'The username '+ req.body.username + ' is already used.');
+              req.flash('error', 'The username '+ user.username + ' is already taken.');
               return res.redirect('/signup');
           }
 
-          
-          if(user.length == 0) {
+          if(!user) {
 
                 // create new user
 
@@ -250,27 +254,19 @@ exports.session = function(req, res) {
     // check if user is verified, account is disabled or account is deactivated
     // if yes, redirect back to /login
 
-    // after successful login validation using passport
-    // the program still has to check if it is verified
+    
     console.log('user.sessions. req.user.email is ' + req.user.email);
     console.log('user.sessions. req.isAuthenticated ' + req.isAuthenticated());
 
     
+
+    //var user = req.user;
     //User.find not User.findOne
-    //user.find returns an array object
 
     User.find({ 'email': req.user.email, verified: true },{email:1, verified:1, disabled:1, deactivated:1}, function(err,user) {
         if(err) done(err);
 
-        console.log('user        ' + JSON.stringify(user));
-        console.log('typeof user ' + typeof user);
-        console.log('user length ' + user.length);
-
-        // if(!user)
-
-        if(user.length == 0) {
-            // record with email is available but verified flag is false
-            // user has to logout
+        if(!user) {
 
             console.log('Record for ' + req.user.email + ' which is verified is not found.')
             if (req.isAuthenticated()) req.logout();
@@ -279,20 +275,18 @@ exports.session = function(req, res) {
             return res.redirect('/login');         
         };
 
-        if(user.length == 1) {
+        if(user) {
 
-            console.log('User             ' + JSON.stringify(user)); 
-            console.log('User.disabled    ' + user[0].disabled);
-            console.log('User.deactivated ' + user[0].deactivated);
+            console.log('User         ' + JSON.stringify(user)); 
 
-            if (user[0].disabled) {
-                req.flash('error', 'This ser is disabled. Please check email for instructions.'); 
+            if (user.disabled) {
+                req.flash('error', 'User is disabled. Please check email for instructions.'); 
                 if (req.isAuthenticated()) req.logout();
                 return res.redirect('/login');
             };
 
-            if (user[0].deactivated) {
-                req.flash('error', 'This user has deactivated his account.'); 
+            if (user.deactivated) {
+                req.flash('error', 'User has deactivated this account.'); 
                 if (req.isAuthenticated()) req.logout();
                 return res.redirect('/login');
             };

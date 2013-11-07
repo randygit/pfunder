@@ -124,4 +124,4 @@ UserSchema.methods = {
     }
 };
 
-mongoose.model('Xuser', UserSchema);
+mongoose.model('Yuser', UserSchema);

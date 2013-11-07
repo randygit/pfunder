@@ -114,75 +114,47 @@ exports.signup = function(req, res) {
     });
 };
 
-// after input at /app/views/signup.jade
-// verify that
-// 1. no records of the email that has been verified
-// 2. no records of the username that has been verified
-
-// if OK
-// 1. create user record
-// 2. create token
-// 3. send email
-
-
 exports.create = function(req, res) {
 
-    // find a verified user with this email
-    console.log("app.create email    " + req.body.email );
-    console.log("app.create username " + req.body.username );
-
-    // user.find returns an array
-    User.find({ 'email': req.body.email, verified: true },{email:1, verified:1}, function(err,user) {
-      if(err) done(err);
-
-      console.log('user        ' + JSON.stringify(user));
-      console.log('typeof user ' + typeof user);
-      console.log('user length ' + user.length);
-
-      if(user.length > 0) { 
-
-        console.log("Email " + req.body.email + " exists in the database. isEmailTaken" );
-        req.flash('error', 'The email ' + req.body.email + ' is already used.');
+    User.findOne({'email' : req.body.email}, function(err,user ) {
+      
+      if(user) { 
+        console.log("Email " + user.email + " exists in the database. isEmailTaken" );
+        var message = 'Email ' + user.email + ' is already used.';
+        req.flash('error', 'Email is already used');
+        // redirect to new http
         return res.redirect('/signup');
       }
-
-      
-      if (user.length == 0) {
-
-        // find a verified user with this usernam
-        User.find({ 'username': req.body.username, verified: true },{username:1, verified:1}, function(err,user) {
-          user = JSON.stringify(xuser);
-          console.log('Username checking');
-          console.log('user        ' + JSON.stringify(user));
-          console.log('typeof user ' + typeof user);
-          console.log('user length ' + user.length);
-
-          if (user.length > 0) {
-              console.log('The username '+ req.body.username + ' is taken');
-            
-              req.flash('error', 'The username '+ req.body.username + ' is already used.');
-              return res.redirect('/signup');
+      else {
+        User.findOne({'username': req.body.username}, function(err,user) {
+          if (user) {
+            console.log('Username '+ user.username + ' is taken');
+            // var message = 'Username '+ user.username + ' is already taken';
+            req.flash('error', 'Username is already taken');
+            return res.redirect('/signup');
           }
+          else {
 
-          
-          if(user.length == 0) {
+            // create new user
 
-                // create new user
-
-                var newUser = new User(req.body);
-                newUser.provider = 'local';
-                newUser.createdAt = Date.now();
-                newUser.save(function(err) {
-                if(err) {
-                    console.log('error in user.create ' + err);
-                    // render an html
-                    return res.render('/signup', {
-                      errors: err.errors,
-                      user: user
-                    });
+            var newUser = new User(req.body);
+            newUser.provider = 'local';
+            newUser.createdAt = Date.now();
+            newUser.save(function(err) {
+              if(err) {
+                  console.log('error in user.create ' + err);
+                  // render an html
+                  return res.render('/signup', {
+                    errors: err.errors,
+                    user: user
+                  });
               }
               else {
                 console.log("no problem in user.create ");   
+                // return res.redirect('/welcome');
+                /* should be used **/
+
+                //create token here and email
               
                 var verificationToken = new VerificationTokenModel(
                     {_userId: newUser._id, purpose: 'new account'});
@@ -210,6 +182,9 @@ exports.create = function(req, res) {
                             }
                             else {
                               console.log("Verification email sent for delivery");
+                              //console.log('Reponse ' + response);
+                              //console.log('HTML ' + html);
+                              //console.log('TEXT ' + text);
                             }
                         });
 
@@ -230,6 +205,7 @@ exports.create = function(req, res) {
         });
       }
     });
+   
 };
 
 // LOGIN PROCESS: exports.login, exports.session and exports.welcome
@@ -247,61 +223,37 @@ exports.session = function(req, res) {
 
     // user has successfully logged in by passport.local
     // must reverse if conditions below are true
-    // check if user is verified, account is disabled or account is deactivated
+    // check if user is validated, account is disabled or account is deactivated
     // if yes, redirect back to /login
 
-    // after successful login validation using passport
-    // the program still has to check if it is verified
+    var email = req.body.email;
+    console.log('user.sessions. req.body.email is ' + email);
     console.log('user.sessions. req.user.email is ' + req.user.email);
     console.log('user.sessions. req.isAuthenticated ' + req.isAuthenticated());
 
-    
-    //User.find not User.findOne
-    //user.find returns an array object
 
-    User.find({ 'email': req.user.email, verified: true },{email:1, verified:1, disabled:1, deactivated:1}, function(err,user) {
-        if(err) done(err);
+    var user = req.user;
 
-        console.log('user        ' + JSON.stringify(user));
-        console.log('typeof user ' + typeof user);
-        console.log('user length ' + user.length);
-
-        // if(!user)
-
-        if(user.length == 0) {
-            // record with email is available but verified flag is false
-            // user has to logout
-
-            console.log('Record for ' + req.user.email + ' which is verified is not found.')
-            if (req.isAuthenticated()) req.logout();
-
-            req.flash('error','User is not verified. Please check your email for instructions');
-            return res.redirect('/login');         
-        };
-
-        if(user.length == 1) {
-
-            console.log('User             ' + JSON.stringify(user)); 
-            console.log('User.disabled    ' + user[0].disabled);
-            console.log('User.deactivated ' + user[0].deactivated);
-
-            if (user[0].disabled) {
-                req.flash('error', 'This ser is disabled. Please check email for instructions.'); 
-                if (req.isAuthenticated()) req.logout();
-                return res.redirect('/login');
-            };
-
-            if (user[0].deactivated) {
-                req.flash('error', 'This user has deactivated his account.'); 
-                if (req.isAuthenticated()) req.logout();
-                return res.redirect('/login');
-            };
-
-            console.log('Passed check for verified: true, disabled: false, deactivated: false');
-            return res.redirect('/');
-        };
-
-    });
+    if (!user.verified) {
+        req.flash('error', 'User is not verified. Please check email for instructions.');
+        // is this a security hole?         
+        if (req.isAuthenticated()) req.logout();
+        
+        return res.redirect('/login');
+    }
+    if (user.disabled) {
+        req.flash('error', 'User is disabled. Please check email for instructions.'); 
+        if (req.isAuthenticated()) req.logout();
+        return res.redirect('/login');
+    }
+    if (user.deactivated) {
+        req.flash('error', 'User has deactivated this account.'); 
+        if (req.isAuthenticated()) req.logout();
+        return res.redirect('/login');
+    }
+    // OK if: {verified: true, disabled: false, deactivated: false}
+    //res.redirect('/welcome');
+    res.redirect('/');    
 };
 
 exports.welcome = function(req, res) {

@@ -10,7 +10,7 @@ module.exports = function(app, passport, auth) {
     // about is still a problem, the other menus do not show up
 
     var about = require('../app/controllers/about');
-    app.get('/about',  about.render);
+    app.get('/about', auth.requiresLogout, about.render);
 
     var contact = require('../app/controllers/contact');
     app.get('/contact', auth.requiresLogout, contact.render);

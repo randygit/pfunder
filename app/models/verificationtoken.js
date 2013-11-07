@@ -14,7 +14,7 @@ var VerificationTokenSchema = new Schema({
     _userId: {type: Schema.Types.ObjectId, required:true, ref: 'Yuser'},
     token: {type: String, required:true},
     used: {type: Boolean, required: true, default: false},
-    createdAt: {type: Date, required: true, default: Date.now, expires: '4h'}
+    createdAt: {type: Date, required: true, default: Date.now, expires: 60}
 });
 
 var uuid = require('node-uuid');
@@ -33,7 +33,7 @@ VerificationTokenSchema.methods = {
   }
 };
 
-mongoose.model('WverificationToken',VerificationTokenSchema);
+mongoose.model('VerificationToken1',VerificationTokenSchema);
 
 
 

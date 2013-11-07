@@ -77,6 +77,9 @@ module.exports = function(app, passport, auth) {
     //Verify token route from email link
     var verificationtoken = require('../app/controllers/verificationtoken');
     //app.get('/verify/:token', verificationtoken.checkNewUserToken);
+
+    // show view, ask user to click button to confirm. redirects to /verify/newuser/:token
+
     app.get('/verify/user/confirm/:token', verificationtoken.checkNewUserToken);
 
     

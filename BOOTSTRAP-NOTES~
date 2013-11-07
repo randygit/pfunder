@@ -36,11 +36,13 @@ index.jade
          
          /public/views/header.html
          /app/views/index.jade contentblock content
-            section(data-ng-view)                  <---ng-view will allow us to set up config function and access the $routeProvider
+            section(data-ng-view)                  <---NG-VIEW will allow us to set up config function and access the $routeProvider
             script(type="text/javascript").
               window.user = !{JSON.stringify(user)};
 
-        how did /public/views/index.html got into the picture? bec .config('routeProvider) has taken effect
+        how did /public/views/index.html got into the picture? 
+            bec .config('routeProvider) has taken triggered by ng-view and
+            the default in routeProvider is '/'
            
 
 
@@ -62,7 +64,7 @@ LOADING A VIEW app/views/index.jade (extends layouts/default.jade) default.jade 
 2. block content from /app/views/index.jade
 
     block content
-      section(data-ng-view)                      <-- magic happens here
+      section(data-ng-view)                      <-- turn over router control to window.app.config['$routeProvide']
       script(type="text/javascript").             
         window.user = !{JSON.stringify(user)};   <--- defines window.user
 
@@ -71,9 +73,10 @@ LOADING A VIEW app/views/index.jade (extends layouts/default.jade) default.jade 
 4. includes include/foot.jade                   <--- loads all the controllers, services plus js libraries
 
 
+PREVENT USER ACCESS INSIDE $routeParams
+1. create factory which checks if user is logged in
+/public/js/services/global.js
+2. modify $routeProvider to prevent access if user is not logged in
+/public/js/config.js
 
-
-
-     which sets the navbar of the screen
-          header.navbar.navbar-fixed-top.navbar-inverse(data-ng-include="'views/header.html'")
 

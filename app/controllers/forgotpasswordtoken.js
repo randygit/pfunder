@@ -4,8 +4,8 @@
 var mongoose = require('mongoose'),
     async = require('async'),
     _ = require('underscore'),
-    VerificationTokenModel = mongoose.model('WverificationToken'),
-    UserModel = mongoose.model('Yuser'); 
+    VerificationTokenModel = mongoose.model('VerificationToken1'),
+    UserModel = mongoose.model('User1'); 
  
 
 // app.get('/verify/forgotpassword/confirm/:token', verificationtoken.checkForgotPasswordToken);  
@@ -17,17 +17,27 @@ exports.checkForgotPasswordToken = function(req, res) {
     var token = req.params.token;
 
     VerificationTokenModel.findOne({token:token}, function(err,doc){
+
+        // if err, the token might have expired and remove from the collection automatically
+
         if (err) return done(err);
         
         //  token.used should updated below after the data entry of the new password
 
         
+        // token has expired
+        if(!doc) {
+            console.log('Token has expired. Record not found');
+            req.flash('error','Request for new password has expired. Forgot your password again? Click on the link below.');
+            return res.redirect('/login');                    
+        }
+
         if (doc) {
 
             if (doc.used) {
                 console.log('Token has already been used');
-                req.flash('error','This link is already used. Forgot your password again? Click on the link below.');
-                res.redirect('/login');
+                req.flash('error','This link has been used. Forgot your password again? Click on the link below.');
+                return res.redirect('/login');
             }
 
             console.log('About to find UserModel.findOne ' + doc._userId);
@@ -61,6 +71,7 @@ exports.checkForgotPasswordToken = function(req, res) {
  
 };
 
+// called by controller. you have to return else it will wait forever for the promise
 // app.post('/verify/password', verificationtoken.verifyForgotPassword); 
 exports.verifyForgotPassword = function(req,res) {
 
@@ -119,7 +130,7 @@ exports.verifyForgotPassword = function(req,res) {
                         }
                     });
             }); // user.save
-
+            
         
         } // end if (user)
     

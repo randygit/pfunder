@@ -4,8 +4,8 @@
 var mongoose = require('mongoose'),
     async = require('async'),
     _ = require('underscore'),
-    VerificationTokenModel = mongoose.model('WverificationToken'),
-    UserModel = mongoose.model('Yuser'); 
+    VerificationTokenModel = mongoose.model('VerificationToken1'),
+    UserModel = mongoose.model('User1'); 
  
 
 exports.checkNewUserToken = function(req, res) {
@@ -13,11 +13,18 @@ exports.checkNewUserToken = function(req, res) {
     var token = req.params.token;
 
     VerificationTokenModel.findOne({token:token}, function(err,doc){
-        if (err) return done(err);
-        
-        // check if token has expired
-        // if (doc.createdAt)
 
+        
+        if (err) return done(err);
+
+        // if !doc = record not found
+        // token might have expired and automatically removed from collection by mongo
+        if(!doc) {
+            console.log('Token record not found');
+            req.flash('error', 'Sign ups expire after 4 hours. Please sign up again.');
+            return res.redirect('/signup');
+        }
+        
         // this account has already been verified or the link has expired.
         // what happens when the link has expired and user has not verified?
         // should he create a new account using the same email address?
