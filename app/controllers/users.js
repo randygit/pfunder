@@ -5,8 +5,8 @@ var mongoose = require('mongoose'),
     async = require('async'),
     _ = require('underscore'),
     mailer = require('../../config/mailer'),
-    VerificationTokenModel = mongoose.model('VerificationToken1'),
-    User = mongoose.model('User1'); 
+    VerificationTokenModel = mongoose.model('VerificationToken5'),
+    User = mongoose.model('User5'); 
 
 /**
  * Auth callback. what is this here
@@ -49,7 +49,7 @@ exports.passwordForgotRequest = function(req,res) {
         console.log('user length ' + user.length);
 
       
-        if(user.length == 0) {
+        if(user.length === 0) {
 
             console.log(message);
             req.flash('error', 'Email is not used');
@@ -155,7 +155,7 @@ exports.create = function(req, res) {
       }
 
       
-      if (user.length == 0) {
+      if (user.length === 0) {
 
         // find a verified user with this usernam
         User.find({ 'username': req.body.username, verified: true },{username:1, verified:1}, function(err,user) {
@@ -173,7 +173,7 @@ exports.create = function(req, res) {
           }
 
           
-          if(user.length == 0) {
+          if(user.length === 0) {
 
                 // create new user
 
@@ -255,6 +255,24 @@ exports.session = function(req, res) {
     res.redirect('/');
 };
 
+
+
+exports.welcome = function(req, res) {
+    res.render('welcome', {
+        title: 'Welcome',
+        user: req.user
+    });
+};
+
+
+
+/** Logout  */
+exports.signout = function(req, res) {
+    console.log('Logging out');
+    req.logout();
+    res.redirect('/');
+};
+
 /*
 exports.session = function(req, res) {
 
@@ -317,20 +335,4 @@ exports.session = function(req, res) {
     });
 };
 */
-
-exports.welcome = function(req, res) {
-    res.render('welcome', {
-        title: 'Welcome',
-        user: req.user
-    });
-};
-
-
-
-/** Logout  */
-exports.signout = function(req, res) {
-    console.log('Logging out');
-    req.logout();
-    res.redirect('/');
-};
 

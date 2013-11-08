@@ -5,8 +5,8 @@ var mongoose = require('mongoose'),
     async = require('async'),
     _ = require('underscore'),
     mailer = require('../../config/mailer'),
-    VerificationTokenModel = mongoose.model('VerificationToken1'),
-    User = mongoose.model('User1'); 
+    VerificationTokenModel = mongoose.model('VerificationToken4'),
+    User = mongoose.model('User4'); 
 
 /**
  * Auth callback. what is this here
@@ -41,18 +41,26 @@ exports.forgot = function(req, res) {
 exports.passwordForgotRequest = function(req,res) {
     
     // check if email entered is in database
-    User.findOne({'email': req.body.email}, function(err, user) {
-        if(!user) {
+    User.find({ 'email': req.body.email, verified: true },{name:1, email:1, username:1}, function(err,user) {
+    // User.findOne({'email': req.body.email}, function(err, user) {
+        console.log('exports.passwordForgotRequest');
+        console.log('user        ' + JSON.stringify(user));
+        console.log('typeof user ' + typeof user);
+        console.log('user length ' + user.length);
 
-           
-            var message = 'Email ' + req.body.email + ' does not belong to any Patak account.';
+      
+        if(user.length === 0) {
+
             console.log(message);
             req.flash('error', 'Email is not used');
             return res.redirect('/forgot');
             
-        } else {
+        } 
+
+        if(user.length == 1){
+
             var verificationToken = new VerificationTokenModel(
-                    {_userId:user._id, purpose: 'forgot password'});
+                    {_userId:user[0]._id, purpose: 'forgot password'});
 
                 verificationToken.createVerificationToken(function(err,token) {
                     if (err) {
@@ -62,9 +70,9 @@ exports.passwordForgotRequest = function(req,res) {
                     if (token) {
                         console.log('Verification token created');
                         var message = {
-                            name: user.name,
-                            email: user.email,
-                            username: user.username,
+                            name: user[0].name,
+                            email: user[0].email,
+                            username: user[0].username,
                             subject: 'Reset your Patak password',
                             verifyURL: req.protocol + "://" + req.get('host') + "/verify/forgotpassword/confirm/" + token,
                             supportURL: req.protocol + "://" + req.get('host') + "/support/", 
@@ -147,7 +155,7 @@ exports.create = function(req, res) {
       }
 
       
-      if (user.length == 0) {
+      if (user.length === 0) {
 
         // find a verified user with this usernam
         User.find({ 'username': req.body.username, verified: true },{username:1, verified:1}, function(err,user) {
@@ -165,7 +173,7 @@ exports.create = function(req, res) {
           }
 
           
-          if(user.length == 0) {
+          if(user.length === 0) {
 
                 // create new user
 
@@ -247,6 +255,24 @@ exports.session = function(req, res) {
     res.redirect('/');
 };
 
+
+
+exports.welcome = function(req, res) {
+    res.render('welcome', {
+        title: 'Welcome',
+        user: req.user
+    });
+};
+
+
+
+/** Logout  */
+exports.signout = function(req, res) {
+    console.log('Logging out');
+    req.logout();
+    res.redirect('/');
+};
+
 /*
 exports.session = function(req, res) {
 
@@ -309,20 +335,4 @@ exports.session = function(req, res) {
     });
 };
 */
-
-exports.welcome = function(req, res) {
-    res.render('welcome', {
-        title: 'Welcome',
-        user: req.user
-    });
-};
-
-
-
-/** Logout  */
-exports.signout = function(req, res) {
-    console.log('Logging out');
-    req.logout();
-    res.redirect('/');
-};
 

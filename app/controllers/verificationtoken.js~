@@ -4,8 +4,8 @@
 var mongoose = require('mongoose'),
     async = require('async'),
     _ = require('underscore'),
-    VerificationTokenModel = mongoose.model('VerificationToken1'),
-    UserModel = mongoose.model('User1'); 
+    VerificationTokenModel = mongoose.model('VerificationToken5'),
+    UserModel = mongoose.model('User4'); 
  
 
 exports.checkNewUserToken = function(req, res) {
@@ -94,11 +94,7 @@ exports.verifyNewUser = function(req,res) {
                     }
                 });
                 if (err) done(err);
-                else {
-                    req.flash('error', 'Password changed. Please login');
-                    return res.redirect('/login');
-                
-                }
+                else return res.redirect('/login');
             });
         });
     });

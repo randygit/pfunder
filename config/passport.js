@@ -1,6 +1,6 @@
 var mongoose = require('mongoose'),
     LocalStrategy = require('passport-local').Strategy,
-    User = mongoose.model('User1'),
+    User = mongoose.model('User5'),
     config = require('./config');
 
 
@@ -29,6 +29,9 @@ module.exports = function(passport) {
             passwordField: 'password'
         },
         function(email, password, done) {
+
+            // parameters email and password, done is callback function(err,user)
+
             console.log("passport.local ");
             User.find({ 'email': email, verified: true }, 
                 function(err,user) {
@@ -39,47 +42,108 @@ module.exports = function(passport) {
 
                 console.log('User             ' + JSON.stringify(user)); 
                 console.log('User.length      ' + user.length);
-                console.log('User.email       ' + user[0].email);
-                console.log('User.disabled    ' + user[0].disabled);
-                console.log('User.deactivated ' + user[0].deactivated);
 
-                if(user.length == 0) {
+                if(user.length === 0) {
                     console.log("passport.local unknown user");
                     return done(null, false, {
                         message: 'Passport.local: Unknown user'
                     });              
                 }
                 if(user.length == 1) {
-                    console.log('passport.local check for password');
+
+                    var validUser = user[0];
+
+                    console.log('User.email         ' + validUser.email);
+                    console.log('User.disabled      ' + validUser.disabled);
+                    console.log('User.deactivated   ' + validUser.deactivated);
+                    console.log('User.loginAttempts ' + validUser.loginAttempts);
+                    console.log('User.lockUntil     ' + validUser.lockUntil);
                      
-                    // check for valid password
-                    if (!user[0].authenticate(password)) {
-                        console.log("passport.local invalid password");
-                        return done(null, false, {
-                            message: 'Passport.local: Invalid password.'
-                        });
-                    }
-                    console.log('passport.local check if disabled ' + user[0].disabled);
+                   
+    
+                    console.log('passport.local check if disabled ' + validUser.disabled);
 
                     //check if disabled is true
-                    if (user[0].disabled) {
+                    if (validUser.disabled) {
                         console.log("passport.local account is disabled");
                         return done(null, false, {
                             message: 'Passport.local: account is disabled.'
                         });
                     }
-                    console.log('passport.local check if deactivated '+ user[0].deactivated);
+                    console.log('passport.local check if deactivated '+ validUser.deactivated);
 
                     //check if deactivated is true
-                    if (user[0].deactivated) {
+                    if (validUser.deactivated) {
                         console.log("passport.local account is deactivated");
                         return done(null, false, {
                             message: 'Passport.local: account is deactivated.'
                         });
                     }
 
+                    if(validUser.isLocked) {
+                        // just increment login attempts if the account is locked
+                        console.log('passport.local user is locked');
+                        return validUser.incLoginAttempts(function(err){
+                            if(err) done(err);
+                            console.log("passport.local account is locked. max attempts");
+                            return done(null, false, {
+                                message: 'Passport.local: account is locked.'
+                            });
+                             
+                        });
+                    }
+
+                    console.log('passport.local check for password');
+
+                    // check for valid password
+                    if (!validUser.authenticate(password)) {
+                        console.log('passport.local invalid password. increment counter');
+                        // password is incorrect increment counter first
+                        validUser.incLoginAttempts(function(err){
+                            if(err) return done(err);
+                
+                        });
+          
+                        // return message of invalid password
+                        console.log("passport.local invalid password");
+                        return done(null, false, {
+                            message: 'Passport.local: Invalid password.'
+                        });
+                    }
+                    else {
+                        // password is ok
+
+                        console.log('passport.local password is ok, resetting counters');
+
+                        // if there are no locks or failed attempts, ret the user
+                        if (!validUser.loginAttempts && !validUser.lockUntil) 
+                            return done(null,validUser);
+                        // reset attempts and lock info
+
+                        console.log('passport.local reset attempts and lock info');
+
+                        var updates = {
+                            $set: { loginAttempts: 0 },
+                            $unset: { lockUntil: 1 }
+                        };
+                        console.log('passport.local about to update user record');
+
+                        return validUser.update(updates, function(err) {
+                           console.log('passport.local back from user.update');
+                            if (err) return done(err);
+                            return done(null, validUser);
+                        });
+                    }
+                   
+                } 
+                if (user.length > 1) {
+                    // kagulo na
+                    console.log("passport.local multiple records for the user exist!");
+                    return done(null, false, {
+                        message: 'Passport.local: multiple records for the user exist'
+                    });              
+                    
                 }
-                return done(null, user[0]);
             });
         }
     ));
