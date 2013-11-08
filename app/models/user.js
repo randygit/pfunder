@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
     _ = require('underscore'),
     authTypes = ['github', 'twitter', 'facebook', 'google'];
 
+var emailer = require('../controllers/formmailer'); 
 
     MAX_LOGIN_ATTEMPTS = 3;
 
@@ -131,12 +132,20 @@ UserSchema.methods = {
         var updates = {$inc: {loginAttempts: 1}};
         // lock account if we have reached max attempts and its not lock already
         if (this.loginAttempts + 1 >= MAX_LOGIN_ATTEMPTS && !this.isLocked) {
+            emailer.sendFormMail(this.name, this.email, this. username, 'Your Patak account has been suspended', 
+                null, 'maxlogin', function(error,response) {
+                    if (error) {
+                        console.log('Error in sending maxlogin email ' + response);
+                    }          
+            });
+
             updates.$set = { lockUntil: Date.now() + LOCK_TIME};
         }
-        // update user document
+
+        
         return this.update(updates,cb);
     }
 };
   
 
-mongoose.model('User5', UserSchema);
+mongoose.model('User8', UserSchema);

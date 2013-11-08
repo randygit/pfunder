@@ -1,6 +1,6 @@
 var mongoose = require('mongoose'),
     LocalStrategy = require('passport-local').Strategy,
-    User = mongoose.model('User5'),
+    User = mongoose.model('User7'),
     config = require('./config');
 
 
@@ -128,7 +128,7 @@ module.exports = function(passport) {
                         };
                         console.log('passport.local about to update user record');
 
-                        return validUser.updates(update, function(err) {
+                        return validUser.update(updates, function(err) {
                            console.log('passport.local back from user.update');
                             if (err) return done(err);
                             return done(null, validUser);

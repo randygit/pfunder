@@ -33,7 +33,7 @@ VerificationTokenSchema.methods = {
   }
 };
 
-mongoose.model('VerificationToken4',VerificationTokenSchema);
+mongoose.model('VerificationToken7',VerificationTokenSchema);
 
 
 

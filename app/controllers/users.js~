@@ -5,8 +5,8 @@ var mongoose = require('mongoose'),
     async = require('async'),
     _ = require('underscore'),
     mailer = require('../../config/mailer'),
-    VerificationTokenModel = mongoose.model('VerificationToken4'),
-    User = mongoose.model('User4'); 
+    VerificationTokenModel = mongoose.model('VerificationToken7'),
+    User = mongoose.model('User7'); 
 
 /**
  * Auth callback. what is this here

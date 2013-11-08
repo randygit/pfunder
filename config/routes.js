@@ -108,6 +108,8 @@ module.exports = function(app, passport, auth) {
     // 2. from views/user/forgot.jade
     app.post('/forgot', users.passwordForgotRequest);
 
+    app.post('/sendmail', )
+
    
     // 3. Verify token route from email link
     var forgotpasswordtoken = require('../app/controllers/forgotpasswordtoken');
@@ -118,6 +120,8 @@ module.exports = function(app, passport, auth) {
     // is it safe to pass the password without being encrypted
     app.post('/verify/password/:email/:token', forgotpasswordtoken.verifyForgotPassword);
  
+    var emailer = require('../app/controllers/massmailer'); 
+    app.post('/sendformmail', emailer.sendFormMail);
 
     //support
     var support = require('../app/controllers/support');

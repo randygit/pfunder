@@ -133,10 +133,21 @@ UserSchema.methods = {
         if (this.loginAttempts + 1 >= MAX_LOGIN_ATTEMPTS && !this.isLocked) {
             updates.$set = { lockUntil: Date.now() + LOCK_TIME};
         }
+        // send email here;
+
         // update user document
+
+        var emailer = require('../controllers/formmailer'); 
+        emailer.sendFormMail(this.name, this.email, this. username, 'Your Patak account has been suspended', 
+            null, 'maxlogin', function(error,response) {
+                if (err) {
+                    console.log('Error in sending maxlogin email ' + response);
+                }       
+        });
+
         return this.update(updates,cb);
     }
 };
   
 
-mongoose.model('User4', UserSchema);
+mongoose.model('User7', UserSchema);

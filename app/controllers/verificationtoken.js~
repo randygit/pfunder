@@ -4,8 +4,8 @@
 var mongoose = require('mongoose'),
     async = require('async'),
     _ = require('underscore'),
-    VerificationTokenModel = mongoose.model('VerificationToken5'),
-    UserModel = mongoose.model('User4'); 
+    VerificationTokenModel = mongoose.model('VerificationToken7'),
+    UserModel = mongoose.model('User7'); 
  
 
 exports.checkNewUserToken = function(req, res) {
