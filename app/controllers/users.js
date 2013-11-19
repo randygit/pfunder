@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
     _ = require('underscore'),
     mailer = require('../../config/mailer'),
     VerificationTokenModel = mongoose.model('VerificationToken8'),
+
     User = mongoose.model('User8'); 
 
 /**
@@ -51,7 +52,7 @@ exports.passwordForgotRequest = function(req,res) {
       
         if(user.length === 0) {
 
-            console.log(message);
+            
             req.flash('error', 'Email is not used');
             return res.redirect('/forgot');
             
@@ -264,8 +265,6 @@ exports.welcome = function(req, res) {
     });
 };
 
-
-
 /** Logout  */
 exports.signout = function(req, res) {
     console.log('Logging out');
@@ -273,66 +272,5 @@ exports.signout = function(req, res) {
     res.redirect('/');
 };
 
-/*
-exports.session = function(req, res) {
 
-    // user has successfully logged in by passport.local
-    // must reverse if conditions below are true
-    // check if user is verified, account is disabled or account is deactivated
-    // if yes, redirect back to /login
-
-    // after successful login validation using passport
-    // the program still has to check if it is verified
-    console.log('user.sessions. req.user.email is ' + req.user.email);
-    console.log('user.sessions. req.isAuthenticated ' + req.isAuthenticated());
-
-    
-    //User.find not User.findOne
-    //user.find returns an array object
-
-    User.find({ 'email': req.user.email, verified: true },{email:1, verified:1, disabled:1, deactivated:1}, function(err,user) {
-        if(err) done(err);
-
-        console.log('user        ' + JSON.stringify(user));
-        console.log('typeof user ' + typeof user);
-        console.log('user length ' + user.length);
-
-        // if(!user)
-
-        if(user.length == 0) {
-            // record with email is available but verified flag is false
-            // user has to logout
-
-            console.log('Record for ' + req.user.email + ' which is verified is not found.')
-            if (req.isAuthenticated()) req.logout();
-
-            req.flash('error','User is not verified. Please check your email for instructions');
-            return res.redirect('/login');         
-        };
-
-        if(user.length == 1) {
-
-            console.log('User             ' + JSON.stringify(user)); 
-            console.log('User.disabled    ' + user[0].disabled);
-            console.log('User.deactivated ' + user[0].deactivated);
-
-            if (user[0].disabled) {
-                req.flash('error', 'This ser is disabled. Please check email for instructions.'); 
-                if (req.isAuthenticated()) req.logout();
-                return res.redirect('/login');
-            };
-
-            if (user[0].deactivated) {
-                req.flash('error', 'This user has deactivated his account.'); 
-                if (req.isAuthenticated()) req.logout();
-                return res.redirect('/login');
-            };
-
-            console.log('Passed check for verified: true, disabled: false, deactivated: false');
-            return res.redirect('/');
-        };
-
-    });
-};
-*/
 

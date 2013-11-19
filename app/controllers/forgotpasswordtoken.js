@@ -89,12 +89,15 @@ exports.verifyForgotPassword = function(req,res) {
         if (err) return done(err);
 
         if (user.length == 1) {
-            console.log('User name from mongo:' + user[0].username);
-            user[0].password = req.body.password;
-            user[0].save(function(err){
+
+            validUser = user[0];
+
+            console.log('User name from mongo:' + validUser.username);
+            validUser.password = req.body.password;
+            validUser.save(function(err){
                 if (err) done(err);
                 
-                // update forgot.token.used = true;
+                    // update forgot.token.used = true;
                     VerificationTokenModel.findOne({token:req.params.token}, function(err,doc){
                         if (err) return done(err);
                         if (doc) {
@@ -106,12 +109,39 @@ exports.verifyForgotPassword = function(req,res) {
                 
                     });
 
+                    /*
+                    var email = {
+                        name:      validUser.name,
+                        email:     validUser.email,
+                        username:  validUser.username,
+                        subject:   'Your Patak password has been changed',
+                        tokenURL:  '',
+                        formEmail: 'passchange'
+               
+                    };
+
+  
+                    res.redirect()
+                    $http.post('/sendformmail', email )
+                    .success(function(data) {
+                        console.log("Success. back from sendmail " + email.username);
+                        res.json(response);
+                    })
+                    .error(function(data){ 
+                         console.log("Error. back from sendmail " + email.username);
+                         req.flash('error', 'Unable to send verification email ' + error.message);
+                         res.json(response);
+
+                    }); 
+                    */
+
+                    
                     console.log('user password updated');
                     // send thank you email
                     var message = {
-                        name: user[0].name,
-                        email: user[0].email,
-                        username: user[0].username,
+                        name: validUser.name,
+                        email: validUser.email,
+                        username: validUser.username,
                         subject: 'Your Patak password has been changed',
                         supportURL: req.protocol + "://" + req.get('host') + "/support",
                         notMyAccountURL: req.protocol + "://" + req.get('host') + "/support/notmyaccount",
@@ -129,6 +159,8 @@ exports.verifyForgotPassword = function(req,res) {
                           res.json(response);
                         }
                     });
+                    
+
             }); // user.save
             
         

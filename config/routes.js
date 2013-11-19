@@ -2,13 +2,7 @@ var async = require('async');
 
 module.exports = function(app, passport, auth) {
 
-    //Front End Routes
-    // delete this later plus the controller
-    //var splash = require('../app/controllers/splash')   
-    //app.get('/splash', splash.render)
-
-    // about is still a problem, the other menus do not show up
-
+    //Front End Routes  
     var about = require('../app/controllers/about');
     app.get('/about', auth.requiresLogout, about.render);
 
@@ -108,9 +102,6 @@ module.exports = function(app, passport, auth) {
     // 2. from views/user/forgot.jade
     app.post('/forgot', users.passwordForgotRequest);
 
-    app.post('/sendmail', )
-
-   
     // 3. Verify token route from email link
     var forgotpasswordtoken = require('../app/controllers/forgotpasswordtoken');
     app.get('/verify/forgotpassword/confirm/:token', forgotpasswordtoken.checkForgotPasswordToken);
@@ -120,8 +111,10 @@ module.exports = function(app, passport, auth) {
     // is it safe to pass the password without being encrypted
     app.post('/verify/password/:email/:token', forgotpasswordtoken.verifyForgotPassword);
  
+ 
     var emailer = require('../app/controllers/massmailer'); 
     app.post('/sendformmail', emailer.sendFormMail);
+ 
 
     //support
     var support = require('../app/controllers/support');

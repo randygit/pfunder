@@ -6,25 +6,25 @@ exports.sendFormMail = function(req,res) {
     console.log('formMailer ' + formEmail); 
     
     var message = {
-        name: req.body.user.name,
-        email: req.body.user.email,
-        username: req.body.user.username,
+        name: req.body.name,
+        email: req.body.email,
+        username: req.body.username,
         subject: req.body.subject,
         tokenURL: req.body.tokenURL,
-        supportURL:      'http' + "://" + 'localhost:3000' + "/support",
-        notMyAccountURL: 'http' + "://" + 'localhost:3000' + "/support/notmyaccount",
-        compromisedURL:  'http' + "://" + 'localhost:3000' + "/support/compromised"
+        supportURL: req.protocol + "://" + req.get('host') + "/support",
+        notMyAccountURL: req.protocol + "://" + req.get('host') + "/support/notmyaccount",
+        compromisedURL: req.protocol + "://" + req.get('host') + "/support/compromised"
     };
 
-    mailer.sendTemplate(formEmail, message, function(error, response, html, text) { 
+    mailer.sendTemplate(req.body.formEmail, message, function(error, response, html, text) { 
         if (error) {
             console.log("Error in sending " + formEmail + " " + response);
-            req.flash('error', 'Unable to send verification email ' + error.message);
+            done(error);
         }        
         else {
-            console.log("Success in sending " + formEmail + " " + response);          
+            console.log("Success in sending " + formEmail + " " + response);
+            res.json(response);         
         }
-        res.json(error,response);
     });
 };
  

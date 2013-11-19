@@ -1,5 +1,5 @@
 {
-    "db": "mongodb://localhost/patak4-dev",
+    "db": "mongodb://mongorandy:default1@ds053858.mongolab.com:53858/patak4-dev",
     "app": {
         "name": "Patak using MEAN"
     }
