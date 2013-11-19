@@ -1,4 +1,4 @@
-var bower = require('bower'),
+var bower = require('node_modules/bower/bin/bower'),
     path = require('path');
 
 bower.commands
