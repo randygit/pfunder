@@ -32,7 +32,7 @@ module.exports = function(app, passport) {
     }));
 
     //Setting the fav icon and static folder
-    app.use(express.favicon());
+    app.use(express.favicon(config.root + '/public/img/icons/favicon.ico'));
     app.use(express.static(config.root + '/public'));
     app.use('/lib', express.static(config.root + '/app/components'));
 
