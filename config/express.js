@@ -32,7 +32,8 @@ module.exports = function(app, passport) {
     }));
 
     //Setting the fav icon and static folder
-    app.use(express.favicon(config.root + '/public/img/icons/favicon.ico'));
+    //app.use(express.favicon(config.root + '/public/img/icons/favicon.ico'));
+    app.use(express.favicon());
     app.use(express.static(config.root + '/public'));
     app.use('/lib', express.static(config.root + '/app/components'));
 
@@ -65,24 +66,7 @@ module.exports = function(app, passport) {
           res.locals.token = req.csrfToken();
           next();
         });
-     
-
        
-        /*
-        //simplified CSRF as tested in snippets/csrf-test
-        //either way works.
-        
-         
-        app.use(express.csrf());
-        app.use(function(req, res, next) {
-          //deprecated?, either way it works
-          res.locals.token = req.session._csrf;
-          // res.locals.token = req.csrfToken();
-          next();
-        });
-        */
-                     
-
         
         //express/mongo session storage
         app.use(express.session({
