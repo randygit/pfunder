@@ -1,7 +1,7 @@
 {
   "name": "mean",
-  "description": "MEAN - A Modern Stack: MongoDB, ExpressJS, AngularJS, NodeJS. (BONUS: Passport User Support).",
-  "version": "1.0.0",
+  "description": "PATAK - Droplets using MEAN.",
+  "version": "1.0.0-1",
   "private": false,
   "author": "Randy Gonzales",
   "repository": {
@@ -13,9 +13,9 @@
     "npm": "1.2.x"
   },
   "scripts": {
+    "postinstall": "node bower_install.js"
     "start": "node node_modules/grunt-cli/bin/grunt",
-    "test": "node node_modules/grunt-cli/bin/grunt test",
-    "postinstall": "./node_modules/bower/bin/bower install"
+    "test": "node node_modules/grunt-cli/bin/grunt test"
   },
   "dependencies": {
     "express": "latest",
@@ -47,5 +47,6 @@
     "assemble-less": "~0.5.3",
     "grunt": "~0.4.1",
     "grunt-contrib-less": "~0.8.1"
-  }
+  },
+  "subdomain": "randygit-patak-mean"
 }

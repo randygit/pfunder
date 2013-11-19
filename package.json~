@@ -1,18 +1,20 @@
 {
   "name": "mean",
-  "description": "MEAN - A Modern Stack: MongoDB, ExpressJS, AngularJS, NodeJS. (BONUS: Passport User Support).",
-  "version": "1.0.0",
+  "description": "PATAK - Droplets using MEAN.",
+  "version": "1.0.0-1",
   "private": false,
-  "author": "Amos Haviv",
+  "author": "Randy Gonzales",
   "repository": {
     "type": "git",
-    "url": "https://github.com/linnovate/mean.git"
+    "url": "https://github.com/randygit/mean.git"
   },
   "engines": {
     "node": "0.10.x",
     "npm": "1.2.x"
   },
   "scripts": {
+    "predeploy": "echo This will run before deploying the app",
+    "postdeploy": "node bower_install.js",
     "start": "node node_modules/grunt-cli/bin/grunt",
     "test": "node node_modules/grunt-cli/bin/grunt test"
   },
@@ -24,21 +26,20 @@
     "connect-flash": "latest",
     "passport": "latest",
     "passport-local": "latest",
-    "passport-facebook": "latest",
-    "passport-twitter": "latest",
-    "passport-github": "latest",
-    "passport-google-oauth": "latest",
     "underscore": "latest",
     "async": "latest",
     "view-helpers": "latest",
     "forever": "latest",
     "grunt": "latest",
-    "grunt-cli": "latest"
+    "grunt-cli": "latest",
+    "nodemailer": "~0.5.3",
+    "node-uuid": "~1.4.1",
+    "email-templates": "~0.1.0",
+    "ejs": "~0.8.4"
   },
   "devDependencies": {
     "supertest": "latest",
     "should": "latest",
-    "pwd": "git://github.com/jlubawy/node-pwd.git",
     "grunt-contrib-watch": "latest",
     "grunt-contrib-jshint": "latest",
     "grunt-nodemon": "latest",
@@ -47,5 +48,6 @@
     "assemble-less": "~0.5.3",
     "grunt": "~0.4.1",
     "grunt-contrib-less": "~0.8.1"
-  }
+  },
+  "subdomain": "randygit-patak-mean"
 }
