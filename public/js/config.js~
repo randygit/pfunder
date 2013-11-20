@@ -1,4 +1,6 @@
-//Setting up route
+//Setting up route 
+// added check to prevent users from accessing unauthorized areas
+
 window.app.config(['$routeProvider',
     function($routeProvider, $locationProvider) {
 
@@ -22,6 +24,9 @@ window.app.config(['$routeProvider',
         }).
         when('/welcome', {
             templateUrl: 'views/welcome.html'
+        }).
+        when('/profile', {
+            templateUrl: 'views/profile.html'
         }).
         when('/', {
             templateUrl: 'views/index.html'

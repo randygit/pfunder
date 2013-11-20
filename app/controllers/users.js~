@@ -50,9 +50,9 @@ exports.passwordForgotRequest = function(req,res) {
         console.log('user length ' + user.length);
 
       
-        if(user.length == 0) {
+        if(user.length === 0) {
 
-            console.log(message);
+            
             req.flash('error', 'Email is not used');
             return res.redirect('/forgot');
             
@@ -261,6 +261,13 @@ exports.session = function(req, res) {
 exports.welcome = function(req, res) {
     res.render('welcome', {
         title: 'Welcome',
+        user: req.user
+    });
+};
+
+exports.profile = function(req, res) {
+    res.render('users/profile', {
+        title: 'Profile',
         user: req.user
     });
 };

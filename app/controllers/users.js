@@ -265,6 +265,7 @@ exports.welcome = function(req, res) {
     });
 };
 
+
 /** Logout  */
 exports.signout = function(req, res) {
     console.log('Logging out');

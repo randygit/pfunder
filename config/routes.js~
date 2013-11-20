@@ -2,13 +2,7 @@ var async = require('async');
 
 module.exports = function(app, passport, auth) {
 
-    //Front End Routes
-    // delete this later plus the controller
-    //var splash = require('../app/controllers/splash')   
-    //app.get('/splash', splash.render)
-
-    // about is still a problem, the other menus do not show up
-
+    //Front End Routes  
     var about = require('../app/controllers/about');
     app.get('/about', auth.requiresLogout, about.render);
 
@@ -51,6 +45,7 @@ module.exports = function(app, passport, auth) {
 
     
     app.get('/welcome', auth.requiresLogin, users.welcome);
+    app.get('/profile', auth.requiresLogin, users.profile);
 
     
   

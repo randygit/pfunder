@@ -1,0 +1,71 @@
+extends ../layouts/default
+
+block head
+  title Profile
+
+block neck
+    link(rel='stylesheet', href='/css/contact.css') 
+
+block feet
+
+block content
+  // init window.user for menu to work properly
+
+  script(type="text/javascript").
+   window.user = !{JSON.stringify(user)};
+
+  // this function overrides the ng-view function
+  // when clicking on this while logged in
+  // routeProvider no longers work
+
+  // have to click home to reinit ng-view
+
+  div(data-ng-controller="AboutController")
+    
+    div.col-sm-4
+      div.container
+        div.row
+
+          br
+          br
+          div.panel.panel-default
+            div.panel-body
+              h3 user.name
+              p View my profile page
+       
+         ul.nav.nav-pills-nav-stacked
+            li.active
+              a(href='/account') Account
+            li.divider
+            li
+              a(href='/editprofile') Profile
+            li.divider
+            li
+              a(href='/resetpassword') Pasword 
+            li.divider
+            li
+              a(href='/mobile') Mobile
+            li.divider
+
+    div.col-sm-8.special 
+      div.container
+        div.row
+          br
+          br
+          div.panel.panel-default
+            div.panel-body
+              h3 Profile 
+              .container
+                form.form-horizontal(name="form", method="post", action="/signup", novalidate)
+                  div.form-group
+                    label.col-sm-2.control-label(for="name") Name:
+                    input.form-control(type="text", name="name", id="name",  required, ng-model="name", autofocus, placeholder="Enter Full name")
+                  div.form-group
+                    label.col-sm-2.control-label(for="name") Location:
+                    input.form-control(type="text", name="name", id="name",  required, ng-model="name", autofocus, placeholder="Enter Location")
+
+                  div.form-group
+                    label.col-sm-2.control-label(for="name") Website:
+                    input.form-control(type="text", name="name", id="name",  required, ng-model="name", autofocus, placeholder="Enter Website")
+           
+

@@ -9,6 +9,9 @@ module.exports = function(app, passport, auth) {
     var contact = require('../app/controllers/contact');
     app.get('/contact', auth.requiresLogout, contact.render);
 
+    var profile = require('../app/controllers/profile');
+    app.get('/profile', auth.requiresLogin, profile.view);
+
     //User Routes
     var users = require('../app/controllers/users');
 
