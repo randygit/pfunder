@@ -38,5 +38,16 @@
     "ejs": "~0.8.4",
     "bower": "~1.2.7"
   },
-  "subdomain": "randygit-patak-mean"
+  "devDependencies": {
+    "supertest": "latest",
+    "should": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-contrib-jshint": "latest",
+    "grunt-nodemon": "latest",
+    "grunt-concurrent": "latest",
+    "grunt-mocha-test": "latest",
+    "assemble-less": "~0.5.3",
+    "grunt": "~0.4.1",
+    "grunt-contrib-less": "~0.8.1"
+  } 
 }
