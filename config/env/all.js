@@ -7,10 +7,10 @@ module.exports = {
     db: process.env.MONGOHQ_URL,
     mailer: {
       auth: {
-        user: 'mintlifesavers@gmail.com',
-        pass: '19mint12'
+        user: 'patakfund@gmail.com',
+        pass: '19patak08'
       
       },
-      defaultFromAddress: 'noreply@patak.com'
+      defaultFromAddress: 'noreply@patakfund.com'
     }
 }
