@@ -14,6 +14,7 @@
   },
   "scripts": {
     "postinstall": "node bower_install.js",
+    "postinstall": "node node_modules/grunt-cli/bin/grunt build",
     "start": "node node_modules/grunt-cli/bin/grunt",
     "test": "node node_modules/grunt-cli/bin/grunt test"
   },
