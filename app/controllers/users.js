@@ -241,6 +241,80 @@ exports.create = function(req, res) {
     });
 };
 
+// /app/view/profile/profile.jade as called by main menu
+// called by controller. you have to return else it will wait forever
+// /public/js/controllers/profileFormController
+//  $scope.updateProfile
+// app.post('/user/profile', users.updateProfile); 
+
+exports.getProfile = function(req,res) {
+
+    // if part of the URL, use req.params.email    
+    console.log('Inside updateProfile req.params.email    :' + req.params.email); 
+ 
+    var profile = {};
+
+    // find user for given email
+    
+    // User.findOne({email: req.params.email}, function(err,user) {
+    User.find({ 'email': req.params.email, verified: true }, function(err,user) {
+        if (err) return done(err);
+
+        if (user.length == 1) {
+
+            validUser = user[0];
+
+            console.log('User name from mongo:' + validUser.username);
+            var profile = {
+                name: validUser.name,
+                location: 'Philippines',
+                website: 'xx.com'
+            };
+
+            res.json(profile);
+        
+        } // end if (user)
+    
+    }); // end User.findOne
+    
+};
+
+exports.updateProfile = function(req,res) {
+
+    // if part of the URL, use req.params.email    
+    console.log('Inside updateProfile req.params.email    :' + req.params.email); 
+
+    // if a parameter, use req.body.name/location/website
+    console.log('Inside verifyForgotPassword req.body.password :' + req.body.name);  
+
+    // find user for given email
+    
+    // User.findOne({email: req.params.email}, function(err,user) {
+    User.find({ 'email': req.params.email, verified: true }, function(err,user) {
+        if (err) return done(err);
+
+        if (user.length == 1) {
+
+            validUser = user[0];
+
+            console.log('User name from mongo:' + validUser.username);
+            validUser.name = req.body.name;
+            validUser.save(function(err){
+                if (err) done(err);
+                else {
+                    console.log("Verification email sent for delivery");
+                    // use this to return to controller
+                    res.json(200);
+                }
+            }); // user.save
+            
+        
+        } // end if (user)
+    
+    }); // end User.findOne
+    
+};
+
 // LOGIN PROCESS: exports.login, exports.session and exports.welcome
 
 exports.login = function(req, res) {

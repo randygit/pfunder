@@ -26,7 +26,10 @@ module.exports = function(app, passport, auth) {
     app.get('/reset',   auth.requiresLogin, users.reset);    
     app.get('/signout', auth.requiresLogin, users.signout);
 
-    
+    // edit user profile
+
+    app.get('/user/profile/:email', users.getProfile);
+    app.post('/user/profile/:email', users.updateProfile);
 
     // CONTACT MESSAGE
     // 1. app.get('/contact', auth.requiresLogout, contact.render);

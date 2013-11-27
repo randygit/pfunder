@@ -20,55 +20,63 @@ block content
 
   // have to click home to reinit ng-view
 
-  div(data-ng-controller="AboutController")
+  
+  div.container
+    div(data-ng-controller="ProfileFormController", data-ng-init="getProfile()")
     
-    div.col-sm-4
-      div.container
-        div.row
+      div.col-sm-4
+        div.container
+          div.row
 
-          br
-          br
-          div.panel.panel-default
-            div.panel-body
-              h3 user.name
-              p View my profile page
-       
-         ul.nav.nav-pills-nav-stacked
-            li.active
-              a(href='/account') Account
-            li.divider
-            li
-              a(href='/editprofile') Profile
-            li.divider
-            li
-              a(href='/resetpassword') Pasword 
-            li.divider
-            li
-              a(href='/mobile') Mobile
-            li.divider
+            br
+            br
+            div.panel.panel-default
+              div.panel-body
+                h3  {{global.user.name}}
+                p View my profile page
+         
+           ul.nav.nav-pills-nav-stacked
+              li.active
+                a(href='/account') Account
+              li.divider
+              li
+                a(href='/editprofile') Profile
+              li.divider
+              li
+                a(href='/resetpassword') Pasword 
+              li.divider
+              li
+                a(href='/mobile') Mobile
+              li.divider
 
-    div.col-sm-8.special 
-      div.container
-        div.row
-          br
-          br
-          div.panel.panel-default
-            div.panel-body
-              h3 Profile 
-              .container
-                form.form-horizontal(name="form", method="post", action="/signup", novalidate)
-                  div.form-group
-                    label.col-sm-2.control-label(for="name") Name:
-                    .col-sm-6
-                    input.form-control(type="text", name="name", id="name",  required, ng-model="name", autofocus, placeholder="Enter Full name")
-                  div.form-group
-                    label.col-sm-2.control-label(for="name") Location:
-                    .col-sm-6
-                    input.form-control(type="text", name="name", id="name",  required, ng-model="name", autofocus, placeholder="Enter Location")
+      div.col-sm-8.special 
+        div.container
+          //moved so {{user.name}} will appear
+          //div(data-ng-controller="ProfileFormController", data-ng-init="getProfile()")
 
-                  div.form-group
-                    label.col-sm-2.control-label(for="name") Website:
-                    .col-sm-6
-                    input.form-control(type="text", name="name", id="name",  required, ng-model="name", autofocus, placeholder="Enter Website")
+          div.row
+            br
+            br
+            div.panel.panel-default
+              div.panel-body
+                h3 Profile 
+                .container
+                  form.form-horizontal(name="form", method="post",  novalidate)
+                    div.form-group
+                      label.col-sm-2.control-label(for="name") Name:
+                      .col-sm-6
+                      input.form-control(type="text", name="name", id="name",  required, ng-model="profile.name",  autofocus)
+                    div.form-group
+                      label.col-sm-2.control-label(for="name") Location:
+                      .col-sm-6
+                      input.form-control(type="text", name="name", id="name",  required, ng-model="profile.location", autofocus)
+
+                    div.form-group
+                      label.col-sm-2.control-label(for="name") Website:
+                      .col-sm-6
+                      input.form-control(type="text", name="name", id="name",  required, ng-model="profile.website", autofocus)
+
+                    // submit here
+                    input.btn.btn-primary(type="submit", value="Save", data-ng-click="updateProfile()")
            
 
