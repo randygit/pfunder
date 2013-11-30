@@ -34,20 +34,21 @@ block content
               div.panel-body
                 h3  {{global.user.name}}
                 p View my profile page
+          div.row
          
-           ul.nav.nav-pills-nav-stacked
-              li.active
-                a(href='/account') Account
-              li.divider
-              li
-                a(href='/editprofile') Profile
-              li.divider
-              li
-                a(href='/resetpassword') Pasword 
-              li.divider
-              li
-                a(href='/mobile') Mobile
-              li.divider
+             ul.nav.nav-pills.nav-stacked
+                li.active
+                  a(href='/account') Account
+                li.divider
+                li
+                  a(href='/profile') Profile
+                li.divider
+                li
+                  a(href='/resetpassword') Pasword 
+                li.divider
+                li
+                  a(href='/mobile') Mobile
+                li.divider
 
       div.col-sm-8.special 
         div.container
@@ -77,6 +78,6 @@ block content
                       input.form-control(type="text", name="name", id="name",  required, ng-model="profile.website", autofocus)
 
                     // submit here
-                    input.btn.btn-primary(type="submit", value="Save", data-ng-click="updateProfile()")
+                    input.btn.btn-primary(type="submit", value="Save Changes", data-ng-click="updateProfile()")
            
 

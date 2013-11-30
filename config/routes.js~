@@ -28,6 +28,7 @@ module.exports = function(app, passport, auth) {
 
     // edit user profile
 
+    app.get('/user/profile/:email', users.getProfile);
     app.post('/user/profile/:email', users.updateProfile);
 
     // CONTACT MESSAGE

@@ -11,6 +11,8 @@ module.exports = function(app, passport, auth) {
 
     var profile = require('../app/controllers/profile');
     app.get('/profile', auth.requiresLogin, profile.view);
+    app.get('/mobile', auth.requiresLogin, profile.mobile);
+
 
     //User Routes
     var users = require('../app/controllers/users');

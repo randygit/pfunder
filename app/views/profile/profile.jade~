@@ -34,20 +34,21 @@ block content
               div.panel-body
                 h3  {{global.user.name}}
                 p View my profile page
+          div.row
          
-           ul.nav.nav-pills-nav-stacked
-              li.active
-                a(href='/account') Account
-              li.divider
-              li
-                a(href='/editprofile') Profile
-              li.divider
-              li
-                a(href='/resetpassword') Pasword 
-              li.divider
-              li
-                a(href='/mobile') Mobile
-              li.divider
+             ul.nav.nav-pills.nav-stacked
+                li.active
+                  a(href='/account') Account
+                li.divider
+                li
+                  a(href='/editprofile') Profile
+                li.divider
+                li
+                  a(href='/resetpassword') Pasword 
+                li.divider
+                li
+                  a(href='/mobile') Mobile
+                li.divider
 
       div.col-sm-8.special 
         div.container
@@ -65,18 +66,18 @@ block content
                     div.form-group
                       label.col-sm-2.control-label(for="name") Name:
                       .col-sm-6
-                      input.form-control(type="text", name="name", id="name",  required, ng-model="profile.name",  autofocus, placeholder="Enter Full name")
+                      input.form-control(type="text", name="name", id="name",  required, ng-model="profile.name",  autofocus)
                     div.form-group
                       label.col-sm-2.control-label(for="name") Location:
                       .col-sm-6
-                      input.form-control(type="text", name="name", id="name",  required, ng-model="profile.location", autofocus, placeholder="Enter Location")
+                      input.form-control(type="text", name="name", id="name",  required, ng-model="profile.location", autofocus)
 
                     div.form-group
                       label.col-sm-2.control-label(for="name") Website:
                       .col-sm-6
-                      input.form-control(type="text", name="name", id="name",  required, ng-model="profile.website", autofocus, placeholder="Enter Website")
+                      input.form-control(type="text", name="name", id="name",  required, ng-model="profile.website", autofocus)
 
                     // submit here
-                    input.btn.btn-primary(type="submit", value="Save", data-ng-click="updateProfile()")
+                    input.btn.btn-primary(type="submit", value="Save Changes", data-ng-click="updateProfile()")
            
 

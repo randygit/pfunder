@@ -12,7 +12,7 @@ var async = require('async'),
     mailer = require('../../config/mailer');
 
 
-exports.profile = function(req, res) {
+exports.view = function(req, res) {
     console.log('profile');
 
     res.render('profile/profile', {
