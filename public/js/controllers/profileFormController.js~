@@ -11,21 +11,7 @@ angular.module('mean.system').controller('ProfileFormController', ['$scope', '$h
 
         $scope.window = $window;
 
-        /*
-        // User info are stored in the Global variable user which has the same schema as mongoose User
-        // later http.get('/user/profile')
-
-        
-        var profile = {
-          name: Global.user.name,
-          location: 'Philippines',
-          website: 'xx.com'
-        };
-
-        $scope.profile = profile;
-
-        // scope could only handle an object, not individual variables like $scope.profile.name = Global.user.name
-      */
+       
 
       $http.get('/user/profile/' + Global.user.email)
             .success(function(profile) {
@@ -34,15 +20,9 @@ angular.module('mean.system').controller('ProfileFormController', ['$scope', '$h
           })
           .error(function(data){
               console.log("error in getting profile");
-
-                  
-                  $scope.window.location = '/';
+              $scope.window.location = '/';
                 
         }); 
-
-
-        
-    
     };
     
     

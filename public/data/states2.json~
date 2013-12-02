@@ -1,0 +1,5 @@
+[
+    {"name":"Alabama", "capital":"Montgomery","abbreviation":"AL"},
+    {"name":"Alaska", "capital":"Juneau","abbreviation":"AK"},
+    {"name":"Arizona", "capital":"Phoenix","abbreviation":"AZ"},
+    {"name":"Arkansas", "capital":"Little Rock","abbreviation":"AR"}

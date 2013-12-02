@@ -13,7 +13,6 @@
     "npm": "1.2.30"
   },
   "scripts": {
-    "postinstall": "node bower_install.js",
     "postinstall": "node node_modules/grunt-cli/bin/grunt build",
     "start": "node node_modules/grunt-cli/bin/grunt",
     "test": "node node_modules/grunt-cli/bin/grunt test"
@@ -36,7 +35,8 @@
     "node-uuid": "~1.4.1",
     "email-templates": "~0.1.0",
     "ejs": "~0.8.4",
-    "bower": "~1.2.7"
+    "bower": "~1.2.7",
+    "cors": "~2.1.0"
   },
   "devDependencies": {
     "supertest": "latest",
@@ -49,5 +49,5 @@
     "assemble-less": "~0.5.3",
     "grunt": "~0.4.1",
     "grunt-contrib-less": "~0.8.1"
-  } 
+  }
 }

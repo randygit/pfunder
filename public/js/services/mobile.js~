@@ -1,17 +1,9 @@
 
 //Articles service used for articles REST endpoint
-angular.module('mean.system')
-    .factory("States", ['$resource', function($resource) {
-        return $resource('states.json', {}, {
-            get: {method: 'GET', isArray:true}
-        });
-    .factory("State2", ['$resource', function($http) {
-        $http({method: 'GET', url:'states.json'}).
-            success(function(data, status, headers, config) {
-                return data;
-            }).
-            error(function(data,status,headers,config) {
-                return status;
-            });
+angular.module('mean.system').factory("States", ['$resource', function($resource) {
+    return $resource('states.json', {}, {
+        get: {method: 'GET', isArray:true}
     });
 }]);
+
+

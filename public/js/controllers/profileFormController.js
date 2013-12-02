@@ -12,17 +12,17 @@ angular.module('mean.system').controller('ProfileFormController', ['$scope', '$h
         $scope.window = $window;
 
        
-
-      $http.get('/user/profile/' + Global.user.email)
-            .success(function(profile) {
-                $scope.profile = profile;
-              
-          })
-          .error(function(data){
-              console.log("error in getting profile");
-              $scope.window.location = '/';
+        // initialize values from mongo
+        $http.get('/user/profile/' + Global.user.email)
+              .success(function(profile) {
+                  $scope.profile = profile;
                 
-        }); 
+            })
+            .error(function(data){
+                console.log("error in getting profile");
+                $scope.window.location = '/';
+                  
+          }); 
     };
     
     

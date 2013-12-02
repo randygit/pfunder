@@ -1,0 +1,6 @@
+var myApp = angular.module('mean.system',['myAppApiService']);
+
+myApp.config(['$httpProvider', function($httpProvider){
+    $httpProvider.defaults.useXDomain = true;
+}]);    
+ 
