@@ -15,7 +15,7 @@ angular.module('mean.system').controller('AccountFormController', ['$scope', '$h
         });
         
 
-       
+       /*
        
         $scope.account = {};
 
@@ -23,8 +23,19 @@ angular.module('mean.system').controller('AccountFormController', ['$scope', '$h
         $scope.account.username = "randygit";
         $scope.account.language = "ms";
         $scope.account.timezone = "Pacific-Tarawa";
+        */
 
-      
+        // initialize values from mongo
+        $http.get('/user/account/' + Global.user.email)
+              .success(function(account) {
+                  $scope.account = account;
+                
+            })
+            .error(function(data){
+                console.log("error in getting account");
+                $scope.window.location = '/';
+                  
+        }); 
   
         $scope.global = Global;  
 
@@ -65,11 +76,11 @@ angular.module('mean.system').controller('AccountFormController', ['$scope', '$h
 
         // validation for unique username could also be here
     
-        /*
+       
         // must pass $scope.reset and not individual values else error 500
-        console.log("about to $http.post /user/profile");
-
-        $http.post('/user/profile/' + Global.user.email, $scope.mobile)
+        console.log("about to $http.post /user/account");
+        /*
+        $http.post('/user/account/' + Global.user.email, $scope.account)
             .success(function(data) {
                 console.log("Success. back from /user/profile");
 

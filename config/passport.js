@@ -1,6 +1,6 @@
 var mongoose = require('mongoose'),
     LocalStrategy = require('passport-local').Strategy,
-    User = mongoose.model('User8'),
+    User = mongoose.model('User9'),
     config = require('./config');
 
 

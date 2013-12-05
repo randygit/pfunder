@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
     mailer = require('../../config/mailer'),
     VerificationTokenModel = mongoose.model('VerificationToken8'),
 
-    User = mongoose.model('User8'); 
+    User = mongoose.model('User9'); 
 
 /**
  * Auth callback. what is this here
@@ -267,8 +267,10 @@ exports.getProfile = function(req,res) {
             console.log('User name from mongo:' + validUser.username);
             var profile = {
                 name: validUser.name,
-                location: 'Philippines',
-                website: 'xx.com'
+                birthdate: validUser.birthdate,
+                location: validUser.location,
+                website: validUser.website,
+                bio: validUser.bio
             };
 
             res.json(profile);
@@ -298,11 +300,15 @@ exports.updateProfile = function(req,res) {
             validUser = user[0];
 
             console.log('User name from mongo:' + validUser.username);
-            validUser.name = req.body.name;
+            validUser.name      = req.body.name;
+            validUser.birthdate = req.body.birthdate;
+            validUser.location  = req.body.location;
+            validUser.website   = req.body.website;
+            validUser.bio       = req.body.bio;
+
             validUser.save(function(err){
                 if (err) done(err);
-                else {
-                    console.log("Verification email sent for delivery");
+                else { 
                     // use this to return to controller
                     res.json(200);
                 }
@@ -315,6 +321,207 @@ exports.updateProfile = function(req,res) {
     
 };
 
+exports.getAccount = function(req,res) {
+
+    // if part of the URL, use req.params.email    
+    console.log('Inside getAccount req.params.email    :' + req.params.email); 
+ 
+    var profile = {};
+
+    // find user for given email
+    
+   
+    User.find({ 'email': req.params.email, verified: true }, function(err,user) {
+        if (err) return done(err);
+
+        if (user.length == 1) {
+
+            validUser = user[0];
+
+            console.log('User name from mongo:' + validUser.username + " " + validUser.language + " " + validUser.timezone);
+            var account = {
+                username: validUser.username,
+                language: validUser.language,
+                timezone: validUser.timezone
+            };
+
+            res.json(account);
+        
+        } // end if (user)
+    
+    }); // end User.findOne
+    
+};
+
+exports.updateAccount = function(req,res) {
+
+    // if part of the URL, use req.params.email    
+    console.log('Inside updateProfile req.params.email    :' + req.params.email); 
+
+    // if a parameter, use req.body.name/location/website
+    console.log('Inside updateAccount req.body.password :' + req.body.username + " " + req.body.language + " " + req.body.timezone);  
+
+    // find user for given email
+    
+    // User.findOne({email: req.params.email}, function(err,user) {
+    User.find({ 'email': req.params.email, verified: true }, function(err,user) {
+        if (err) return done(err);
+
+        if (user.length == 1) {
+
+            validUser = user[0];
+
+            console.log('User name from mongo:' + validUser.username);
+            validUser.username = req.body.username;
+            validUser.language = req.body.language;
+            validUser.timezone = req.body.timezone;
+            validUser.save(function(err){
+                if (err) done(err);
+                else { 
+                    // use this to return to controller
+                    res.json(200);
+                }
+            }); // user.save
+            
+        
+        } // end if (user)
+    
+    }); // end User.findOne
+    
+};
+
+exports.getMobile = function(req,res) {
+
+    // if part of the URL, use req.params.email    
+    console.log('Inside updateProfile req.params.email    :' + req.params.email); 
+ 
+    var profile = {};
+
+    // find user for given email
+    
+   
+    User.find({ 'email': req.params.email, verified: true }, function(err,user) {
+        if (err) return done(err);
+
+        if (user.length == 1) {
+
+            validUser = user[0];
+
+            console.log('User name from mongo:' + validUser.username);
+            var mobile = {
+                country: validUser.mobile_country,
+                number:  validUser.mobile_number,
+                carrier: validUser.mobile_carrier
+            };
+
+            res.json(mobile);
+        
+        } // end if (user)
+    
+    }); // end User.findOne
+    
+};
+
+
+exports.updateMobile = function(req,res) {
+
+    // if part of the URL, use req.params.email    
+    console.log('Inside updateMobile req.params.email    :' + req.params.email); 
+
+    // if a parameter, use req.body.name/location/website
+    console.log('Inside updateMobile req.body.password :' + req.body.country + ' ' + req.body.number + ' ' + req.body.carrier);  
+
+    // find user for given email
+    
+    // User.findOne({email: req.params.email}, function(err,user) {
+    User.find({ 'email': req.params.email, verified: true }, function(err,user) {
+        if (err) return done(err);
+
+        if (user.length == 1) {
+
+            validUser = user[0];
+
+            console.log('User name from mongo:' + validUser.username);
+            validUser.mobile_country  = req.body.country;
+            validUser.mobile_number   = req.body.number;
+            validUser.mobile_carrier  = req.body.carrier;
+            validUser.save(function(err){
+                if (err) done(err);
+                else { 
+                    // use this to return to controller
+                    res.json(200);
+                }
+            }); // user.save
+            
+        
+        } // end if (user)
+    
+    }); // end User.findOne
+    
+};
+
+exports.getPassword = function(req,res) {
+
+    // if part of the URL, use req.params.email    
+    console.log('Inside updateProfile req.params.email    :' + req.params.email); 
+ 
+    var profile = {};
+
+    // find user for given email
+    
+   
+    User.find({ 'email': req.params.email, verified: true }, function(err,user) {
+        if (err) return done(err);
+
+        if (user.length == 1) {
+
+            validUser = user[0];
+
+            console.log('User name from mongo:' + validUser.username);
+            var password = validUser.password;
+
+            res.json(password);
+        
+        } // end if (user)
+    
+    }); // end User.findOne
+    
+};
+
+exports.updatePassword = function(req,res) {
+
+    // if part of the URL, use req.params.email    
+    console.log('Inside updatePassword req.params.email    :' + req.params.email); 
+
+    // if a parameter, use req.body.name/location/website
+    console.log('Inside updatePassword req.body.password :' + req.body.newpassword);  
+
+    // find user for given email
+    
+    // User.findOne({email: req.params.email}, function(err,user) {
+    User.find({ 'email': req.params.email, verified: true }, function(err,user) {
+        if (err) return done(err);
+
+        if (user.length == 1) {
+
+            validUser = user[0];
+
+            console.log('User name from mongo:' + validUser.username);
+            validUser.password  = req.body.newpassword;
+            validUser.save(function(err){
+                if (err) done(err);
+                else { 
+                    // use this to return to controller
+                    res.json(200);
+                }
+            }); // user.save
+            
+        
+        } // end if (user)
+    
+    }); // end User.findOne
+    
+};
 // LOGIN PROCESS: exports.login, exports.session and exports.welcome
 
 exports.login = function(req, res) {
@@ -331,6 +538,31 @@ exports.session = function(req, res) {
 };
 
 
+exports.validateUsername = function(req,res) {  
+    console.log("verify username " + req.body.username );
+
+    var username = req.body.username;
+    User.find({ 'username': username, verified: true },{username:1, verified:1}, function(err,user) {
+        if (user.length == 1) {
+            console.log("User name is already used " + user[0].username);
+            res.send(401);
+        }
+        else {
+            console.log("Username is available ");
+            res.send(200);
+        }
+
+    });
+};
+
+
+exports.resetpassword = function(req, res) {
+    res.render('profile/resetpassword', {
+        message: req.flash('error'),
+        title: 'Reset',
+        user: req.user  
+    });
+};
 
 exports.welcome = function(req, res) {
     res.render('welcome', {

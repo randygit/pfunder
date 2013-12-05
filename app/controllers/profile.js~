@@ -22,4 +22,14 @@ exports.view = function(req, res) {
     });
 };
 
+exports.mobile = function(req, res) {
+    console.log('mobile');
+
+    res.render('profile/mobile', {
+        message: req.flash('error'),
+        title: 'Mobile',
+        user: req.user  
+    });
+};
+
 

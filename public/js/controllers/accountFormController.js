@@ -76,11 +76,11 @@ angular.module('mean.system').controller('AccountFormController', ['$scope', '$h
 
         // validation for unique username could also be here
     
-        /*
+       
         // must pass $scope.reset and not individual values else error 500
-        console.log("about to $http.post /user/profile");
-
-        $http.post('/user/profile/' + Global.user.email, $scope.mobile)
+        console.log("about to $http.post /user/account");
+         
+        $http.post('/user/account/' + Global.user.email, $scope.account)
             .success(function(data) {
                 console.log("Success. back from /user/profile");
 
@@ -97,7 +97,7 @@ angular.module('mean.system').controller('AccountFormController', ['$scope', '$h
                   $scope.window.location = '/';
                 
         }); 
-        */
+       
 
     };  // $scope.updateProfile
 

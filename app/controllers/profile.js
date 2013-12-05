@@ -32,4 +32,14 @@ exports.mobile = function(req, res) {
     });
 };
 
+exports.account = function(req, res) {
+    console.log('account');
+
+    res.render('profile/account', {
+        message: req.flash('error'),
+        title: 'Account',
+        user: req.user  
+    });
+};
+
 

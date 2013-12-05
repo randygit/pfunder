@@ -25,10 +25,8 @@ exports.checkNewUserToken = function(req, res) {
             return res.redirect('/signup');
         }
         
-        // this account has already been verified or the link has expired.
-        // what happens when the link has expired and user has not verified?
-        // should he create a new account using the same email address?
-        // will have to check verified flag
+        // if token has expired, user has to create a new account
+        // valid users need verified:true
 
         UserModel.findOne({_id: doc._userId}, function(err, user) {
             if (err) return done(err);

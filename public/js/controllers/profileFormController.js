@@ -39,8 +39,14 @@ angular.module('mean.system').controller('ProfileFormController', ['$scope', '$h
         console.log("ng-submit updateProfile");
 
         // must pass $scope.reset and not individual values else error 500
-        console.log("about to $http.post /user/profile");
+        console.log("about to $http.post /user/profile ");
+        console.log('profile.name ' + $scope.profile.name);
+        console.log('profile.birthdate ' + $scope.profile.birthdate);
+        console.log('profile.location ' + $scope.profile.location);
+        console.log('profile.website ' + $scope.profile.website);
+        console.log('profile.bio ' + $scope.profile.bio);
 
+         
         $http.post('/user/profile/' + Global.user.email, $scope.profile)
             .success(function(data) {
                 console.log("Success. back from /user/profile");
@@ -58,6 +64,7 @@ angular.module('mean.system').controller('ProfileFormController', ['$scope', '$h
                   $scope.window.location = '/';
                 
         }); 
+       
 
     };  // $scope.updateProfile
 

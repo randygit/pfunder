@@ -1,5 +1,5 @@
 script(type='text/javascript', src='/lib/jquery/jquery.js')
-
+script(type='text/javascript', src='/lib/jquery-ui/ui/jquery-ui.js')
 //Bootstrap
 script(type='text/javascript', src='/lib/bootstrap/dist/js/bootstrap.js')
 
@@ -29,11 +29,11 @@ script(type='text/javascript', src='/js/filters.js')
 //Application Services
 script(type='text/javascript', src='/js/services/global.js')
 script(type='text/javascript', src='/js/services/articles.js')
-script(type='text/javascript', src='/js/services/mobile.js')
 script(type='text/javascript', src='/js/services/mobile2.js')
-script(type='text/javascript', src='/js/services/cors.js')
-script(type='text/javascript', src='/js/services/countries.js')
 script(type='text/javascript', src='/js/services/colors.js')
+script(type='text/javascript', src='/js/services/countries.js')
+script(type='text/javascript', src='/js/services/languages.js')
+script(type='text/javascript', src='/js/services/timezones.js')
 
 //Application Controllers
 script(type='text/javascript', src='/js/controllers/articles.js')
@@ -44,6 +44,8 @@ script(type='text/javascript', src='/js/init.js')
 script(type='text/javascript', src='/js/controllers/contactFormController.js')
 script(type='text/javascript', src='/js/controllers/resetPasswordFormController.js')
 script(type='text/javascript', src='/js/controllers/welcomeController.js')
+script(type='text/javascript', src='/js/controllers/accountFormController.js')
+
 script(type='text/javascript', src='/js/controllers/profileFormController.js')
 script(type='text/javascript', src='/js/controllers/mobileFormController.js')
 

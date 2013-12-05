@@ -13,13 +13,15 @@ angular.module('mean.system').controller('MobileFormController', ['$scope', '$ht
 
          
        
-       
+        
         $scope.mobile = {};
 
+        /*
         // read from clients database
         $scope.mobile.country = "AF";
         $scope.mobile.phonenumber = '09175349733';
         $scope.mobile.carrier='sun'; 
+        */
 
         // initialize values from mongo
         $http.get('/user/mobile/' + Global.user.email)
@@ -67,8 +69,8 @@ angular.module('mean.system').controller('MobileFormController', ['$scope', '$ht
   
         console.log("ng-submit updateMobile");
  
-        console.log('State2      : ' + ($scope.mobile.country)); 
-        console.log('Phone Number: ' + ($scope.mobile.phoneNumber));
+        console.log('Country     : ' + ($scope.mobile.country)); 
+        console.log('Phone Number: ' + ($scope.mobile.number));
         console.log('Carrier     : ' + ($scope.mobile.carrier));
 
         /*

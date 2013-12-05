@@ -12,7 +12,24 @@ var ColorSchema = new Schema({
         "colors": [ {id:Number, text: String, color: String}]       
 });
 
+
+var NationSchema = new Schema({
+        "countries": [ {name: String, code: String}]       
+});
     
-mongoose.model('State3', StateSchema);
-mongoose.model('Color3', ColorSchema);
+var LanguageSchema = new Schema({
+        "languages": [ {code: String, name: String}]       
+});
+
+var TimezoneSchema = new Schema({
+        "timezones": [ {timeZoneId: String, DST: String, GMT: String}]       
+});
+
+mongoose.model('State8', StateSchema);
+mongoose.model('Color8', ColorSchema);
+
+mongoose.model('Nation5', NationSchema);
+mongoose.model('Language5', LanguageSchema);
+mongoose.model('Timezone5', TimezoneSchema); 
+
  

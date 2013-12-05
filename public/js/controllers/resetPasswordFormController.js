@@ -1,22 +1,23 @@
 angular.module('mean.system').controller('ResetPasswordFormController', ['$scope', '$http', '$location', '$window','Global', function ($scope, $http, $location, $window, Global) {
 
-//function ResetPasswordFormController($scope, $http, $location, $window) {
+
 
     // init actually works. just like the init of java functions
     // but using real values not variables in the calling view
     // div(ng-controller="ResetPasswordFormController", ng-init="init('#{user.email}','#{confirmNewUserURL}')") 
 
     $scope.init = function(email, token) {
-       
-        $scope.email = email;
-        $scope.token = token;
-
-        console.log('resetPasswordFormController');
-        console.log('$scope.email ' + $scope.email);
-        console.log('$scope.token ' + $scope.token);
-
-        $scope.form         = {};
-        $scope.message      = '';
+        // initialize values from mongo
+        $http.get('/user/password/' + Global.user.email)
+              .success(function(password) {
+                  $scope.passwordData = password;
+                
+            })
+            .error(function(data){
+                console.log("error in getting account");
+                $scope.window.location = '/';
+                  
+        }); 
 
         $scope.global = Global;  
         $scope.window = $window;
@@ -32,7 +33,7 @@ angular.module('mean.system').controller('ResetPasswordFormController', ['$scope
       // must pass $scope.reset and not individual values else error 500
       console.log("about to $http.post /verify/password");
 
-      $http.post('/verify/password/' + $scope.email + '/' + $scope.token, $scope.reset)
+      $http.post('/user/password/' + $scope.email + '/' + $scope.reset)
           .success(function(data) {
               console.log("Success. back from /verify/password");
 

@@ -44,7 +44,7 @@ block content
                   a(href='/profile') Profile
                 li.divider
                 li
-                  a(href='/resetpassword') Pasword 
+                  a(href='/resetpassword') Password 
                 li.divider
                 li
                   a(href='/mobile') Mobile
@@ -64,20 +64,44 @@ block content
                 .container
                   form.form-horizontal(name="form", method="post",  novalidate)
                     div.form-group
+                      label.col-sm-2.control-label(for="name") Photo:
+                      .col-sm-6
+                      input.form-control(type="file", name="photo", id="photo", ng-file-select="onFileSelect($files)", ng-model="profile.photo",   autofocus)
+                       
+
+                    div.form-group
                       label.col-sm-2.control-label(for="name") Name:
                       .col-sm-6
-                      input.form-control(type="text", name="name", id="name",  required, ng-model="profile.name",  autofocus)
+                      input.form-control(type="text", name="name", id="name",  required, ng-model="profile.name", required, autofocus)
+                      span.help-block(ng-show="form.username.$dirty && form.username.$error.required") Please enter your full name
+
+                    div.form-group
+                      label.col-sm-2.control-label(for="birthdate") BirthDate:
+                      .col-sm-6 
+                      <pre>Selected: {{profile.birthdate|date}}</pre>
+
+                      input(style="width:100px",  name = "birthdate", ui-date='dateOptions', ng-model='profile.birthdate', data-placeholder='Enter Birthdate')
+
                     div.form-group
                       label.col-sm-2.control-label(for="name") Location:
                       .col-sm-6
-                      input.form-control(type="text", name="name", id="name",  required, ng-model="profile.location", autofocus)
+                      input.form-control(type="text", name="name", id="name", ng-model="profile.location", autofocus)
 
                     div.form-group
-                      label.col-sm-2.control-label(for="name") Website:
+                      label.col-sm-2.control-label(for="website") Website:
                       .col-sm-6
-                      input.form-control(type="text", name="name", id="name",  required, ng-model="profile.website", autofocus)
+                      input.form-control(type="url", name="website", id="website", ng-model="profile.website", autofocus)
 
-                    // submit here
-                    input.btn.btn-primary(type="submit", value="Save Changes", data-ng-click="updateProfile()")
+                    div.form-group
+                      label.col-sm-2.control-label(for="name") Bio:
+                      .col-sm-6
+                      textarea.form-control(rows='3', name="bio", id="bio", ng-model="profile.bio", autofocus)
+
+                     
+
+                    if error
+                        div.alert #{error}
+                    input.btn.btn-primary(type="submit", value="Save Changes",data-ng-click="updateProfile()", ng-disabled="form.$invalid")
+           
            
 

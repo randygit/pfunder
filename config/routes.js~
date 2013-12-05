@@ -12,6 +12,7 @@ module.exports = function(app, passport, auth) {
     var profile = require('../app/controllers/profile');
     app.get('/profile', auth.requiresLogin, profile.view);
     app.get('/mobile', auth.requiresLogin, profile.mobile);
+    app.get('/account', auth.requiresLogin, profile.account);
 
 
     //User Routes
@@ -28,10 +29,29 @@ module.exports = function(app, passport, auth) {
     app.get('/reset',   auth.requiresLogin, users.reset);    
     app.get('/signout', auth.requiresLogin, users.signout);
 
+    app.get('/resetpassword', auth.requiresLogin, users.resetpassword);
+
     // edit user profile
 
+    
     app.get('/user/profile/:email', users.getProfile);
     app.post('/user/profile/:email', users.updateProfile);
+
+
+    app.get('/user/account/:email', users.getAccount);
+    app.post('/user/account/:email', users.updateAccount);
+
+
+    app.get('/user/mobile/:email', users.getMobile);
+    app.post('/user/mobile/:email', users.updateMobile);
+
+     
+    app.post('/user/mobile/:email', users.updatePassword);
+
+
+    // validation
+    app.post('/validate/username', users.validateUsername);
+
 
     // CONTACT MESSAGE
     // 1. app.get('/contact', auth.requiresLogout, contact.render);
@@ -125,7 +145,12 @@ module.exports = function(app, passport, auth) {
  
     var staticData = require('../app/controllers/static'); 
     app.get('/getdata/states', staticData.getStates);
+    app.get('/getdata/colors', staticData.getColors);
 
+    app.get('/getdata/countries', staticData.getCountries);
+    app.get('/getdata/languages', staticData.getLanguages);
+    app.get('/getdata/timezones', staticData.getTimezones);
+   
     //support
     var support = require('../app/controllers/support');
     app.get('/support',              support.general);

@@ -31,6 +31,15 @@ var UserSchema = new Schema({
     deactivated: {type: Boolean, required: true, default: false}, // deactivated by user
     loginAttempts: {type: Number, required: true, default: 0},
     lockUntil: {type: Number, required: true, default: 0},
+    language: String,
+    timezone: String,
+    birthdate: Date,
+    location: String,
+    website: String,
+    bio: String,
+    mobile_country: String,
+    mobile_number: String,
+    mobile_carrier: String,
     facebook: {},
     twitter: {},
     github: {},
@@ -148,4 +157,4 @@ UserSchema.methods = {
 };
   
 
-mongoose.model('User8', UserSchema);
+mongoose.model('User9', UserSchema);
