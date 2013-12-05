@@ -11,6 +11,7 @@ script(type='text/javascript', src='/lib/angular-cookies/angular-cookies.js')
 script(type='text/javascript', src='/lib/angular-resource/angular-resource.js')
 
 script(type='text/javascript', src='/lib/angular-ui-select2/src/select2.js')
+script(type='text/javascript', src='/lib/angular-ui-date/src/date.js')
 
 //Angular UI
 script(type='text/javascript', src='/lib/angular-bootstrap/ui-bootstrap-tpls.js')
@@ -30,7 +31,9 @@ script(type='text/javascript', src='/js/services/global.js')
 script(type='text/javascript', src='/js/services/articles.js')
 script(type='text/javascript', src='/js/services/mobile.js')
 script(type='text/javascript', src='/js/services/mobile2.js')
+script(type='text/javascript', src='/js/services/cors.js')
 script(type='text/javascript', src='/js/services/countries.js')
+script(type='text/javascript', src='/js/services/colors.js')
 
 //Application Controllers
 script(type='text/javascript', src='/js/controllers/articles.js')

@@ -123,6 +123,9 @@ module.exports = function(app, passport, auth) {
     var emailer = require('../app/controllers/massmailer'); 
     app.post('/sendformmail', emailer.sendFormMail);
  
+    var staticData = require('../app/controllers/static'); 
+    app.get('/getdata/states', staticData.getStates);
+    app.get('/getdata/colors', staticData.getColors);
 
     //support
     var support = require('../app/controllers/support');

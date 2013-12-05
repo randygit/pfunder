@@ -1,75 +1,43 @@
-angular.module('mean.system').controller('MobileFormController', ['$scope', '$http','$location', '$window','Global', 'States', 'States2',  function ($scope, $http, $location, $window, Global, States, States2  ) {
+
+
+angular.module('mean.system').controller('MobileFormController', ['$scope', '$http','$location', '$window','Global', 'States2', 'Colors', function ($scope, $http, $location, $window, Global, States2, Colors  ) {
 
     $scope.getDefault = function() {
        
-        // this works using $Resource
-         $scope.stateData = States.get();   
+        $scope.dateOptions = {
+            changeYear: true,
+            changeMonth: true,
+            yearRange: '1900:-0'
+        };
 
-        // this works using $http
+
+        // this works using $http('/getData/states')
+        // use a factory called States2 to get data from $http
         States2.getData().then(function(data) {
             $scope.stateData2 = data;
         });
 
-        // this works using $http
-        /*
-        Countries.get().then(function(data) {
-            $scope.countries = data;
+        Colors.getData().then(function(data) {
+            $scope.colors = data;
         });
         
 
-        $scope.countries = Countries.get();
-
-        
        
-        */
-
        
         $scope.mobile = {};
 
-        
-        // initializes mobile.state but is not displayed in choices
-        /*
-        $scope.mobile.state = {
-              "name": "Connecticut",
-              "capital": "Hartford",
-              "abbreviation": "CT"
-        };
-        */        
-
-       
-
-        // this does not initializes it
-        // $scope.mobile.state = JSON.stringify($scope.stateData[7]);
-
-        /*
-        $scope.mobile.state2 = {
-              "name":"Arizona",
-              "capital":"Phoenix",
-              "abbreviation":"AZ"
-        };
-        */
-
-        $scope.mobile.state = "CT";
+        // read from clients database
         $scope.mobile.state2 = "NY";
-
-        
-        $scope.mobile.state3 = {
-              "name":"Arizona",
-              "capital":"Phoenix",
-              "abbreviation":"AZ"
-        };
-         
-
-         
-        $scope.mobile.phoneNumber = {
-              "id": 5,
-              "text": "Fifth",
-              "color": "pink"
-        };
-
-        // this one works but ng-init="mobile.carrier={{mobile.carrier}}" is not required
+        $scope.mobile.phoneNumber = '5';
         $scope.mobile.carrier='sun';
+        $scope.mobile.birthdate = new Date('1958/07/08');
 
+        /*
+        // saved as string
+        var birthDate =  '1958/07/08';
+        $scope.mobile.birthdate = birthDate;
+        */
+  
         $scope.global = Global;  
 
         $scope.window = $window;
@@ -77,35 +45,26 @@ angular.module('mean.system').controller('MobileFormController', ['$scope', '$ht
     };
 
 
-    // this thing does not work. maybe you could only have one option in a single controller
-    // this code displays the 
-    $scope.state3JsonOptions = {
-        ajax: {
-            url:"/data/states2.json",
-            data: function (term, page) {
-                return {};
-            },
-            results: function (data,page) {
-                var more = (page * 10) < data.total;
-                return {results:data, more:more};
-            }
-        },
-        // this thing works! it displays the default value chosen. see above
-        initSelection: function(element, callback) {
-            callback($(element).data('$ngModelController').$modelValue);
+    
+    $scope.$watch('mobile.birthdate', function() {
+        if(typeof $scope.mobile.birthdate === 'string') {
+            console.log('converting to date format <' + $scope.mobile.birthdate + '>');
+            $scope.mobile.birthdate = Date.parse($scope.mobile.birthdate);
         }
-    };  
+    });
+  
 
+    // giving up on ui-select='dataJsonOptions' for the meantime
     // this code displays the 
     $scope.dataJsonOptions = {
         ajax: {
-            url: "/data/data.json",
+            url: "/getData/colors",
+            dataType: 'json',
             data: function (term, page) {
                 return {};
             },
-            results: function (data,page) {
-                var more = (page * 10) < data.total;
-                return {results:data, more:more};
+            results: function (data,page) { 
+                return {results:data };
             }
         },
         // this thing works! it displays the default value chosen. see above
@@ -116,49 +75,15 @@ angular.module('mean.system').controller('MobileFormController', ['$scope', '$ht
 
    
 
-    // using factories
-    $scope.dataFactoryOptions = function() {
-        /*
-        dataJsonFactory.getDataSync(function(results) {
-            $scope.items = results.data;
-        });
-        */
-        $scope.items = dataJsonFactory.get().then(function(results) {
-            $scope.items = results.data;
-        });
-    };
-
-    $scope.groupSelectOptions = {
-        minimumInputLength: 3,
-        ajax: {
-            //url: "data.json",
-            url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json",
-            dataType: 'jsonp',
-            data: function (term, page) {
-                return {
-                    q: term,
-                    page_limit: 10,
-                    page: page,
-                    apikey: "ju6z9mjyajq2djue3gbvv26t"
-                };
-            },
-            results: function (data,page) {
-                var more = (page * 10) < data.total;
-                return {results:data.movies, more:more};
-            }
-        }
-    };
-     
    
     $scope.updateMobile = function () {
   
         console.log("ng-submit updateMobile");
-
-        console.log('State       : ' + JSON.stringify($scope.mobile.state));
-        console.log('State2      : ' + JSON.stringify($scope.mobile.state2));
-        console.log('State3      : ' + JSON.stringify($scope.mobile.state3));
-        console.log('Phone Number: ' + JSON.stringify($scope.mobile.phoneNumber));
-        console.log('Carrier     : ' + JSON.stringify($scope.mobile.carrier));
+ 
+        console.log('State2      : ' + ($scope.mobile.state2)); 
+        console.log('Phone Number: ' + ($scope.mobile.phoneNumber));
+        console.log('Carrier     : ' + ($scope.mobile.carrier));
+        console.log('Birthdate   : ' + ($scope.mobile.birthdate));
 
         /*
         // must pass $scope.reset and not individual values else error 500

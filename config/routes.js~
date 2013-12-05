@@ -11,6 +11,8 @@ module.exports = function(app, passport, auth) {
 
     var profile = require('../app/controllers/profile');
     app.get('/profile', auth.requiresLogin, profile.view);
+    app.get('/mobile', auth.requiresLogin, profile.mobile);
+
 
     //User Routes
     var users = require('../app/controllers/users');
@@ -121,6 +123,8 @@ module.exports = function(app, passport, auth) {
     var emailer = require('../app/controllers/massmailer'); 
     app.post('/sendformmail', emailer.sendFormMail);
  
+    var staticData = require('../app/controllers/static'); 
+    app.get('/getdata/states', staticData.getStates);
 
     //support
     var support = require('../app/controllers/support');

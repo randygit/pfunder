@@ -11,7 +11,8 @@
     "angular-ui-utils": "0.0.4",
     "zxcvbn": "git://github.com/brycebaril/node-zxcvbn.git",
     "json3": "~3.2.4",
-    "angular-ui-select2": "~0.0.4"
+    "angular-ui-select2": "~0.0.4",
+    "angular-ui-date": "~0.0.3"
   },
   "exportsOverride": {
     "bootstrap": {
