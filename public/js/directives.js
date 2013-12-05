@@ -4,7 +4,7 @@
 
 // http://stackoverflow.com/questions/12864887/angularjs-integrating-with-server-side-validation
 
-/* 
+/*
 window.app.directive('validateUsername', function() {  
   return {
     require: 'ngModel',
@@ -30,7 +30,9 @@ window.app.directive('validateUsername', function() {
     }
   };
 });
+*/
 
+/*
 window.app.directive('uniqueUsername', ['$http', function($http) {  
   return {
     require: 'ngModel',
@@ -69,7 +71,9 @@ window.app.directive('uniqueUsername', ['$http', function($http) {
     }
   };
 }]);
+*/
 
+/*
 window.app.directive('uniqueEmail', ['$http', function($http) {
     return {
         require: 'ngModel',
@@ -97,7 +101,12 @@ window.app.directive('uniqueEmail', ['$http', function($http) {
                     .error(function(data) {
                         // display new error message
                         console.log("ERROR: /signup/check/email 403 ");
+                        console.log("ERROR: /signup/check/email isTaken is true " + data.isTaken);
+                        ctrl.$setValidity('isTaken', false);
+                        console.log("ERROR: /signup/check/email invalid characters");
+                        ctrl.$setValidity('invalidChars', false);
 
+                        
                         // cannot read the json data.
                         if (data.isTaken) {
                             console.log("ERROR: /signup/check/email isTaken is true " + data.isTaken);
@@ -106,6 +115,7 @@ window.app.directive('uniqueEmail', ['$http', function($http) {
                             console.log("ERROR: /signup/check/email invalid characters");
                             ctrl.$setValidity('invalidChars', false);
                         }
+                       
 
                         scope.busy = false;
                     });
@@ -113,8 +123,45 @@ window.app.directive('uniqueEmail', ['$http', function($http) {
         }
     };
 }]);
-
 */
+ 
+window.app.directive('uniqueUsername', ['$http', function($http) {  
+  return {
+    require: 'ngModel',
+    link: function(scope, elem, attrs, ctrl) {
+      scope.busy = false;
+      scope.$watch(attrs.ngModel, function(value) {
+        
+        // hide old error messages
+        ctrl.$setValidity('isTaken', true);
+        ctrl.$setValidity('invalidChars', true);
+        
+        if (!value) {
+          // don't send undefined to the server during dirty check
+          // empty username is caught by required directive
+          return;
+        }
+        
+        console.log('inside uniqueUsername');
+        scope.busy = true;
+        $http.post('/validate/username', {username: value})
+          .success(function(data) {
+              console.log('Success. username ' + value + ' is AVAILABLE');
+              // everything is fine -> do nothing
+              scope.busy = false;
+          })
+          .error(function(data) {
+              console.log('ERROR. username ' + value + ' is USED');
+              ctrl.$setValidity('isTaken', false);
+              scope.busy = false;
+          });
+      });
+    }
+  };
+}]);
+
+
+
 window.app.directive('passwordValidate', function() {
     return {
         require: 'ngModel',

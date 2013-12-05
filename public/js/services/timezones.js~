@@ -1,0 +1,10 @@
+angular.module('mean.system').factory("Timezones", ['$http', function($http) { 
+    return {
+        getData: function() {
+            // return $http.get('/data/states.json').then(function(result) {
+            return $http.get("http://gomashup.com/json.php?fds=geo/timezone/locations&jsoncallback=?").then(function(result) {
+                return result.data;
+            });
+        }
+    };
+}]);

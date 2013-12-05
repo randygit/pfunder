@@ -1,4 +1,4 @@
-angular.module('mean.system').controller('ProfileFormController', ['$scope', '$http','$location', '$window','Global', function ($scope, $http, $location, $window, Global) {
+angular.module('mean.system').controller('ProfileFormController', ['$scope', '$http','$location', '$window','Global', '$fileUploader', function ($scope, $http, $location, $window, Global, $fileUploader) {
 
     // ng-init
     $scope.getProfile = function() {
@@ -12,6 +12,13 @@ angular.module('mean.system').controller('ProfileFormController', ['$scope', '$h
         $scope.window = $window;
 
        
+        $scope.dateOptions = {
+            changeYear: true,
+            changeMonth: true,
+            yearRange: '1900:-0'
+        };
+
+
         // initialize values from mongo
         $http.get('/user/profile/' + Global.user.email)
               .success(function(profile) {

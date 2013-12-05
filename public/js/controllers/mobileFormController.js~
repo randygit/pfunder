@@ -1,42 +1,37 @@
 
 
-angular.module('mean.system').controller('MobileFormController', ['$scope', '$http','$location', '$window','Global', 'States2', 'Colors', function ($scope, $http, $location, $window, Global, States2, Colors  ) {
+angular.module('mean.system').controller('MobileFormController', ['$scope', '$http','$location', '$window','Global', 'Countries', function ($scope, $http, $location, $window, Global, Countries ) {
 
     $scope.getDefault = function() {
        
-        $scope.dateOptions = {
-            changeYear: true,
-            changeMonth: true,
-            yearRange: '1900:-0'
-        };
-
 
         // this works using $http('/getData/states')
         // use a factory called States2 to get data from $http
-        States2.getData().then(function(data) {
-            $scope.stateData2 = data;
+        Countries.getData().then(function(data) {
+            $scope.countryData = data;
         });
 
-        Colors.getData().then(function(data) {
-            $scope.colors = data;
-        });
-        
-
+         
        
        
         $scope.mobile = {};
 
         // read from clients database
-        $scope.mobile.state2 = "NY";
-        $scope.mobile.phoneNumber = '5';
-        $scope.mobile.carrier='sun';
-        $scope.mobile.birthdate = new Date('1958/07/08');
+        $scope.mobile.country = "AF";
+        $scope.mobile.phonenumber = '09175349733';
+        $scope.mobile.carrier='sun'; 
 
-        /*
-        // saved as string
-        var birthDate =  '1958/07/08';
-        $scope.mobile.birthdate = birthDate;
-        */
+        // initialize values from mongo
+        $http.get('/user/mobile/' + Global.user.email)
+              .success(function(mobile) {
+                  $scope.mobile = mobile;
+                
+            })
+            .error(function(data){
+                console.log("error in getting profile");
+                $scope.window.location = '/';
+                  
+        });      
   
         $scope.global = Global;  
 
@@ -46,14 +41,6 @@ angular.module('mean.system').controller('MobileFormController', ['$scope', '$ht
 
 
     
-    $scope.$watch('mobile.birthdate', function() {
-        if(typeof $scope.mobile.birthdate === 'string') {
-            console.log('converting to date format <' + $scope.mobile.birthdate + '>');
-            $scope.mobile.birthdate = Date.parse($scope.mobile.birthdate);
-        }
-    });
-  
-
     // giving up on ui-select='dataJsonOptions' for the meantime
     // this code displays the 
     $scope.dataJsonOptions = {
@@ -80,10 +67,9 @@ angular.module('mean.system').controller('MobileFormController', ['$scope', '$ht
   
         console.log("ng-submit updateMobile");
  
-        console.log('State2      : ' + ($scope.mobile.state2)); 
+        console.log('State2      : ' + ($scope.mobile.country)); 
         console.log('Phone Number: ' + ($scope.mobile.phoneNumber));
         console.log('Carrier     : ' + ($scope.mobile.carrier));
-        console.log('Birthdate   : ' + ($scope.mobile.birthdate));
 
         /*
         // must pass $scope.reset and not individual values else error 500

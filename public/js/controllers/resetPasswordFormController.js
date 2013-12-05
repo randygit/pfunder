@@ -1,4 +1,4 @@
-angular.module('mean.system').controller('ResetPasswordFormController', ['$scope', '$http', '$location', '$window', function ($scope, $http, $location, $window) {
+angular.module('mean.system').controller('ResetPasswordFormController', ['$scope', '$http', '$location', '$window','Global', function ($scope, $http, $location, $window, Global) {
 
 //function ResetPasswordFormController($scope, $http, $location, $window) {
 
@@ -17,7 +17,8 @@ angular.module('mean.system').controller('ResetPasswordFormController', ['$scope
 
         $scope.form         = {};
         $scope.message      = '';
-  
+
+        $scope.global = Global;  
         $scope.window = $window;
          
     };

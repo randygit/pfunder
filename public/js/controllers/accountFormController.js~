@@ -1,39 +1,30 @@
 
 
-angular.module('mean.system').controller('MobileFormController', ['$scope', '$http','$location', '$window','Global', 'Countries', function ($scope, $http, $location, $window, Global, Countries ) {
+angular.module('mean.system').controller('AccountFormController', ['$scope', '$http','$location', '$window','Global', 'Languages', 'Timezones', function ($scope, $http, $location, $window, Global, Languages, Timezones  ) {
 
-    $scope.getDefault = function() {
-       
+    $scope.getDefault = function() { 
 
         // this works using $http('/getData/states')
         // use a factory called States2 to get data from $http
-        Countries.getData().then(function(data) {
-            $scope.countryData = data;
+        Languages.getData().then(function(data) {
+            $scope.languagesData = data;
         });
 
-         
-       
+        Timezones.getData().then(function(data) {
+            $scope.timezonesData = data;
+        });
         
-        $scope.mobile = {};
 
-        /*
+       
+       
+        $scope.account = {};
+
         // read from clients database
-        $scope.mobile.country = "AF";
-        $scope.mobile.phonenumber = '09175349733';
-        $scope.mobile.carrier='sun'; 
-        */
+        $scope.account.username = "randygit";
+        $scope.account.language = "ms";
+        $scope.account.timezone = "Pacific-Tarawa";
 
-        // initialize values from mongo
-        $http.get('/user/mobile/' + Global.user.email)
-              .success(function(mobile) {
-                  $scope.mobile = mobile;
-                
-            })
-            .error(function(data){
-                console.log("error in getting profile");
-                $scope.window.location = '/';
-                  
-        });      
+      
   
         $scope.global = Global;  
 
@@ -41,19 +32,20 @@ angular.module('mean.system').controller('MobileFormController', ['$scope', '$ht
         
     };
 
-
+    // validate username for uniqueness... directive?
     
-    // giving up on ui-select='dataJsonOptions' for the meantime
-    // this code displays the 
-    $scope.dataJsonOptions = {
+      // this code displays the 
+    $scope.timeZoneOptions = {
         ajax: {
-            url: "/getData/colors",
+            url: "http://gomashup.com/json.php?fds=geo/timezone/locations&jsoncallback=?",
             dataType: 'json',
             data: function (term, page) {
                 return {};
             },
-            results: function (data,page) { 
-                return {results:data };
+            results: function (data,page) {
+                console.log('timezoneoptions ' + data.results);
+                var more = (page * 10) < data.total;
+                return {results:data.results, more:more};
             }
         },
         // this thing works! it displays the default value chosen. see above
@@ -63,16 +55,16 @@ angular.module('mean.system').controller('MobileFormController', ['$scope', '$ht
     };  
 
    
-
-   
-    $scope.updateMobile = function () {
+    $scope.updateAccount = function () {
   
         console.log("ng-submit updateMobile");
  
-        console.log('State2      : ' + ($scope.mobile.country)); 
-        console.log('Phone Number: ' + ($scope.mobile.phoneNumber));
-        console.log('Carrier     : ' + ($scope.mobile.carrier));
+        console.log('Username     : ' + ($scope.account.username)); 
+        console.log('Language     : ' + ($scope.account.language));
+        console.log('Timezone     : ' + ($scope.account.timezone)); 
 
+        // validation for unique username could also be here
+    
         /*
         // must pass $scope.reset and not individual values else error 500
         console.log("about to $http.post /user/profile");
