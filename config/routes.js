@@ -51,7 +51,7 @@ module.exports = function(app, passport, auth) {
 
 
     // validation
-    app.post('/validate/username', users.validateUsername);
+    app.post('/validate/username/:email', users.validateUsername);
 
 
     // CONTACT MESSAGE

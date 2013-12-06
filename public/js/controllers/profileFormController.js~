@@ -23,6 +23,10 @@ angular.module('mean.system').controller('ProfileFormController', ['$scope', '$h
         $http.get('/user/profile/' + Global.user.email)
               .success(function(profile) {
                   $scope.profile = profile;
+                  console.log('type of profile.birthdate1 ' + typeof $scope.profile.birthdate ); 
+
+                  $scope.profile.birthdate = new Date($scope.profile.birthdate);
+                  console.log('type of profile.birthdate2 ' + typeof $scope.profile.birthdate ); 
                 
             })
             .error(function(data){
@@ -46,7 +50,7 @@ angular.module('mean.system').controller('ProfileFormController', ['$scope', '$h
         console.log('profile.website ' + $scope.profile.website);
         console.log('profile.bio ' + $scope.profile.bio);
 
-        /*
+         
         $http.post('/user/profile/' + Global.user.email, $scope.profile)
             .success(function(data) {
                 console.log("Success. back from /user/profile");
@@ -64,7 +68,7 @@ angular.module('mean.system').controller('ProfileFormController', ['$scope', '$h
                   $scope.window.location = '/';
                 
         }); 
-        */
+       
 
     };  // $scope.updateProfile
 

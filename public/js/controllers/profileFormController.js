@@ -23,6 +23,12 @@ angular.module('mean.system').controller('ProfileFormController', ['$scope', '$h
         $http.get('/user/profile/' + Global.user.email)
               .success(function(profile) {
                   $scope.profile = profile;
+                  // profile.date is a string???
+                  //console.log('type of profile.birthdate1 ' + typeof $scope.profile.birthdate ); 
+
+                  // have to do this to make sure profile.date is a Date object, else ui-date wont show initial value
+                  $scope.profile.birthdate = new Date($scope.profile.birthdate);
+                  // console.log('type of profile.birthdate2 ' + typeof $scope.profile.birthdate ); 
                 
             })
             .error(function(data){

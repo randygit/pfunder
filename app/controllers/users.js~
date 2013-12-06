@@ -422,6 +422,7 @@ exports.getMobile = function(req,res) {
     
 };
 
+
 exports.updateMobile = function(req,res) {
 
     // if part of the URL, use req.params.email    
@@ -459,13 +460,41 @@ exports.updateMobile = function(req,res) {
     
 };
 
-exports.updatePassword = function(req,res) {
+exports.getPassword = function(req,res) {
 
     // if part of the URL, use req.params.email    
     console.log('Inside updateProfile req.params.email    :' + req.params.email); 
+ 
+    var profile = {};
+
+    // find user for given email
+    
+   
+    User.find({ 'email': req.params.email, verified: true }, function(err,user) {
+        if (err) return done(err);
+
+        if (user.length == 1) {
+
+            validUser = user[0];
+
+            console.log('User name from mongo:' + validUser.username);
+            var password = validUser.password;
+
+            res.json(password);
+        
+        } // end if (user)
+    
+    }); // end User.findOne
+    
+};
+
+exports.updatePassword = function(req,res) {
+
+    // if part of the URL, use req.params.email    
+    console.log('Inside updatePassword req.params.email    :' + req.params.email); 
 
     // if a parameter, use req.body.name/location/website
-    console.log('Inside verifyForgotPassword req.body.password :' + req.body.name);  
+    console.log('Inside updatePassword req.body.password :' + req.body.newpassword);  
 
     // find user for given email
     
@@ -510,13 +539,24 @@ exports.session = function(req, res) {
 
 
 exports.validateUsername = function(req,res) {  
+    // if part of the URL, use req.params.email    
+    console.log('Inside validateUserName req.params.email: ' + req.params.email); 
     console.log("verify username " + req.body.username );
 
     var username = req.body.username;
     User.find({ 'username': username, verified: true },{username:1, verified:1}, function(err,user) {
         if (user.length == 1) {
-            console.log("User name is already used " + user[0].username);
-            res.send(401);
+            console.log("User[0] " + user[0].username + " email " + user[0].email);
+            if (user[0].email === req.params.email) {
+                console.log("User name no change " + user[0].username);
+                res.send(200);
+            
+            }
+            else {
+                console.log("User name is already used " + user[0].username);
+                res.send(401);
+                
+            }
         }
         else {
             console.log("Username is available ");

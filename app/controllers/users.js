@@ -539,13 +539,26 @@ exports.session = function(req, res) {
 
 
 exports.validateUsername = function(req,res) {  
+    // if part of the URL, use req.params.email    
+    console.log('Inside validateUserName req.params.email: ' + req.params.email); 
     console.log("verify username " + req.body.username );
 
     var username = req.body.username;
-    User.find({ 'username': username, verified: true },{username:1, verified:1}, function(err,user) {
+    var email = req.params.email;
+
+    User.find({ 'username': username, verified: true },{username:1, email:1, verified:1}, function(err,user) {
         if (user.length == 1) {
-            console.log("User name is already used " + user[0].username);
-            res.send(401);
+            console.log("User[0] " + user[0].username + " email " + user[0].email);
+            if (user[0].email == email) {
+                console.log("User name no change " + user[0].username);
+                res.send(200);
+            
+            }
+            else {
+                console.log("User name is already used " + user[0].username);
+                res.send(401);
+                
+            }
         }
         else {
             console.log("Username is available ");

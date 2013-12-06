@@ -63,11 +63,15 @@ block content
                 h3 Profile 
                 .container
                   form.form-horizontal(name="form", method="post",  novalidate)
+                    input(type='hidden', name = '_csrf', value = token)
+
                     div.form-group
                       label.col-sm-2.control-label(for="name") Photo:
                       .col-sm-6
                       input.form-control(type="file", name="photo", id="photo", ng-file-select="onFileSelect($files)", ng-model="profile.photo",   autofocus)
                        
+
+                    hr
 
                     div.form-group
                       label.col-sm-2.control-label(for="name") Name:
@@ -78,7 +82,10 @@ block content
                     div.form-group
                       label.col-sm-2.control-label(for="birthdate") BirthDate:
                       .col-sm-6 
-                      // <pre>Selected: {{mobile.birthdate|date}}</pre>
+                      <pre>Selected: {{profile.birthdate|json}}</pre>
+
+                      // took out ui-date-format. now initial value is displayed
+                      // see profileFormController, set the profile.birthdate to new Date
 
                       input(style="width:100px",  name = "birthdate", ui-date='dateOptions', ng-model='profile.birthdate', data-placeholder='Enter Birthdate')
 
@@ -97,8 +104,8 @@ block content
                       .col-sm-6
                       textarea.form-control(rows='3', name="bio", id="bio", ng-model="profile.bio", autofocus)
 
-                     
-
+                    hr   
+  
                     if error
                         div.alert #{error}
                     input.btn.btn-primary(type="submit", value="Save Changes",data-ng-click="updateProfile()", ng-disabled="form.$invalid")

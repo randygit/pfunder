@@ -65,7 +65,8 @@ block content
                     div.form-group
                         label.col-sm-2.control-label(for="username") User Name:
                         .col-sm-6
-                        input.form-control(type="text", name="username", id="username",  required, ng-model="account.username", required, unique-username, autofocus)
+                        //<pre>Selected: {{account.username|json}}</pre>
+                        input.form-control(type="text", name="username", id="username",  required, ng-model="account.username", required, unique-username info = "global.user.email", autofocus)
                         span.help-block(ng-show="form.username.$dirty && form.username.$error.required") Please choose a username
                         span.help-block(ng-show="form.username.$dirty && form.username.$error.isTaken") Username already taken
                         span.help-block(ng-show="form.username.$dirty && form.username.$error.invalidChars") Username may not contain any non-url-safe characters
@@ -86,6 +87,7 @@ block content
                           option
                             option(ng-repeat="timezone in timezonesData", value="{{timezone.TimeZoneId}}") {{timezone.TimeZoneId}}, GMT+  {{timezone.GMT}}
                      
+                    hr
                     if error
                         div.alert #{error}
                     input.btn.btn-primary(type="submit", value="Save Changes",data-ng-click="updateAccount()", ng-disabled="form.$invalid")

@@ -45,8 +45,9 @@ module.exports = function(app, passport, auth) {
     app.get('/user/mobile/:email', users.getMobile);
     app.post('/user/mobile/:email', users.updateMobile);
 
-     
-    app.post('/user/mobile/:email', users.updatePassword);
+
+    app.get('/user/password/:email', users.getPassword);   
+    app.post('/user/password/:email', users.updatePassword);
 
 
     // validation

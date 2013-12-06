@@ -123,11 +123,14 @@ window.app.directive('uniqueEmail', ['$http', function($http) {
         }
     };
 }]);
-*/
+
  
 window.app.directive('uniqueUsername', ['$http', function($http) {  
   return {
     require: 'ngModel',
+    scope: {
+        email: '='
+    },
     link: function(scope, elem, attrs, ctrl) {
       scope.busy = false;
       scope.$watch(attrs.ngModel, function(value) {
@@ -142,9 +145,9 @@ window.app.directive('uniqueUsername', ['$http', function($http) {
           return;
         }
         
-        console.log('inside uniqueUsername');
+        console.log('inside uniqueUsername directive ' + value + ' email: ' + email);
         scope.busy = true;
-        $http.post('/validate/username', {username: value})
+        $http.post('/validate/username', {username: value}, email)
           .success(function(data) {
               console.log('Success. username ' + value + ' is AVAILABLE');
               // everything is fine -> do nothing
@@ -160,7 +163,7 @@ window.app.directive('uniqueUsername', ['$http', function($http) {
   };
 }]);
 
-
+*/
 
 window.app.directive('passwordValidate', function() {
     return {
