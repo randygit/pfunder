@@ -23,7 +23,7 @@ block content
   
   div.container
     div(data-ng-controller="ProfileFormController", data-ng-init="getProfile()")
-    
+
       div.col-sm-4
         div.container
           div.row
@@ -52,9 +52,7 @@ block content
 
       div.col-sm-8.special 
         div.container
-          //moved so {{user.name}} will appear
-          //div(data-ng-controller="ProfileFormController", data-ng-init="getProfile()")
-
+          //moved so {{user.name}} will appear 
           div.row
             br
             br
@@ -62,15 +60,19 @@ block content
               div.panel-body
                 h3 Profile 
                 .container
-                  form.form-horizontal(name="form", method="post",  novalidate)
+                  form.form-horizontal(name="form", method="post",  novalidate, enctype="multipart/form-data")
                     input(type='hidden', name = '_csrf', value = token)
 
                     div.form-group
+                      
                       label.col-sm-2.control-label(for="name") Photo:
-                      .col-sm-6
-                      input.form-control(type="file", name="photo", id="photo", ng-file-select="onFileSelect($files)", ng-model="profile.photo",   autofocus)
-                       
+                      .col-sm-6 
 
+                      img(src='{{profile.photo}}')
+
+                      input( type="file", accept "image/*", name="photo", id="photo",  ng-model = "profile.photo"  autofocus)
+                       
+                    br
                     hr
 
                     div.form-group
@@ -108,7 +110,7 @@ block content
   
                     if error
                         div.alert #{error}
-                    input.btn.btn-primary(type="submit", value="Save Changes",data-ng-click="updateProfile()", ng-disabled="form.$invalid")
+                    input.btn.btn-primary(type="submit", value="Save Changes",data-ng-click="updateProfile()", ng-disabled="form.$invalid", ng-disabled="$isUploading")
            
            
 

@@ -1,4 +1,4 @@
-angular.module('mean.system').controller('ProfileFormController', ['$scope', '$http','$location', '$window','Global', '$fileUploader', function ($scope, $http, $location, $window, Global, $fileUploader) {
+angular.module('mean.system').controller('ProfileFormController', ['$scope', '$http','$location', '$window','Global',  function ($scope, $http, $location, $window, Global) {
 
     // ng-init
     $scope.getProfile = function() {
@@ -21,10 +21,11 @@ angular.module('mean.system').controller('ProfileFormController', ['$scope', '$h
 
         // initialize values from mongo
         $http.get('/user/profile/' + Global.user.email)
-              .success(function(profile) {
-                  $scope.profile = profile;
-                  console.log('type of profile.birthdate1 ' + typeof $scope.profile.birthdate ); 
+              .success(function(profile) { 
 
+                  $scope.profile = profile;
+
+                  // have to do this to make sure profile.date is a Date object, else ui-date wont show initial value
                   $scope.profile.birthdate = new Date($scope.profile.birthdate);
                   console.log('type of profile.birthdate2 ' + typeof $scope.profile.birthdate ); 
                 
@@ -34,9 +35,10 @@ angular.module('mean.system').controller('ProfileFormController', ['$scope', '$h
                 $scope.window.location = '/';
                   
           }); 
+ 
     };
     
-    
+   
      
     $scope.updateProfile = function () {
   
@@ -50,23 +52,17 @@ angular.module('mean.system').controller('ProfileFormController', ['$scope', '$h
         console.log('profile.website ' + $scope.profile.website);
         console.log('profile.bio ' + $scope.profile.bio);
 
-         
+       
         $http.post('/user/profile/' + Global.user.email, $scope.profile)
             .success(function(data) {
                 console.log("Success. back from /user/profile");
+                //$scope.window.location = '/resetpassword';
 
-                
-                $scope.window.location = '/';
-
-                console.log("after to $scope.$apply");
-              
           })
           .error(function(data){
               console.log("error in saving profile");
-
-                  
-                  $scope.window.location = '/';
-                
+              $scope.window.location = '/';
+              //$scope.window.location = '/profile';
         }); 
        
 

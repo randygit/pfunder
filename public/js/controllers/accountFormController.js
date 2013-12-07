@@ -76,7 +76,7 @@ angular.module('mean.system')
                     console.log("Success. back from /user/profile");
 
                     
-                    $scope.window.location = '/';
+                    $scope.window.location = '/profile';
 
                     console.log("after to $scope.$apply");
                   
@@ -85,7 +85,7 @@ angular.module('mean.system')
                   console.log("error in saving profile");
 
                       
-                      $scope.window.location = '/';
+                      $scope.window.location = '/account';
                     
             }); 
            

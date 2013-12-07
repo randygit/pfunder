@@ -82,7 +82,7 @@ angular.module('mean.system').controller('MobileFormController', ['$scope', '$ht
                 console.log("Success. back from /user/profile");
 
                 
-                $scope.window.location = '/';
+                $scope.window.location = '/account';
 
                 console.log("after to $scope.$apply");
               
@@ -91,7 +91,7 @@ angular.module('mean.system').controller('MobileFormController', ['$scope', '$ht
               console.log("error in saving profile");
 
                   
-                  $scope.window.location = '/';
+                  $scope.window.location = '/mobile';
                 
         }); 
       

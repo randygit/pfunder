@@ -60,9 +60,8 @@ block content
                 h3 Mobile
                 .container
                   form.form-horizontal(name="form", method="post",  novalidate)
-                    
+                    input(type='hidden', name = '_csrf', value = token)
 
-                  
                     div.form-group
                       label.col-sm-2.control-label(for="country") Country
                       .col-sm-6

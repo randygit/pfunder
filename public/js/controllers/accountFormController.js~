@@ -112,7 +112,7 @@ angular.module('mean.system')
               
               console.log('inside uniqueUsername directive ' + value + ' email: ' + Global.user.email);
               scope.busy = true;
-              $http.post('/validate/username', {username: value}, {email: Global.user.email})
+              $http.post('/validate/username/' + Global.user.email, {username: value})
                 .success(function(data) {
                     console.log('Success. username ' + value + ' is AVAILABLE');
                     // everything is fine -> do nothing

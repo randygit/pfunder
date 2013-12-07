@@ -201,3 +201,43 @@ window.app.directive('match', [function () {
     }
   };
 }]);
+
+
+
+// by Endy Tjahjono
+window.app.directive("fileread", [function () {
+    return {
+        scope: {
+            fileread: "="
+        },
+        link: function (scope, element, attributes) {
+            element.bind("change", function (changeEvent) {
+                var reader = new FileReader();
+                reader.onload = function (loadEvent) {
+                    scope.$apply(function () {
+                        scope.fileread = loadEvent.target.result;
+                    });
+                };
+                reader.readAsDataURL(changeEvent.target.files[0]);
+            });
+        }
+    };
+}]);
+
+// by zsong
+window.app.directive('validFile', [function () {
+    return {
+        require: 'ngModel',
+        link: function (scope, el, attrs, ngModel) {
+            ngModel.$render = function () {
+                ngModel.$setViewValue(el.val());
+            };
+
+            el.bind('change', function () {
+                scope.$apply(function () {
+                    ngModel.$render();
+                });
+            });
+        }
+    };
+}]);

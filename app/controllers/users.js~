@@ -250,13 +250,10 @@ exports.create = function(req, res) {
 exports.getProfile = function(req,res) {
 
     // if part of the URL, use req.params.email    
-    console.log('Inside updateProfile req.params.email    :' + req.params.email); 
+    console.log('Inside getProfile req.params.email    :' + req.params.email); 
  
     var profile = {};
-
-    // find user for given email
-    
-    // User.findOne({email: req.params.email}, function(err,user) {
+ 
     User.find({ 'email': req.params.email, verified: true }, function(err,user) {
         if (err) return done(err);
 
@@ -264,7 +261,7 @@ exports.getProfile = function(req,res) {
 
             validUser = user[0];
 
-            console.log('User name from mongo:' + validUser.username + ' password ' + validUser.password);
+          
             var profile = {
                 name: validUser.name,
                 birthdate: validUser.birthdate,
@@ -272,6 +269,7 @@ exports.getProfile = function(req,res) {
                 website: validUser.website,
                 bio: validUser.bio
             };
+ 
 
             res.json(profile);
         
@@ -287,11 +285,46 @@ exports.updateProfile = function(req,res) {
     console.log('Inside updateProfile req.params.email    :' + req.params.email); 
 
     // if a parameter, use req.body.name/location/website
-    console.log('Inside verifyForgotPassword req.body.password :' + req.body.name);  
+    console.log('Inside updateProfile req.body.password :' + req.body.name);  
 
-    // find user for given email
-    
-    // User.findOne({email: req.params.email}, function(err,user) {
+    // console.log('req.body: ' + JSON.stringify(req.body));
+    console.log('req.files ' + JSON.stringify(req.files.uploadme));
+    /*    
+    res.setHeader('Content-Type', 'text/html');
+
+    var pictureUrl = '/uploadfiles/';
+    var fileUploadMessage = '';
+    // process file
+    if (!req.files.photo || req.files.photo.size === 0) {
+      fileUploadMessage = 'No file uploaded at ' + new Date().toString();
+      console.log('No file uploaded at ' + new Date().toString());
+
+      // res.send(fileUploadMessage);
+    }
+    else {
+        console.log('File name for upload ' + req.files.photo);
+        var file = req.files.photo;
+       
+        fs.unlink(file.path, function (err) {
+            if (err)
+                throw err;
+            else
+            {
+                fileUploadMessage = '<b>"' + file.name + '"<b> uploaded to the server at ' + new Date().toString();
+                pictureUrl = picture + file.name;
+
+                var responseObj = {
+                    fullname: req.param('fullname'),
+                    gender: req.param('gender'),
+                    color: req.param('color'),
+                    pictureUrl: pictureUrl
+                }
+                // res.send(JSON.stringify(responseObj));
+            }             
+        });
+    }     
+    */
+
     User.find({ 'email': req.params.email, verified: true }, function(err,user) {
         if (err) return done(err);
 
@@ -305,6 +338,7 @@ exports.updateProfile = function(req,res) {
             validUser.location  = req.body.location;
             validUser.website   = req.body.website;
             validUser.bio       = req.body.bio;
+            // validUser.profile_pic = pictureUrl;
 
             validUser.save(function(err){
                 if (err) done(err);
@@ -466,7 +500,7 @@ exports.updatePassword = function(req,res) {
     console.log('Inside updatePassword email    :' + req.params.email + ' current <' + 
                  req.body.currentpassword + '> new <' + req.body.newpassword + '>'); 
     
-    // User.findOne({email: req.params.email}, function(err,user) {
+   
     User.find({ 'email': req.params.email, verified: true }, function(err,user) {
         if (err) return done(err);
 
@@ -482,14 +516,25 @@ exports.updatePassword = function(req,res) {
                     if (err) done(err);
                     else {  
                         console.log('New password saved!');
-                        res.json(200);
+                        req.flash('error', 'New password saved!');
+                        res.send(200);
+                        //return res.redirect('/resetpassword'); 
                     }
                 }); // user.save
                     
                 res.send(200);
             }
+            else {
+                console.log('Wrong current password');
+                req.flash('error', 'The current password is not correct.');
+                //return res.redirect('/resetpassword'); 
+                res.send(401);
+            }
         }
         else {
+            console.log('Wrong email');
+            req.flash('error', 'The email ' + req.body.email + ' is wrong.');
+            //return res.redirect('/resetpassword');
             res.send(401);
         }  
     

@@ -81,7 +81,7 @@ block content
                     div.form-group
                       label.col-sm-2.control-label(for="carrier") Carrier:
                       .col-sm-6
-                      pre>Selected: {{mobile.carrier|json}}</pre>
+                      <pre>Selected: {{mobile.carrier|json}}</pre>
                       select(style="width:400px", name = "carrier", ui-select2='ui-select2', ng-model='mobile.carrier', data-placeholder='Pick a Carrier')
                           option(value='')
                               option(value='globe') Globe
