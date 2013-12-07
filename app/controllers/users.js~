@@ -4,10 +4,10 @@
 var mongoose = require('mongoose'),
     async = require('async'),
     _ = require('underscore'),
-    mailer = require('../../config/mailer'),
+    mailer = require('../../config/mailer'), 
     VerificationTokenModel = mongoose.model('VerificationToken8'),
 
-    User = mongoose.model('User9'); 
+    User = mongoose.model('User10'); 
 
 /**
  * Auth callback. what is this here
@@ -264,7 +264,7 @@ exports.getProfile = function(req,res) {
 
             validUser = user[0];
 
-            console.log('User name from mongo:' + validUser.username);
+            console.log('User name from mongo:' + validUser.username + ' password ' + validUser.password);
             var profile = {
                 name: validUser.name,
                 birthdate: validUser.birthdate,
@@ -460,43 +460,11 @@ exports.updateMobile = function(req,res) {
     
 };
 
-exports.getPassword = function(req,res) {
-
-    // if part of the URL, use req.params.email    
-    console.log('Inside updateProfile req.params.email    :' + req.params.email); 
- 
-    var profile = {};
-
-    // find user for given email
-    
-   
-    User.find({ 'email': req.params.email, verified: true }, function(err,user) {
-        if (err) return done(err);
-
-        if (user.length == 1) {
-
-            validUser = user[0];
-
-            console.log('User name from mongo:' + validUser.username);
-            var password = validUser.password;
-
-            res.json(password);
-        
-        } // end if (user)
-    
-    }); // end User.findOne
-    
-};
-
 exports.updatePassword = function(req,res) {
 
     // if part of the URL, use req.params.email    
-    console.log('Inside updatePassword req.params.email    :' + req.params.email); 
-
-    // if a parameter, use req.body.name/location/website
-    console.log('Inside updatePassword req.body.password :' + req.body.newpassword);  
-
-    // find user for given email
+    console.log('Inside updatePassword email    :' + req.params.email + ' current <' + 
+                 req.body.currentpassword + '> new <' + req.body.newpassword + '>'); 
     
     // User.findOne({email: req.params.email}, function(err,user) {
     User.find({ 'email': req.params.email, verified: true }, function(err,user) {
@@ -504,24 +472,32 @@ exports.updatePassword = function(req,res) {
 
         if (user.length == 1) {
 
-            validUser = user[0];
-
-            console.log('User name from mongo:' + validUser.username);
-            validUser.password  = req.body.newpassword;
-            validUser.save(function(err){
-                if (err) done(err);
-                else { 
-                    // use this to return to controller
-                    res.json(200);
-                }
-            }); // user.save
-            
-        
-        } // end if (user)
+            validUser = user[0]; 
+            console.log('Valid User ' + validUser.username);
+            var flag = validUser.authenticate(req.body.currentpassword); 
+            if (flag) {
+                console.log('Current password is correct');
+                validUser.password = req.body.newpassword;
+                validUser.save(function(err){
+                    if (err) done(err);
+                    else {  
+                        console.log('New password saved!');
+                        res.json(200);
+                    }
+                }); // user.save
+                    
+                res.send(200);
+            }
+        }
+        else {
+            res.send(401);
+        }  
     
     }); // end User.findOne
     
 };
+
+
 // LOGIN PROCESS: exports.login, exports.session and exports.welcome
 
 exports.login = function(req, res) {
@@ -544,10 +520,12 @@ exports.validateUsername = function(req,res) {
     console.log("verify username " + req.body.username );
 
     var username = req.body.username;
-    User.find({ 'username': username, verified: true },{username:1, verified:1}, function(err,user) {
+    var email = req.params.email;
+
+    User.find({ 'username': username, verified: true },{username:1, email:1, verified:1}, function(err,user) {
         if (user.length == 1) {
             console.log("User[0] " + user[0].username + " email " + user[0].email);
-            if (user[0].email === req.params.email) {
+            if (user[0].email == email) {
                 console.log("User name no change " + user[0].username);
                 res.send(200);
             
@@ -574,6 +552,7 @@ exports.resetpassword = function(req, res) {
         user: req.user  
     });
 };
+
 
 exports.welcome = function(req, res) {
     res.render('welcome', {

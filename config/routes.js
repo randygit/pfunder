@@ -45,14 +45,23 @@ module.exports = function(app, passport, auth) {
     app.get('/user/mobile/:email', users.getMobile);
     app.post('/user/mobile/:email', users.updateMobile);
 
-
-    app.get('/user/password/:email', users.getPassword);   
     app.post('/user/password/:email', users.updatePassword);
 
 
-    // validation
+    // validation for directive
     app.post('/validate/username/:email', users.validateUsername);
 
+
+    // validation password
+
+    /*
+    // requires a login. not applicable. we just want to read the password
+    app.post('/validate/user',
+        passport.authenticate('basic',{session: false}),
+          function(req,res) { 
+              res.json({username: req.user.username, email: req.user.email});
+    });
+    */
 
     // CONTACT MESSAGE
     // 1. app.get('/contact', auth.requiresLogout, contact.render);
@@ -67,6 +76,7 @@ module.exports = function(app, passport, auth) {
     // 1. app.get('/login',  auth.requiresLogout, users.login);
     // 2. app.post('/user/sessions', passport.authenticate('local', {}))
     // 3.  app.get('/welcome', auth.requiresLogin, users.welcome);
+
     app.post('/users/session', passport.authenticate('local', {
         failureRedirect: '/login',
         failureFlash: 'Invalid email or password.'

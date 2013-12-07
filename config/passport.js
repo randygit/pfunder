@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
     LocalStrategy = require('passport-local').Strategy,
-    User = mongoose.model('User9'),
+    BasicStrategy = require('passport-http').BasicStrategy,
+    User = mongoose.model('User10'),
     config = require('./config');
 
 
@@ -24,7 +25,8 @@ module.exports = function(passport) {
     //modify since the db could have several records
     //of the same email but the only the verified account is valid
 
-    passport.use(new LocalStrategy({
+    passport.use(new LocalStrategy(
+        {
             usernameField: 'email',
             passwordField: 'password'
         },
@@ -146,6 +148,40 @@ module.exports = function(passport) {
                 }
             });
         }
+    ));
+
+    passport.use(new BasicStrategy(
+        {
+            usernameField: 'email',
+            passwordField: 'password'
+        },
+        function(email, password, done) {
+            console.log('Basic Strategy');
+            User.find({ 'email': email, verified: true },{ email:1, verified:1}, function(err,user) {
+                if (user.length == 1) { 
+
+                    console.log("user record for " + email + " found. " );
+
+                    
+                    if(user[0].password != password) { 
+                        console.log('Incorrect password');
+                        return done(null, false);
+
+                    }
+                    else { 
+                        console.log('Password is correct');  
+                        return done(null, user);
+                    
+                    } 
+                }
+                else {
+                    console.log('incorrect email ');
+                    return done(null, false);
+                }
+            });
+        
+        }
+    
     ));
 
 };
