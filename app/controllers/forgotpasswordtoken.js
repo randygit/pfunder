@@ -77,7 +77,8 @@ exports.verifyForgotPassword = function(req,res) {
 
     // if part of the URL, use req.params.email    
     console.log('Inside verifyForgotPassword req.params.email    :' + req.params.email);
-    console.log('Inside verifyForgotPassword req.params.token    :' + req.params.token);
+
+    // console.log('Inside verifyForgotPassword req.params.token    :' + req.params.token);
 
     // if a parameter, use req.body.password
     console.log('Inside verifyForgotPassword req.body.password :' + req.body.password);  

@@ -1,4 +1,4 @@
-angular.module('mean.system').controller('ProfileFormController', ['$scope', '$http','$location', '$window','Global', '$fileUploader', function ($scope, $http, $location, $window, Global, $fileUploader) {
+angular.module('mean.system').controller('PictureFormController', ['$scope', '$http','$location', '$window','Global',  function ($scope, $http, $location, $window, Global) {
 
     // ng-init
     $scope.getProfile = function() {
@@ -11,51 +11,40 @@ angular.module('mean.system').controller('ProfileFormController', ['$scope', '$h
 
         $scope.window = $window;
 
+       
 
-        $scope.dateOptions = {
-            changeYear: true,
-            changeMonth: true,
-            yearRange: '1900:-0'
-        };
-
-
-        
-        
         // initialize values from mongo
         $http.get('/user/profile/' + Global.user.email)
-              .success(function(profile) {
-                  $scope.profile = profile;
-                
+              .success(function(profile) { 
+ 
             })
             .error(function(data){
-                console.log("error in getting account");
+                console.log("error in getting profile");
                 $scope.window.location = '/';
                   
-        }); 
- 
+          }); 
  
     };
     
    
      
-     
-    $scope.updateProfile = function () {
+    $scope.uploadPictures = function () {
   
         console.log("ng-submit updateProfile");
 
         // must pass $scope.reset and not individual values else error 500
-        console.log("about to $http.post /user/profile "); 
+
        
         $http.post('/user/profile/' + Global.user.email, $scope.profile)
             .success(function(data) {
                 console.log("Success. back from /user/profile");
-                $scope.window.location = '/resetpassword';
+                $scope.window.location = '/profile';
 
           })
           .error(function(data){
               console.log("error in saving profile");
               //$scope.window.location = '/';
-              $scope.window.location = '/profile';
+              $scope.window.location = '/picture';
         }); 
        
 

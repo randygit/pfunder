@@ -1,4 +1,4 @@
-extends ../layouts/layout
+extends ../layouts/default
 
 block head
   title Change your password
@@ -11,7 +11,7 @@ block feet
 block content
   // div(ng-controller="ResetPasswordFormController", ng-init="init('randy@x.com','http:local:3000/verify')") 
   // use jade #{variable} to interpolate string then add '' to pass it as a 
-  div(ng-controller="ResetPasswordFormController", ng-init="init('#{user.email}','#{confirmNewUserURL}')") 
+  div(ng-controller="ForgotPasswordFormController", ng-init="init('#{user.email}','#{token}')") 
     div.row
       div.col-sm-6
         div.page-header
@@ -36,7 +36,7 @@ block content
               span.help-block(ng-show="form.verification.$dirty && form.verification.$error.match && !form.verification.$error.required") Passwords don't match
             if error
               div.alert #{error}
-            input.btn.btn-primary(type = 'submit', value="Change Password", ng-disabled="form.$invalid", ng-click="changePassword()")
+            input.btn.btn-primary(type = 'submit', value="Change Password", ng-disabled="form.$invalid", ng-click="forgotPassword()")
             | 
             a.btn.btn-link(href='/login') Back to Login
             input(type='hidden', name='returnUrl', value=returnUrl)

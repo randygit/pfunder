@@ -31,13 +31,14 @@ module.exports = function(app, passport, auth) {
 
     app.get('/resetpassword', auth.requiresLogin, users.resetpassword);
 
+    app.get('/picture', auth.requiresLogin, users.picture);
     // edit user profile
 
     
     app.get('/user/profile/:email', users.getProfile);
     app.post('/user/profile/:email', users.updateProfile);
 
-
+    
     app.get('/user/account/:email', users.getAccount);
     app.post('/user/account/:email', users.updateAccount);
 
@@ -148,7 +149,8 @@ module.exports = function(app, passport, auth) {
     
     // 4. from view/verify/forgotpassword for the given user
     // is it safe to pass the password without being encrypted
-    app.post('/verify/password/:email/:token', forgotpasswordtoken.verifyForgotPassword);
+    //app.post('/verify/password/:email/:token', forgotpasswordtoken.verifyForgotPassword);
+    app.post('/verify/password/:email', forgotpasswordtoken.verifyForgotPassword);
  
  
     var emailer = require('../app/controllers/massmailer'); 

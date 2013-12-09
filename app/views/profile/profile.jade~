@@ -49,6 +49,9 @@ block content
                 li
                   a(href='/mobile') Mobile
                 li.divider
+                li
+                  a(href='/picture') Upload Pictures
+                li.divider
 
       div.col-sm-8.special 
         div.container
@@ -60,20 +63,8 @@ block content
               div.panel-body
                 h3 Profile 
                 .container
-                  form.form-horizontal(name="form", method="post",  novalidate,  ng-upload="uploadComplete(content)", enctype="multipart/form-data")
+                  form.form-horizontal(name="form", method="post",  novalidate, enctype="multipart/form-data")
                     input(type='hidden', name = '_csrf', value = token)
-
-                    div.form-group
-                      
-                      label.col-sm-2.control-label(for="name") Photo:
-                      .col-sm-6 
-
-                      img(src='{{profile.photo}}')
-
-                      input( type="file", accept "image/*", name="photo", id="photo",  ng-model = "profile.photo"  autofocus)
-                       
-                    br
-                    hr
 
                     div.form-group
                       label.col-sm-2.control-label(for="name") Name:
@@ -84,7 +75,7 @@ block content
                     div.form-group
                       label.col-sm-2.control-label(for="birthdate") BirthDate:
                       .col-sm-6 
-                      // <pre>Selected: {{profile.birthdate|json}}</pre>
+                      <pre>Selected: {{profile.birthdate|json}}</pre>
 
                       // took out ui-date-format. now initial value is displayed
                       // see profileFormController, set the profile.birthdate to new Date

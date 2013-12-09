@@ -43,12 +43,12 @@ script(type='text/javascript', src='/js/controllers/header.js')
 script(type='text/javascript', src='/js/init.js')
 
 script(type='text/javascript', src='/js/controllers/contactFormController.js')
-script(type='text/javascript', src='/js/controllers/resetPasswordFormController.js')
 script(type='text/javascript', src='/js/controllers/welcomeController.js')
-script(type='text/javascript', src='/js/controllers/accountFormController.js')
-
+script(type='text/javascript', src='/js/controllers/accountFormController.js') 
 script(type='text/javascript', src='/js/controllers/profileFormController.js')
 script(type='text/javascript', src='/js/controllers/mobileFormController.js')
+script(type='text/javascript', src='/js/controllers/resetPasswordFormController.js')
+script(type='text/javascript', src='/js/controllers/pictureFormController.js')
 
 //script(type='text/javascript', src='/js/controllers/aboutController.js')
 //script(type='text/javascript', src='/js/controllers/welcomeController.js')

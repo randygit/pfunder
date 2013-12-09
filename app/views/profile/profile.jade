@@ -49,6 +49,9 @@ block content
                 li
                   a(href='/mobile') Mobile
                 li.divider
+                li
+                  a(href='/picture') Upload Pictures
+                li.divider
 
       div.col-sm-8.special 
         div.container
@@ -64,18 +67,6 @@ block content
                     input(type='hidden', name = '_csrf', value = token)
 
                     div.form-group
-                      
-                      label.col-sm-2.control-label(for="name") Photo:
-                      .col-sm-6 
-
-                      img(src='{{profile.photo}}')
-
-                      input( type="file", accept "image/*", name="photo", id="photo",  ng-model = "profile.photo"  autofocus)
-                       
-                    br
-                    hr
-
-                    div.form-group
                       label.col-sm-2.control-label(for="name") Name:
                       .col-sm-6
                       input.form-control(type="text", name="name", id="name",  required, ng-model="profile.name", required, autofocus)
@@ -87,7 +78,7 @@ block content
                       // <pre>Selected: {{profile.birthdate|json}}</pre>
 
                       // took out ui-date-format. now initial value is displayed
-                      // see profileFormController, set the profile.birthdate to new Date
+                      // see profileFormController, profile.birthdate is a string. set the profile.birthdate to new Date
 
                       input(style="width:100px",  name = "birthdate", ui-date='dateOptions', ng-model='profile.birthdate', data-placeholder='Enter Birthdate')
 

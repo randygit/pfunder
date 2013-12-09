@@ -288,7 +288,7 @@ exports.updateProfile = function(req,res) {
     console.log('Inside updateProfile req.body.password :' + req.body.name);  
 
     // console.log('req.body: ' + JSON.stringify(req.body));
-    console.log('req.files ' + JSON.stringify(req.files.uploadme));
+    //console.log('req.files ' + JSON.stringify(req.files.uploadme));
     /*    
     res.setHeader('Content-Type', 'text/html');
 
