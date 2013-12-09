@@ -52,6 +52,9 @@ block content
                 li
                   a(href='/picture') Upload Pictures
                 li.divider
+                li
+                  a(href='/editform') Edit Form
+                li.divider
 
       div.col-sm-8.special 
         div.container
@@ -75,10 +78,10 @@ block content
                     div.form-group
                       label.col-sm-2.control-label(for="birthdate") BirthDate:
                       .col-sm-6 
-                      <pre>Selected: {{profile.birthdate|json}}</pre>
+                      // <pre>Selected: {{profile.birthdate|json}}</pre>
 
                       // took out ui-date-format. now initial value is displayed
-                      // see profileFormController, set the profile.birthdate to new Date
+                      // see profileFormController, profile.birthdate is a string. set the profile.birthdate to new Date
 
                       input(style="width:100px",  name = "birthdate", ui-date='dateOptions', ng-model='profile.birthdate', data-placeholder='Enter Birthdate')
 

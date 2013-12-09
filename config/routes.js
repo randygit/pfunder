@@ -30,10 +30,8 @@ module.exports = function(app, passport, auth) {
     app.get('/signout', auth.requiresLogin, users.signout);
 
     app.get('/resetpassword', auth.requiresLogin, users.resetpassword);
-
-    app.get('/picture', auth.requiresLogin, users.picture);
+    
     // edit user profile
-
     
     app.get('/user/profile/:email', users.getProfile);
     app.post('/user/profile/:email', users.updateProfile);
@@ -156,6 +154,7 @@ module.exports = function(app, passport, auth) {
     var emailer = require('../app/controllers/massmailer'); 
     app.post('/sendformmail', emailer.sendFormMail);
  
+
     var staticData = require('../app/controllers/static'); 
     app.get('/getdata/states', staticData.getStates);
     app.get('/getdata/colors', staticData.getColors);
@@ -163,6 +162,16 @@ module.exports = function(app, passport, auth) {
     app.get('/getdata/countries', staticData.getCountries);
     app.get('/getdata/languages', staticData.getLanguages);
     app.get('/getdata/timezones', staticData.getTimezones);
+
+    // test routines
+    var testing = require('../app/controllers/testingcontroller');
+    app.get('/editform', auth.requiresLogin, testing.editform);
+    app.post('/updateform', auth.requiresLogin, testing.updateform);
+ 
+    app.get('/readtestdata/:email',auth.requiresLogin, testing.readtestdata);
+
+    app.get('/picture', auth.requiresLogin, testing.picture); 
+
    
     //support
     var support = require('../app/controllers/support');

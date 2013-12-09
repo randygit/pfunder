@@ -598,13 +598,6 @@ exports.resetpassword = function(req, res) {
     });
 };
 
-exports.picture = function(req, res) {
-    res.render('profile/picture', {
-        message: req.flash('error'),
-        title: 'Reset',
-        user: req.user  
-    });
-};
 
 exports.welcome = function(req, res) {
     res.render('welcome', {

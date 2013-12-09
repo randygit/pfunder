@@ -52,9 +52,6 @@ block content
                 li
                   a(href='/picture') Upload Pictures
                 li.divider
-                li
-                  a(href='/editform') Edit Form
-                li.divider
 
       div.col-sm-8.special 
         div.container
