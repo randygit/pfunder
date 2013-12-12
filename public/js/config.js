@@ -4,7 +4,7 @@
 window.app.config(['$routeProvider',
     function($routeProvider, $locationProvider) {
 
-        console.log('routeProvider');
+        // console.log('routeProvider');
 
         $routeProvider.
         //when('/about', {
@@ -22,6 +22,12 @@ window.app.config(['$routeProvider',
         when('/articles/:articleId', {
             templateUrl: 'views/articles/view.html'
         }).
+        when('/contact', {
+            templateUrl: 'views/contacts/list.html'
+        }).
+        when('/modal', {
+            templateUrl: 'views/modal.html'
+        }).
         when('/welcome', {
             templateUrl: 'views/welcome.html'
         }).
@@ -37,7 +43,7 @@ window.app.config(['$routeProvider',
     // makes sure that the user who is not logged in is not allowed into certain areas
     
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
-        console.log("$rootScope.$on and loginCheck: " + $logincheck);
+        //console.log("$rootScope.$on and loginCheck: " + $logincheck);
         if($logincheck === false) {
             $location.path('/');
         }         

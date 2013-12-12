@@ -5,6 +5,11 @@ angular.module('mean.system')
 
         $scope.getDefault = function() { 
 
+            $scope.global = Global;  
+
+            $scope.window = $window;
+            
+
             // this works using $http('/getData/states')
             // use a factory called States2 to get data from $http
             Languages.getData().then(function(data) {
@@ -28,10 +33,7 @@ angular.module('mean.system')
                       
             }); 
       
-            $scope.global = Global;  
-
-            $scope.window = $window;
-            
+           
         };
 
         // validate username for uniqueness... directive?

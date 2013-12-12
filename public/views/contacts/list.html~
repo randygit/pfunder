@@ -1,0 +1,46 @@
+<section data-ng-controller="ContactController">
+    <div class="container"> 
+        <br></br>
+        <br></br>
+        <h1>Contact Manager</h1> 
+        
+        <!-- ><pre>You have {{contacts.length}} contacts</pre> -->
+
+        <p ng-show="showMessage"> {{ message }}</p>
+        <ul class="list-inline">
+          <li ng-if="contacts.length = 0">You have no contacts.</li>
+          <li ng-if="contacts.length = 1">You have {{ contacts.length }} contact.</li>
+          <li ng-if="contacts.length > 1">You have {{ contacts.length }} contacts.</li>
+          <li>
+            <div class="input-prepend">
+              <span class="add-on"><i class="glyphicon glyphicon-search"></i></span>
+              <input class="span2" id="inputIcon" type="text" placeholder="Search..." ng-model="query">
+            </div>
+          </li>
+        </ul> 
+
+        <table class="table table-hover" >
+          <thead>
+            <tr>
+              
+                <th ng-repeat="header in headers"><a href="#" ng-click="columnSort.sortColumn=headers[$index];columnSort.reverse=!columnSort.reverse">{{ headers[$index] | capitalise }}</a></th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr ng-repeat="contact in contacts | orderBy:columnSort.sortColumn:columnSort.reverse | filter: query">
+                <td>{{ contact.name}}</td>
+                <td>{{ contact.phone }} </td>
+                <td><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></td>
+                <td>
+                    <a class="btn btn-info" ng-click="view(contact._id)"><i class="glyphicon glyphicon-eye-open icon-white"></i> View more</a>
+                    <a class="btn btn-warning" ng-click="edit( contact._id, contact.name )"><i class="glyphicon glyphicon-pencil icon-white"></i> Edit</a>
+                    <a class="btn btn-danger" ng-click="delete( contact._id ,  contact.name )"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a>
+                </td>
+              </tr>
+          </tbody>
+        </table>
+        <a class="btn btn-info" ng-click="add()"><i class="glyphicon glyphicon-plus icon-white"></i> </a>
+        <br></br>
+        <br></br> 
+    </div><!-- end of container -->
+</section>

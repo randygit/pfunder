@@ -9,7 +9,8 @@ block neck
 block feet
 
 block content
-  div.row
+  div.row 
+
     div.col-sm-6
       div.messages
         //p.offset2.error= message
@@ -20,10 +21,11 @@ block content
           strong= message
       div.page-header
         h1 Sign Up
-      .container
+      .container 
+
+       
         form(name="form", method="post", action="/signup", novalidate)
-          input(type='hidden', name = '_csrf', value = token)
-          //input(type='hidden', name = '_csrf', value = 'jambalaya')
+          input(type='hidden', name = '_csrf', value = token) 
 
           div.form-group
             label.control-label(for="name") Full Name:
@@ -74,6 +76,6 @@ block content
       p.lead Spare some money for the deserving students
       //.super-awesome is defined in contact.css
       span.glyphicon.glyphicon-thumbs-up.super-awesome
-  script(type='text/javascript', src='/js/check-password.js')
+  script(type='text/javascript', src='/js/scripts/check-password.js')
 
 

@@ -1,0 +1,37 @@
+
+<section data-ng-controller="ModalDemoController">   
+    <br></br> 
+    <br></br>
+    <pre>Welcome to the world of modals</pre>
+
+    <br></br>
+    <hr></hr>
+    <button class="btn" ng-click="open()">Open me!</button>
+    <div ng-show="selected">Selection from a modal: {{ selected }}</div> 
+
+    <script type="text/ng-template" id="myModalContent.html">
+        
+        <div class="col-sm-6", "modal-dailog"> 
+            <div class = "modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3>I'm a modal!</h3>
+                </div>
+                
+                <form ng-submit="submit()">
+                    <div class="modal-body">
+                      <label>User name</label>
+                      <input type="text" ng-model="user.user" />
+                      <br></br>
+                      <label>Password</label>
+                      <input type="password" ng-model="user.password" />
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                        <input type="submit" class="btn primary-btn" value="Submit" />
+                    </div>
+                </form>
+            </div> 
+        </div>
+    </script>
+</section>

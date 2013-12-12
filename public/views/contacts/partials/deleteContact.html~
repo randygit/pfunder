@@ -1,0 +1,14 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Confirmation</h3>
+        </div>
+        <div class="modal-body">
+          Are you sure you'd like to delete {{ name }}?
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success ok" ng-click="deleteContact()">OK</button>
+          <button class="btn btn-warning cancel" ng-click="closeDelete()">Cancel</button>
+        </div>
+    </div>
+</div>

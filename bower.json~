@@ -9,7 +9,12 @@
     "angular-cookies": "~1.0.6",
     "angular-bootstrap": "~0.4.0",
     "angular-ui-utils": "0.0.4",
-    "json3": "~3.2.4"
+    "zxcvbn": "git://github.com/brycebaril/node-zxcvbn.git",
+    "json3": "~3.2.4",
+    "angular-ui-select2": "~0.0.4",
+    "angular-ui-date": "~0.0.3",
+    "angular-file-upload": "~0.2.7",
+    "ngUpload": "~0.5.4"
   },
   "exportsOverride": {
     "bootstrap": {
@@ -22,7 +27,7 @@
     }
   },
   "authors": [
-    "catetcpasswd <randy.gonzales@gmail.com>"
+    "randygit <randy@adamas.com.ph>"
   ],
   "description": "patak patak",
   "license": "MIT",
@@ -32,5 +37,8 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "resolutions": {
+    "angular": "1.0.8"
+  }
 }

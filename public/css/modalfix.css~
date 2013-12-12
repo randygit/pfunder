@@ -1,0 +1,24 @@
+.modal {
+  display: block;  
+}
+
+.modal-backdrop {
+  opacity: 0.5;
+}
+ 
+ 
+.modal-body:before,
+.modal-body:after {
+    display: table;
+    content: " ";
+}
+.modal-header:before,
+.modal-header:after {
+    display: table;
+    content: " ";
+}
+
+dd {
+  /* should be the same as line-height */
+  min-height: 20px;
+}

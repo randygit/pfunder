@@ -168,8 +168,7 @@ module.exports = function(app, passport, auth) {
     app.get('/editform', auth.requiresLogin, testing.editform);
     app.post('/updateform', auth.requiresLogin, testing.updateform);
  
-    app.get('/readtestdata/:email', testing.getTestData);
-
+    app.get('/readtestdata/:email',  testing.readtestdata); 
     app.get('/picture', auth.requiresLogin, testing.picture); 
 
    
@@ -178,6 +177,14 @@ module.exports = function(app, passport, auth) {
     app.get('/support',              support.general);
     app.get('/support/notmyaccount', support.notmyaccount);
     app.get('/support/compromised',  support.compromised);
+
+    // contacts
+    var contacts = require('../app/controllers/contacts');
+    app.get('/api/contacts', contacts.contacts);      // get all contacts
+    app.get('/api/contact/:id', contacts.contact);    // get a contact
+    app.post('/api/contact', contacts.add);           // save contact
+    app.put('/api/contact/:id', contacts.edit);       //edit&update contact
+    app.delete('/api/contact/:id', contact.delete);   //delete contact
 
     //Home route
     var index = require('../app/controllers/index');
