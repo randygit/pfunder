@@ -59,7 +59,7 @@ angular.module('mean.system')
         $scope.cancelPassword = function() {
             console.log('Cancel changes');
             $scope.window.location = '/';
-        }
+        };
 
     }])
     

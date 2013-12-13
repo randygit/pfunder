@@ -1,15 +1,8 @@
-angular.module('mean.system').controller('HeaderController', ['$scope', 'Global', function ($scope, Global) {
+angular.module('mean.system').controller('HeaderController', ['$scope', 'Global', '$window', function ($scope, Global, $window) {
     $scope.global = Global;
+    //$scope.window = $window;
 
     $scope.menu = [
-        {
-            "title": "Articles",
-            "link": "articles"
-        }, 
-        {
-            "title": "Create New Article",
-            "link": "articles/create"
-        },  
         {
             "title": "Contact Manager",
             "link": "contact"
@@ -19,9 +12,29 @@ angular.module('mean.system').controller('HeaderController', ['$scope', 'Global'
             "link": "modal"
         }, 
         {
-            "title": "Welcome",
-            "link": "welcome"
+            "title": "Account",
+            "link": "account"
+        },
+        {
+            "title": "Profile",
+            "link": "profile"
+        },
+        {
+            "title": "Password",
+            "link": "password"
+        },
+        {
+            "title": "Mobile",
+            "link": "mobile"
         }
     
     ];
+
+    if(Global.user) {
+        console.log('Header Controller ' + Global.user.name);
+    }
+    else {
+        console.log('User is not logged in');
+    }
+    
 }]);

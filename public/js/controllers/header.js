@@ -1,5 +1,6 @@
-angular.module('mean.system').controller('HeaderController', ['$scope', 'Global', function ($scope, Global) {
+angular.module('mean.system').controller('HeaderController', ['$scope', 'Global', '$window', function ($scope, Global, $window) {
     $scope.global = Global;
+    $scope.window = $window;
 
     $scope.menu = [
         {
@@ -28,4 +29,13 @@ angular.module('mean.system').controller('HeaderController', ['$scope', 'Global'
         }
     
     ];
+
+    if(Global.user) {
+        console.log('Header Controller ' + Global.user.name);
+        $scope.window.location = '/#!/welcome';
+    }
+    else {
+        console.log('User is not logged in');
+    }
+    
 }]);

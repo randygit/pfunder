@@ -22,8 +22,11 @@ window.app.config(['$routeProvider',
         when('/password', {
             templateUrl: 'views/profile/password.html'
         }).
+        when('/mobile', {
+            templateUrl: 'views/profile/mobile.html'
+        }).
         when('/', {
-            templateUrl: 'views/index.html'
+            templateUrl: 'views/welcome.html'
         }).
         otherwise({
             redirectTo: '/'

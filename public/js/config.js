@@ -25,6 +25,9 @@ window.app.config(['$routeProvider',
         when('/mobile', {
             templateUrl: 'views/profile/mobile.html'
         }).
+        when('/welcome', {
+            templateUrl: 'views/welcome.html'
+        }).
         when('/', {
             templateUrl: 'views/index.html'
         }).
