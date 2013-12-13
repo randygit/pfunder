@@ -3,14 +3,6 @@ angular.module('mean.system').controller('HeaderController', ['$scope', 'Global'
 
     $scope.menu = [
         {
-            "title": "Articles",
-            "link": "articles"
-        }, 
-        {
-            "title": "Create New Article",
-            "link": "articles/create"
-        },  
-        {
             "title": "Contact Manager",
             "link": "contact"
         },  
@@ -19,8 +11,20 @@ angular.module('mean.system').controller('HeaderController', ['$scope', 'Global'
             "link": "modal"
         }, 
         {
-            "title": "Welcome",
-            "link": "welcome"
+            "title": "Account",
+            "link": "account"
+        },
+        {
+            "title": "Profile",
+            "link": "profile"
+        },
+        {
+            "title": "Password",
+            "link": "password"
+        },
+        {
+            "title": "Mobile",
+            "link": "mobile"
         }
     
     ];

@@ -1,7 +1,7 @@
 
 
 angular.module('mean.system')
-    .controller('ResetPasswordFormController', ['$scope', '$http','$location', '$window','Global',  function ($scope, $http, $location, $window, Global ) {
+    .controller('ResetPasswordFormController', ['$scope', '$http','$location','$route','$window','Global',  function ($scope, $http, $route, $location, $window, Global ) {
 
         $scope.getDefault = function() { 
             console.log('Inside ResetFormController.getdefault');
@@ -31,16 +31,24 @@ angular.module('mean.system')
                     console.log("Success. back from /user/profile");
 
                     
-                    $scope.window.location = '/mobile';
-
-                    console.log("after to $scope.$apply");
+                    $scope.window.location = '/#!/mobile'; 
+            
                   
               })
+              // could not reload current page /password
+              // used directive validate-password instead
               .error(function(data){
-                  console.log("error in saving profile");
+                  console.log("error in saving profile"); 
+                    
+              
+                  //$scope.window.location = '/#!/password';
+                  //$route.reload();
 
-                      
-                      $scope.window.location = '/resetpassword';
+                  var lastRoute = $route.current; 
+                  $scope.$on('$locationChangeSuccess', function(event) {
+                      console.log('locationChangeSuccess');
+                      $route.current = lastRoute;
+                  });
                     
             }); 
            
@@ -48,8 +56,13 @@ angular.module('mean.system')
 
         };  // $scope.updateProfile
 
-    }]);
-    /*
+        $scope.cancelPassword = function() {
+            console.log('Cancel changes');
+            $scope.window.location = '/';
+        }
+
+    }])
+    
     .directive('validatePassword', ['$http', 'Global', function($http, Global) {  
         return {
           require: 'ngModel',
@@ -58,7 +71,7 @@ angular.module('mean.system')
             scope.$watch(attrs.ngModel, function(value) {
               
               // hide old error messages
-              ctrl.$setValidity('isTaken', true);
+              ctrl.$setValidity('isTaken', false);
               ctrl.$setValidity('invalidChars', true);
               
               if (!value) {
@@ -76,14 +89,14 @@ angular.module('mean.system')
                 })
                 .error(function(data) {
                     console.log('ERROR. password ' + value + ' is NOT correct');
-                    ctrl.$setValidity('isTaken', false);
+                    ctrl.$setValidity('isTaken', true);
                     scope.busy = false;
                 });
             });
           }
         };
     }]);
-    */
+    
 
 
 

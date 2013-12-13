@@ -56,17 +56,21 @@ angular.module('mean.system').controller('ProfileFormController', ['$scope', '$h
         $http.post('/user/profile/' + Global.user.email, $scope.profile)
             .success(function(data) {
                 console.log("Success. back from /user/profile");
-                $scope.window.location = '/resetpassword';
+                $scope.window.location = '/#!/password';
 
           })
           .error(function(data){
               console.log("error in saving profile");
               //$scope.window.location = '/';
-              $scope.window.location = '/profile';
+              $scope.window.location = '/#!/profile';
         }); 
        
 
     };  // $scope.updateProfile
 
+    $scope.cancelProfile = function() {
+        console.log('Cancel changes');
+        $scope.window.location = '/';
+    };
 }]);
 

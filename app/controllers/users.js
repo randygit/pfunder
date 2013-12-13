@@ -494,6 +494,7 @@ exports.updateMobile = function(req,res) {
     
 };
 
+
 exports.updatePassword = function(req,res) {
 
     // if part of the URL, use req.params.email    
@@ -534,6 +535,43 @@ exports.updatePassword = function(req,res) {
         else {
             console.log('Wrong email');
             req.flash('error', 'The email ' + req.body.email + ' is wrong.');
+            //return res.redirect('/resetpassword');
+            res.send(401);
+        }  
+    
+    }); // end User.findOne
+    
+};
+
+exports.validatePassword = function(req,res) {
+
+    // if part of the URL, use req.params.email    
+    console.log('Inside validatePassword email    :' + req.params.email + ' password <' + req.body.password + '>'); 
+    
+   
+    User.find({ 'email': req.params.email, verified: true }, function(err,user) {
+        if (err) return done(err);
+
+        if (user.length == 1) {
+
+            validUser = user[0]; 
+            console.log('Valid User ' + validUser.username);
+            var flag = validUser.authenticate(req.body.password); 
+            if (flag) {
+                console.log('Current password is correct');
+                    
+                res.send(200);
+            }
+            else {
+                console.log('Wrong current password');
+                //req.flash('error', 'The current password is not correct.');
+                //return res.redirect('/resetpassword'); 
+                res.send(401);
+            }
+        }
+        else {
+            console.log('Wrong email');
+            //req.flash('error', 'The email ' + req.body.email + ' is wrong.');
             //return res.redirect('/resetpassword');
             res.send(401);
         }  

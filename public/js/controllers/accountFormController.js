@@ -1,7 +1,8 @@
 
 
 angular.module('mean.system')
-    .controller('AccountFormController', ['$scope', '$http','$location', '$window','Global', 'Languages', 'Timezones', function ($scope, $http, $location, $window, Global, Languages, Timezones  ) {
+    .controller('AccountFormController', ['$scope', '$http','$location', '$window','Global', 'Languages', 'Timezones', 
+                 function   ($scope, $http, $location, $window, Global, Languages, Timezones  ) {
 
         $scope.getDefault = function() { 
 
@@ -78,7 +79,7 @@ angular.module('mean.system')
                     console.log("Success. back from /user/profile");
 
                     
-                    $scope.window.location = '/profile';
+                    $scope.window.location = '/#!/profile';
 
                     console.log("after to $scope.$apply");
                   
@@ -87,12 +88,17 @@ angular.module('mean.system')
                   console.log("error in saving profile");
 
                       
-                      $scope.window.location = '/account';
+                      $scope.window.location = '/#!/account';
                     
             }); 
            
 
         };  // $scope.updateProfile
+
+        $scope.cancelAccount = function() {
+            console.log("cancel changes");
+            $scope.window.location = '/';
+        };
 
     }])
     .directive('uniqueUsername', ['$http', 'Global', function($http, Global) {  

@@ -7,29 +7,23 @@ window.app.config(['$routeProvider',
         // console.log('routeProvider');
 
         $routeProvider.
-        //when('/about', {
-        //    templateUrl: 'views/about2.html'
-        //}).
-        when('/articles', {
-            templateUrl: 'views/articles/list.html'
-        }).
-        when('/articles/create', {
-            templateUrl: 'views/articles/create.html'
-        }).
-        when('/articles/:articleId/edit', {
-            templateUrl: 'views/articles/edit.html'
-        }).
-        when('/articles/:articleId', {
-            templateUrl: 'views/articles/view.html'
-        }).
         when('/contact', {
             templateUrl: 'views/contacts/list.html'
         }).
         when('/modal', {
             templateUrl: 'views/modal.html'
         }).
-        when('/welcome', {
-            templateUrl: 'views/welcome.html'
+        when('/account', {
+            templateUrl: 'views/profile/account.html'
+        }).
+        when('/profile', {
+            templateUrl: 'views/profile/profile.html'
+        }).
+        when('/password', {
+            templateUrl: 'views/profile/password.html'
+        }).
+        when('/mobile', {
+            templateUrl: 'views/profile/mobile.html'
         }).
         when('/', {
             templateUrl: 'views/index.html'

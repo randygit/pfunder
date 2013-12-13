@@ -10,9 +10,9 @@ module.exports = function(app, passport, auth) {
     app.get('/contact', auth.requiresLogout, contact.render);
 
     var profile = require('../app/controllers/profile');
-    app.get('/profile', auth.requiresLogin, profile.view);
-    app.get('/mobile', auth.requiresLogin, profile.mobile);
-    app.get('/account', auth.requiresLogin, profile.account);
+    //app.get('/profile', auth.requiresLogin, profile.view);
+    //app.get('/mobile', auth.requiresLogin, profile.mobile);
+    // app.get('/account', auth.requiresLogin, profile.account);
 
 
     //User Routes
@@ -29,7 +29,7 @@ module.exports = function(app, passport, auth) {
     app.get('/reset',   auth.requiresLogin, users.reset);    
     app.get('/signout', auth.requiresLogin, users.signout);
 
-    app.get('/resetpassword', auth.requiresLogin, users.resetpassword);
+    //app.get('/resetpassword', auth.requiresLogin, users.resetpassword);
     
     // edit user profile
     
@@ -184,7 +184,7 @@ module.exports = function(app, passport, auth) {
     app.get('/api/contact/:id', contacts.contact);    // get a contact
     app.post('/api/contact', contacts.add);           // save contact
     app.put('/api/contact/:id', contacts.edit);       //edit&update contact
-    app.delete('/api/contact/:id', contact.delete);   //delete contact
+    app.delete('/api/contact/:id', contacts.delete);   //delete contact
 
     //Home route
     var index = require('../app/controllers/index');
