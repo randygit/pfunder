@@ -627,6 +627,37 @@ exports.validateUsername = function(req,res) {
     });
 };
 
+exports.verifyEmail = function(req,res) {   
+    console.log("verifyEmail <" + req.body.email + ">" );
+ 
+    User.find({ 'email': req.body.email, verified: true },{username:1, email:1, verified:1}, function(err,user) {
+        if (user.length == 1) {
+            console.log("Email in file " + user[0].username + " email " + user[0].email); 
+            res.send(200);             
+        }
+        else {
+            console.log("Email is not in database ");
+            res.send(401);
+        }
+
+    });
+};
+
+exports.verifyUsername = function(req,res) {   
+    console.log("verifyUsername <" + req.body.username + ">"  );
+ 
+    User.find({ 'username': req.body.username, verified: true },{username:1, email:1, verified:1}, function(err,user) {
+        if (user.length == 1) {
+            console.log("Username in file " + user[0].username + " email " + user[0].email); 
+            res.send(200);             
+        }
+        else {
+            console.log("Username is not in database ");
+            res.send(401);
+        }
+
+    });
+};
 
 exports.resetpassword = function(req, res) {
     res.render('profile/resetpassword', {

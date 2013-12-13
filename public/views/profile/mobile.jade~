@@ -42,5 +42,7 @@ section(data-ng-controller="MobileFormController", data-ng-init="getDefault()")
 
                 // submit here
               input.btn.btn-primary(type="submit", value="Activate Phone", data-ng-click="updateMobile()")
+              br
+              input.btn.btn-warning(type="submit", value="Cancel", data-ng-click="cancelMobile()")
        
 

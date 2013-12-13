@@ -1,0 +1,48 @@
+
+// where did user.email and token come from??
+//section(ng-controller="EditFormController", ng-init="init('#{email}','#{username}')") 
+section(ng-controller="EditFormController", ng-init="init()") 
+
+  
+  div.col-sm-8.special 
+    div.container
+      div.row
+        br
+        br
+        div.panel.panel-default
+          div.panel-body
+            br
+            div.messages 
+              .alert.alert-warning
+                strong= message 
+            hr 
+            h3 Edit Form. Server Side Validation
+            .container
+              form.form-horizontal(name="form", method="post", action ='/updateform', novalidate)
+                input(type='hidden', name = '_csrf', value = token)
+
+                div.form-group
+
+                    label.control-label(for="email") Email:
+                    input.form-control(type="email", name="email", id="email", required,                                     ng-model="editform.email", placeholder="Enter email",autofocus)
+
+                    span.help-block(ng-show="form.email.$dirty && form.email.$error.required") Please enter an email addres
+                    span.help-block(ng-show="form.email.$error.serverMessage") {{form.email.$error.serverMessage}} 
+
+                    
+
+                    label.col-sm-2.control-label(for="username") User Name:
+                    .col-sm-6 
+                    input.form-control(type="text", name="username", id="username",  required, ng-model="editform.username", placeholder="Enter username", autofocus)
+                    span.help-block(ng-show="form.username.$dirty && form.username.$error.required") Please enter an email addres
+                    span.help-block(ng-show="form.username.$error.serverMessage") {{form.username.$error.serverMessage}} 
+
+                div.form-group
+                hr
+                if error
+                    div.alert #{error}
+                //input.btn.btn-success(type="submit", value="Save Changes",data-ng-click="updateform()")
+                input.btn.btn-warning(type="submit", value="Save Changes")
+       
+       
+

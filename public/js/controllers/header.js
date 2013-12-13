@@ -24,6 +24,10 @@ angular.module('mean.system').controller('HeaderController', ['$scope', 'Global'
             "link": "password"
         },
         {
+            "title": "Edit Forms",
+            "link": "editrec"
+        },
+        {
             "title": "Mobile",
             "link": "mobile"
         }
@@ -36,6 +40,7 @@ angular.module('mean.system').controller('HeaderController', ['$scope', 'Global'
     }
     else {
         console.log('User is not logged in');
+        // $scope.window.location = '/#!/index2';
     }
     
 }]);

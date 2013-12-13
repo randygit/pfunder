@@ -1,4 +1,3 @@
-angular.module('mean.system').controller('AboutController', ['$scope', 'Global', function ($scope, Global) {
-    console.log('AboutController');
-    $scope.global = Global;
+angular.module('mean.system').controller('AboutController', [ function () {
+    console.log('AboutController'); 
 }]);

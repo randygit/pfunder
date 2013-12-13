@@ -64,7 +64,7 @@ exports.updateform = function(req,res) {
                 else {
                     console.log("username is not correct ");  
                     req.flash('error', 'Username is not correct');
-                    res.render('testing/editForm', {
+                    res.render('/public/views/testing/editform', {
                         message: req.flash('error'),
                         title: 'Change password',
                         email: req.body.email,
@@ -80,7 +80,7 @@ exports.updateform = function(req,res) {
         else {
             console.log("email is not correct "); 
             req.flash('error', 'Email is not correct');
-            res.render('testing/editForm', {
+            res.render('/public/views/testing/editform', {
                 message: req.flash('error'),
                 title: 'Change password',
                 email: req.body.email,

@@ -47,9 +47,12 @@ module.exports = function(app, passport, auth) {
     app.post('/user/password/:email', users.updatePassword);
 
 
-    // validation for directive
+    // validation for directives
     app.post('/validate/username/:email', users.validateUsername);
     app.post('/validate/password/:email', users.validatePassword);
+  
+    app.post('/verify/email',    users.verifyEmail);
+    app.post('/verify/username', users.verifyUsername);
 
 
     // validation password

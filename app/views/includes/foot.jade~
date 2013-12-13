@@ -54,6 +54,7 @@ script(type='text/javascript', src='/js/controllers/forgotPasswordFormController
 script(type='text/javascript', src='/js/controllers/resetPasswordFormController.js')
 script(type='text/javascript', src='/js/controllers/pictureFormController.js')
 script(type='text/javascript', src='/js/controllers/editFormController.js')
+script(type='text/javascript', src='/js/controllers/contactsController.js')
 
 //script(type='text/javascript', src='/js/controllers/aboutController.js')
 //script(type='text/javascript', src='/js/controllers/welcomeController.js')

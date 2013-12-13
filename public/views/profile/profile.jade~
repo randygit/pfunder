@@ -52,7 +52,7 @@ section(data-ng-controller="ProfileFormController", data-ng-init="getProfile()")
                     div.alert #{error}
                 input.btn.btn-primary(type="submit", value="Save Changes",data-ng-click="updateProfile()", ng-disabled="form.$invalid", ng-disabled="$isUploading")
                 br
-                input.btn.btn-primary(type="submit", value="Cancel",data-ng-click="cancelProfile()", ng-disabled="form.$invalid", ng-disabled="$isUploading")
+                input.btn.btn-warning(type="submit", value="Cancel",data-ng-click="cancelProfile()")
        
        
 

@@ -68,7 +68,8 @@ exports.updateform = function(req,res) {
                         message: req.flash('error'),
                         title: 'Change password',
                         email: req.body.email,
-                        username: req.body.username
+                        username: req.body.username,
+                        user: req.user 
                     });
                 }
 
@@ -83,7 +84,8 @@ exports.updateform = function(req,res) {
                 message: req.flash('error'),
                 title: 'Change password',
                 email: req.body.email,
-                username: req.body.username
+                username: req.body.username,
+                user: req.user 
             });
         }
 

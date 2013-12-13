@@ -39,9 +39,9 @@ section(data-ng-controller="AccountFormController", data-ng-init="getDefault()")
                 hr
                 if error
                     div.alert #{error}
-                input.btn.btn-primary(type="submit", value="Save Changes",data-ng-click="updateAccount()", ng-disabled="form.$invalid",  ng-disabled="$isUploading")
+                input.btn.btn-success(type="submit", value="Save Changes",data-ng-click="updateAccount()", ng-disabled="form.$invalid",  ng-disabled="$isUploading")
                 br
-                input.btn.btn-primary(type="submit", value="Cancel",data-ng-click="cancelAccount()")
+                input.btn.btn-warning(type="submit", value="Cancel",data-ng-click="cancelAccount()")
 
            
 
