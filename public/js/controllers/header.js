@@ -1,6 +1,6 @@
-angular.module('mean.system').controller('HeaderController', ['$scope', 'Global', '$window', function ($scope, Global, $window) {
+angular.module('mean.system').controller('HeaderController', ['$scope', '$location', 'Global', '$window', function ($scope, $location, Global, $window) {
     $scope.global = Global;
-    $scope.window = $window;
+    //$scope.window = $window;
 
     $scope.menu = [
         {
@@ -35,12 +35,20 @@ angular.module('mean.system').controller('HeaderController', ['$scope', 'Global'
     ];
 
     if(Global.user) {
-        console.log('Header Controller ' + Global.user.name);
-        $scope.window.location = '/#!/welcome';
+        console.log('Header Controller ' + Global.user.name); 
+        //$scope.window.location = '/#!/welcome';
+        var url = '/#!/welcome';
+        var force = false;
+        $location.path(url);
+
+        $scope = $scope || angular.element(document).scope();
+        if(force || !$scope.$$phase) {
+            //this will kickstart angular if to notice the change
+            $scope.$apply();
+        } 
     }
     else {
-        console.log('User is not logged in');
-        // $scope.window.location = '/#!/index2';
-    }
+        console.log('User is not logged in'); 
+    } 
     
 }]);

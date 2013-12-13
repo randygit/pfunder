@@ -11,8 +11,8 @@ angular.module('mean.system')
 
 
         console.log("$scope.init EditFormController"); 
-        //$scope.global = Global;  
-        $scope.window = $window; 
+        $scope.global = Global;  
+        //$scope.window = $window; 
     
 
         $http.get('/readtestdata/' + Global.user.email) 
@@ -33,27 +33,23 @@ angular.module('mean.system')
 
     $scope.updateEditform = function () {
         console.log('updateEditForm '+ JSON.stringify($scope.editform));
-
-      var emailFlag = false;
-      var usernameFlag = false;
+ 
 
        var emailMessage    = $parse('form.'+'email'+'.$error.serverMessage');
        var usernameMessage = $parse('form.'+'username'+'.$error.serverMessage');
 
         $http.post('/verify/email' , $scope.editform)
-            .success(function(data) { 
-                emailFlag = true;
+            .success(function(data) {  
                 console.log("Success. back from /verify/email " +emailFlag);
                 $scope.form.$setValidity('email', true, $scope.form);
                 emailMessage.assign($scope, undefined);
 
                 // check username
                 $http.post('/verify/username' , $scope.editform)
-                    .success(function(data) {
-                        usernameFlag = true;
+                    .success(function(data) { 
                         console.log("Success. back from /verify/username " + usernameFlag);
                         $scope.form.$setValidity('username', true, $scope.form);
-                        usernameMessage.assign($scope, undefined);
+                        usernameMessage.assign($scope, '');
                         console.log('Save Record here!'); 
                         changeLocation('/', false);
 
