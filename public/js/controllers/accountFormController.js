@@ -25,8 +25,8 @@ angular.module('mean.system')
             // initialize values from mongo
             $http.get('/user/account/' + Global.user.email)
                   .success(function(account) {
+                      console.log('Account = ' + JSON.stringify(account));
                       $scope.account = account;
-                    
                 })
                 .error(function(data){
                     console.log("error in getting account");

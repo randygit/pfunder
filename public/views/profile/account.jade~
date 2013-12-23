@@ -25,7 +25,7 @@ section(data-ng-controller="AccountFormController", data-ng-init="getDefault()")
                     //<pre>Selected: {{account.language|json}}</pre>
                     select(style="width:400px", name="language", id="language", ui-select2='ui-select2', ng-model="account.language", data-placeholder="Choose Language")
                       option
-                        option(ng-repeat="language in languagesData", value="{{language.code}}") {{language.name}}
+                        option(ng-repeat="language in languagesData", value="{{language.code}}",  ng-selected="{{language.code == account.language}}") {{language.name}}
 
                 div.form-group
                     label.col-sm-2.control-label(for="timezone") Timezone:
@@ -39,7 +39,7 @@ section(data-ng-controller="AccountFormController", data-ng-init="getDefault()")
                 hr
                 if error
                     div.alert #{error}
-                input.btn.btn-primary(type="submit", value="Save Changes",data-ng-click="updateAccount()", ng-disabled="form.$invalid",  ng-disabled="$isUploading")
+                input.btn.btn-success(type="submit", value="Save Changes",data-ng-click="updateAccount()", ng-disabled="form.$invalid",  ng-disabled="$isUploading")
                 br
                 input.btn.btn-warning(type="submit", value="Cancel",data-ng-click="cancelAccount()")
 

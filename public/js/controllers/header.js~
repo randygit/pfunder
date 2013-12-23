@@ -1,5 +1,5 @@
 angular.module('mean.system').controller('HeaderController', ['$scope', '$location', 'Global', '$window', function ($scope, $location, Global, $window) {
-    //$scope.global = Global;
+    $scope.global = Global;
     //$scope.window = $window;
 
     $scope.menu = [
@@ -37,7 +37,7 @@ angular.module('mean.system').controller('HeaderController', ['$scope', '$locati
     if(Global.user) {
         console.log('Header Controller ' + Global.user.name); 
         //$scope.window.location = '/#!/welcome';
-        var url = '/#!/welcome';
+        var url = '/welcome';
         var force = false;
         $location.path(url);
 

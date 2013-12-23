@@ -27,7 +27,7 @@ window.app.config(['$routeProvider',
         }).
         when('/editrec', {
             templateUrl: 'views/testing/editform.html'
-        }).
+        }). 
         when('/welcome', {
             templateUrl: 'views/welcome.html'
         }).

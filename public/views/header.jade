@@ -19,7 +19,7 @@ div(data-ng-controller='HeaderController')
               a(href='/about') About
             li
               a(href='/contact') Contact 
-            li(data-ng-repeat='item in menu', data-ng-show='global.user', ui-route='/{{item.link}}', ng-class='{active: $uiRoute}')
+            li(data-ng-repeat='item in menu', data-ng-show='global.user')
               a(href='#!/{{item.link}}') {{item.title}}
           ul.nav.navbar-nav.navbar-right(data-ng-hide='global.authenticated')
             li

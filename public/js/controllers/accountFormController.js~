@@ -88,7 +88,7 @@ angular.module('mean.system')
                   console.log("error in saving profile");
 
                       
-                      $scope.window.location = '/account';
+                      $scope.window.location = '/#!/account';
                     
             }); 
            
