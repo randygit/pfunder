@@ -1,5 +1,5 @@
 {
-    "db": "mongodb://localhost/mean-travis",
+    "db": "mongodb://mongorandy:default1@ds053858.mongolab.com:53858/patak4-dev",
     "port": 3001,
     "app": {
         "name": "MEAN - A Modern Stack - Test on travis"
