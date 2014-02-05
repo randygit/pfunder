@@ -52,7 +52,9 @@ require('./config/routes')(app, passport, auth);
 
 //Start the app by listening on <port>
 var port = config.port;
-app.listen(port);
+var ip = config.ip;
+
+app.listen(port,ip);
 console.log('Express app started on port ' + port);
 
 //expose app
