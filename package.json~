@@ -12,7 +12,7 @@
     "node": "0.10.20",
     "npm": "1.2.30"
   },
-  "main": "server.js",
+  "main" : server.js,
   "scripts": {
     "postinstall": "node node_modules/grunt-cli/bin/grunt build",
     "start": "node node_modules/grunt-cli/bin/grunt",

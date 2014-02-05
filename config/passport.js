@@ -34,7 +34,8 @@ module.exports = function(passport) {
 
             // parameters email and password, done is callback function(err,user)
 
-            console.log("passport.local ");
+            console.log("passport.local. email =<" + email + "> password <" + password + ">");
+
             User.find({ 'email': email, verified: true }, 
                 function(err,user) {
 
