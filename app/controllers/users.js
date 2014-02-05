@@ -583,10 +583,12 @@ exports.validatePassword = function(req,res) {
 
 // LOGIN PROCESS: exports.login, exports.session and exports.welcome
 
-exports.login = function(req, res) {
+exports.login = function(req, res) { 
+
     res.render('users/login', {
         // 'error' is used by failureFlash
-        message: req.flash('error'),
+        //message: 'WTF! Invalid email/password',
+        message: req.flash('error'), 
         title: 'Login',
         user: req.user  
     });

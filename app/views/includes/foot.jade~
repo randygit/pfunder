@@ -23,9 +23,7 @@ script(type='text/javascript', src='/lib/angular-ui-utils/modules/route/route.js
 
 script(type='text/javascript', src='/js/app.js')
 script(type='text/javascript', src='/js/config.js')
-
 script(type='text/javascript', src='/js/directives/directives.js')
-
 script(type='text/javascript', src='/js/filters/filters.js')
 
 //Application Services
@@ -38,24 +36,24 @@ script(type='text/javascript', src='/js/services/timezones.js')
 
 //Application Controllers
 script(type='text/javascript', src='/js/controllers/index.js')
-script(type='text/javascript', src='/js/controllers/header.js')	
+script(type='text/javascript', src='/js/controllers/header.js')
 script(type='text/javascript', src='/js/init.js')
 
-script(type='text/javascript', src='/js/controllers/modal.js')	
+script(type='text/javascript', src='/js/controllers/modal.js')
 
 script(type='text/javascript', src='/js/controllers/contactFormController.js')
 script(type='text/javascript', src='/js/controllers/welcomeController.js')
-script(type='text/javascript', src='/js/controllers/accountFormController.js') 
+script(type='text/javascript', src='/js/controllers/accountFormController.js')
 script(type='text/javascript', src='/js/controllers/profileFormController.js')
 script(type='text/javascript', src='/js/controllers/mobileFormController.js')
 script(type='text/javascript', src='/js/controllers/forgotPasswordFormController.js')
 script(type='text/javascript', src='/js/controllers/resetPasswordFormController.js')
 script(type='text/javascript', src='/js/controllers/pictureFormController.js')
 script(type='text/javascript', src='/js/controllers/editFormController.js')
-script(type='text/javascript', src='/js/controllers/contactsController.js') 
+script(type='text/javascript', src='/js/controllers/contactsController.js')
 
 //script(type='text/javascript', src='/js/controllers/aboutController.js')
-//script(type='text/javascript', src='/js/controllers/welcomeController.js') 
+//script(type='text/javascript', src='/js/controllers/welcomeController.js')
 
 //Application libraries
 script(type='text/javascript', src='/lib/zxcvbn/zxcvbn/zxcvbn.js')

@@ -5,7 +5,7 @@ var express = require('express'),
     mongoStore = require('connect-mongo')(express),
     flash = require('connect-flash'),
     helpers = require('view-helpers'),
-    cors = require('cors'),
+    // cors = require('cors'),
     config = require('./config');
  
 // simplified CSRF version does away with this csrfValue

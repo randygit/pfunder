@@ -60,7 +60,11 @@ module.exports = function(app, passport) {
 
     app.configure(function() {
         //bodyParser should be above methodOverride
-        app.use(express.bodyParser());
+        //app.use(express.bodyParser());
+
+        app.use(express.json());
+        app.use(express.urlencoded());
+
         app.use(express.methodOverride());
 
         //cookieParser should be above session
@@ -119,15 +123,15 @@ module.exports = function(app, passport) {
             })
         }));
 
-        //connect flash for flash messages
-        app.use(flash());
-
         //dynamic helpers
         app.use(helpers(config.app.name));
 
         //use passport session
         app.use(passport.initialize());
         app.use(passport.session());
+
+        //connect flash for flash messages
+        app.use(flash());
 
         //routes should be at the last
         app.use(app.router);
