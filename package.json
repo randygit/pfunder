@@ -12,9 +12,6 @@
     "node": "0.10.20",
     "npm": "1.2.30"
   },
-  "scripts": {
-    "start": "npm start"
-  },
   "main": "server.js",
   "dependencies": {
     "express": "latest",
