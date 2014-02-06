@@ -2,7 +2,7 @@
   "name": "mean",
   "description": "PATAK - Droplets using MEAN.",
   "version": "1.0.0-1",
-  "private": false,
+  "private": true,
   "author": "Randy Gonzales",
   "repository": {
     "type": "git",
@@ -13,7 +13,7 @@
     "npm": "1.2.30"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "npm start"
   },
   "main": "server.js",
   "dependencies": {
