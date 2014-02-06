@@ -13,7 +13,7 @@
     "npm": "1.2.30"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "node server.js"
   },
   "dependencies": {
     "express": "latest",
