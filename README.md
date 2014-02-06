@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Node.js on OpenShift
 ====================================================================
 This package includes a dynamic Node.js build stage that will provide your application with a customized Node.js runtime.
@@ -50,3 +51,9 @@ Then push your updates to OpenShift
     git push
 
 Additional updates can be made via the same `git add`, `git commit`, and `git push` workflow.
+=======
+pfunder
+=======
+
+ 
+>>>>>>> eb4b01f7151d7aec12b33a8ca406f2ebd80eab7e

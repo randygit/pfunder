@@ -1,3 +1,21 @@
+<<<<<<< HEAD
 .nodemonignore
 .sass-cache/
 node_modules/**
+=======
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+pids
+logs
+results
+
+npm-debug.log
+node_modules
+>>>>>>> eb4b01f7151d7aec12b33a8ca406f2ebd80eab7e
