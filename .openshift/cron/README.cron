@@ -20,4 +20,7 @@ and cron.allow and are described in detail at:
 See: man crontab or above link for more details and see the the weekly/
      directory for an example.
 
+<<<<<<< HEAD
 PLEASE NOTE: The Cron cartridge must be installed in order to run the configured jobs.
+=======
+>>>>>>> 43490c26b715fbe6fbd554733a5b23b09b15d6da
